@@ -1,0 +1,6 @@
+test_public_first_use_limit_and_cost_table_identity (test_cpu_prefix_cache.CacheTests.test_public_first_use_limit_and_cost_table_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+OK

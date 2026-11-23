@@ -1,0 +1,434 @@
+diff --git a/README.md b/README.md
+index eb468f3..b15b2e1 100644
+--- a/README.md
++++ b/README.md
+@@ -10,6 +10,10 @@
+ 
+ A lightweight vLLM implementation built from scratch.
+ 
++## PegaFlow 单卡推理实验
++
++本分支基于 nano-vLLM 实现了有界 CPU 前缀 KV 缓存，实测比较了 GPU 淘汰后的恢复和重算。验收报告记录了同一负载的首 token 延迟、无复用代价和复跑命令。[一页项目展示（PDF）](docs/PROJECT_BRIEF.pdf) · [阶段 2 验收报告](docs/STAGE2_ACCEPTANCE.md) · [无复用写入优化](docs/STAGE2_WRITE_ADMISSION.md)
++
+ ## Key Features
+ 
+ * 🚀 **Fast offline inference** - Comparable inference speeds to vLLM
+diff --git a/nanovllm/config.py b/nanovllm/config.py
+index 7066cbe..b811bd8 100644
+--- a/nanovllm/config.py
++++ b/nanovllm/config.py
+@@ -16,10 +16,31 @@ class Config:
+     eos: int = -1
+     kvcache_block_size: int = 256
+     num_kvcache_blocks: int = -1
++    max_kvcache_blocks: int | None = None
++    enable_metrics: bool = False
++    cpu_prefix_cache_blocks: int = 0
++    cpu_restore_cost_table: str | None = None
++    cpu_prefix_admission: str = "always"
++    cpu_prefix_batch_writes: bool = False
+ 
+     def __post_init__(self):
+         assert os.path.isdir(self.model)
+         assert self.kvcache_block_size % 256 == 0
+         assert 1 <= self.tensor_parallel_size <= 8
++        assert 0 < self.gpu_memory_utilization <= 1
++        assert self.max_num_seqs > 0 and self.max_num_batched_tokens > 0
++        assert self.max_model_len > 0
++        assert self.max_kvcache_blocks is None or self.max_kvcache_blocks > 0
++        if type(self.cpu_prefix_cache_blocks) is not int or self.cpu_prefix_cache_blocks < 0:
++            raise ValueError("cpu_prefix_cache_blocks must be a nonnegative integer")
++        if self.cpu_prefix_admission not in ("always", "reuse"):
++            raise ValueError("cpu_prefix_admission must be 'always' or 'reuse'")
++        if type(self.cpu_prefix_batch_writes) is not bool:
++            raise ValueError("cpu_prefix_batch_writes must be a boolean")
++        if self.cpu_prefix_cache_blocks and self.tensor_parallel_size != 1:
++            raise ValueError("CPU prefix caching requires tensor_parallel_size=1")
++        if self.cpu_restore_cost_table is not None:
++            if not self.cpu_prefix_cache_blocks or not os.path.isfile(self.cpu_restore_cost_table):
++                raise ValueError("cpu_restore_cost_table requires CPU cache blocks and an existing table file")
+         self.hf_config = AutoConfig.from_pretrained(self.model)
+         self.max_model_len = min(self.max_model_len, self.hf_config.max_position_embeddings)
+diff --git a/nanovllm/engine/block_manager.py b/nanovllm/engine/block_manager.py
+index a48989c..05fb93a 100644
+--- a/nanovllm/engine/block_manager.py
++++ b/nanovllm/engine/block_manager.py
+@@ -55,6 +55,13 @@ class BlockManager:
+         self.used_block_ids.remove(block_id)
+         self.free_block_ids.append(block_id)
+ 
++    def _claim_block(self, block_id: int):
++        block = self.blocks[block_id]
++        if block.ref_count == 0:
++            self.free_block_ids.remove(block_id)
++            self.used_block_ids.add(block_id)
++        block.ref_count += 1
++
+     def can_allocate(self, seq: Sequence) -> int:
+         h = -1
+         num_cached_blocks = 0
+@@ -79,17 +86,12 @@ class BlockManager:
+             token_ids = seq.block(i)
+             h = self.compute_hash(token_ids, h)
+             block_id = self.hash_to_block_id[h]
+-            block = self.blocks[block_id]
+-            if block_id in self.used_block_ids:
+-                block.ref_count += 1
+-            else:
+-                block.ref_count = 1
+-                self.free_block_ids.remove(block_id)
+-                self.used_block_ids.add(block_id)
++            self._claim_block(block_id)
+             seq.block_table.append(block_id)
+         for i in range(num_cached_blocks, seq.num_blocks):
+             seq.block_table.append(self._allocate_block())
+         seq.num_cached_tokens = num_cached_blocks * self.block_size
++        return 0  # GPU-only allocation restores zero CPU blocks.
+ 
+     def deallocate(self, seq: Sequence):
+         for block_id in reversed(seq.block_table):
+diff --git a/nanovllm/engine/llm_engine.py b/nanovllm/engine/llm_engine.py
+index 3685094..c334b2d 100644
+--- a/nanovllm/engine/llm_engine.py
++++ b/nanovllm/engine/llm_engine.py
+@@ -10,6 +10,7 @@ from nanovllm.sampling_params import SamplingParams
+ from nanovllm.engine.sequence import Sequence
+ from nanovllm.engine.scheduler import Scheduler
+ from nanovllm.engine.model_runner import ModelRunner
++from nanovllm.engine.metrics import RequestMetrics
+ 
+ 
+ class LLMEngine:
+@@ -18,6 +19,9 @@ class LLMEngine:
+         config_fields = {field.name for field in fields(Config)}
+         config_kwargs = {k: v for k, v in kwargs.items() if k in config_fields}
+         config = Config(model, **config_kwargs)
++        self.config = config
++        self.request_metrics = {}
++        self.step_metrics = []
+         Sequence.block_size = config.kvcache_block_size
+         self.ps = []
+         self.events = []
+@@ -31,10 +35,16 @@ class LLMEngine:
+         self.model_runner = ModelRunner(config, 0, self.events)
+         self.tokenizer = AutoTokenizer.from_pretrained(config.model, use_fast=True)
+         config.eos = self.tokenizer.eos_token_id
+-        self.scheduler = Scheduler(config)
++        try:
++            self.scheduler = Scheduler(config, self.model_runner.kv_transfer)
++        except Exception:
++            self.exit()
++            raise
+         atexit.register(self.exit)
+ 
+     def exit(self):
++        if not hasattr(self, "model_runner"):
++            return
+         self.model_runner.call("exit")
+         del self.model_runner
+         for p in self.ps:
+@@ -43,14 +53,45 @@ class LLMEngine:
+     def add_request(self, prompt: str | list[int], sampling_params: SamplingParams):
+         if isinstance(prompt, str):
+             prompt = self.tokenizer.encode(prompt)
++        if not prompt:
++            raise ValueError("prompt must contain at least one token")
++        if len(prompt) + sampling_params.max_tokens > self.config.max_model_len:
++            raise ValueError("prompt plus output exceeds max_model_len")
++        required_blocks = (len(prompt) + sampling_params.max_tokens - 2) // Sequence.block_size + 1
++        if required_blocks > self.config.num_kvcache_blocks:
++            raise ValueError("request cannot fit in the GPU KV pool even without other requests")
++        enqueue_time = perf_counter() if self.config.enable_metrics else None
+         seq = Sequence(prompt, sampling_params)
++        if self.config.enable_metrics:
++            seq.metrics = RequestMetrics(seq.seq_id, len(prompt), enqueue_time)
++            self.request_metrics[seq.seq_id] = seq.metrics
+         self.scheduler.add(seq)
++        return seq.seq_id
++
++    def clear_metrics(self):
++        if not self.is_finished():
++            raise RuntimeError("cannot clear metrics with unfinished requests")
++        self.request_metrics.clear()
++        self.step_metrics.clear()
+ 
+     def step(self):
++        start = perf_counter() if self.config.enable_metrics else None
+         seqs, is_prefill = self.scheduler.schedule()
+         num_tokens = sum(seq.num_scheduled_tokens for seq in seqs) if is_prefill else -len(seqs)
++        if self.config.enable_metrics:
++            run_start = perf_counter()
++            used_blocks = len(self.scheduler.block_manager.used_block_ids)
+         token_ids = self.model_runner.call("run", seqs, is_prefill)
++        if self.config.enable_metrics:
++            run_end = perf_counter()
+         self.scheduler.postprocess(seqs, token_ids, is_prefill)
++        if self.config.enable_metrics:
++            self.step_metrics.append(dict(
++                is_prefill=is_prefill, scheduled_tokens=abs(num_tokens),
++                seq_ids=[seq.seq_id for seq in seqs], used_blocks=used_blocks,
++                start_time=start, run_ms=(run_end - run_start) * 1000,
++                step_ms=(perf_counter() - start) * 1000,
++            ))
+         outputs = [(seq.seq_id, seq.completion_token_ids) for seq in seqs if seq.is_finished]
+         return outputs, num_tokens
+ 
+diff --git a/nanovllm/engine/model_runner.py b/nanovllm/engine/model_runner.py
+index 71d9883..04f26ed 100644
+--- a/nanovllm/engine/model_runner.py
++++ b/nanovllm/engine/model_runner.py
+@@ -6,6 +6,7 @@ from multiprocessing.shared_memory import SharedMemory
+ 
+ from nanovllm.config import Config
+ from nanovllm.engine.sequence import Sequence
++from nanovllm.engine.kv_transfer import KVTransfer
+ from nanovllm.models.qwen3 import Qwen3ForCausalLM
+ from nanovllm.layers.sampler import Sampler
+ from nanovllm.utils.context import set_context, get_context, reset_context
+@@ -56,6 +57,8 @@ class ModelRunner:
+         if not self.enforce_eager:
+             del self.graphs, self.graph_pool
+         torch.cuda.synchronize()
++        if self.kv_transfer is not None:
++            self.kv_transfer.close()
+         dist.destroy_process_group()
+ 
+     def loop(self):
+@@ -110,9 +113,20 @@ class ModelRunner:
+         num_kv_heads = hf_config.num_key_value_heads // self.world_size
+         head_dim = getattr(hf_config, "head_dim", hf_config.hidden_size // hf_config.num_attention_heads)
+         block_bytes = 2 * hf_config.num_hidden_layers * self.block_size * num_kv_heads * head_dim * hf_config.dtype.itemsize
+-        config.num_kvcache_blocks = int(total * config.gpu_memory_utilization - used - peak + current) // block_bytes
++        safe_blocks = int(total * config.gpu_memory_utilization - used - peak + current) // block_bytes
++        cpu_blocks = getattr(config, "cpu_prefix_cache_blocks", 0)
++        if cpu_blocks:
++            safe_blocks -= 1  # Packed GPU staging has exactly the size of one KV block.
++        config.num_kvcache_blocks = safe_blocks
++        if config.max_kvcache_blocks is not None:
++            config.num_kvcache_blocks = min(safe_blocks, config.max_kvcache_blocks)
+         assert config.num_kvcache_blocks > 0
++        self.kv_cache_budget = dict(safe_blocks=safe_blocks,
++                                   requested_cap=config.max_kvcache_blocks,
++                                   actual_blocks=config.num_kvcache_blocks,
++                                   block_bytes=block_bytes)
+         self.kv_cache = torch.empty(2, hf_config.num_hidden_layers, config.num_kvcache_blocks, self.block_size, num_kv_heads, head_dim)
++        self.kv_transfer = KVTransfer(self.kv_cache, cpu_blocks, config.cpu_prefix_batch_writes) if cpu_blocks else None
+         layer_id = 0
+         for module in self.model.modules():
+             if hasattr(module, "k_cache") and hasattr(module, "v_cache"):
+diff --git a/nanovllm/engine/scheduler.py b/nanovllm/engine/scheduler.py
+index d15979d..24a2139 100644
+--- a/nanovllm/engine/scheduler.py
++++ b/nanovllm/engine/scheduler.py
+@@ -1,18 +1,33 @@
+ from collections import deque
++from dataclasses import asdict
++from functools import partial
++from itertools import islice
++from time import perf_counter
+ 
+ from nanovllm.config import Config
+ from nanovllm.engine.sequence import Sequence, SequenceStatus
+ from nanovllm.engine.block_manager import BlockManager
++from nanovllm.engine.cpu_prefix_cache import TieredBlockManager, cache_namespace
++from nanovllm.engine.restore_policy import RestoreCostTable, StepWork, cost_environment
+ 
+ 
+ class Scheduler:
+ 
+-    def __init__(self, config: Config):
++    def __init__(self, config: Config, kv_transfer=None):
+         self.max_num_seqs = config.max_num_seqs
+         self.max_num_batched_tokens = config.max_num_batched_tokens
+         self.eos = config.eos
+         self.block_size = config.kvcache_block_size
+-        self.block_manager = BlockManager(config.num_kvcache_blocks, config.kvcache_block_size)
++        self.restore_policy = None
++        if kv_transfer is None:
++            self.block_manager = BlockManager(config.num_kvcache_blocks, self.block_size)
++        else:
++            self.block_manager = TieredBlockManager(config.num_kvcache_blocks, self.block_size,
++                                                   kv_transfer, cache_namespace(config), config.cpu_prefix_admission,
++                                                   config.cpu_prefix_batch_writes)
++            if config.cpu_restore_cost_table is not None:
++                environment = cost_environment(config, self.block_manager.namespace)
++                self.restore_policy = RestoreCostTable.load(config.cpu_restore_cost_table, environment)
+         self.waiting: deque[Sequence] = deque()
+         self.running: deque[Sequence] = deque()
+ 
+@@ -22,9 +37,47 @@ class Scheduler:
+     def add(self, seq: Sequence):
+         self.waiting.append(seq)
+ 
++    def _peer_work(self, scheduled_count, query_tokens, cpu_tokens):
++        # Already admitted peers contribute their actual work in this step. Estimate
++        # the remaining visible peers from current cache metadata, without touching LRU.
++        for seq in islice(self.waiting, 1, self.max_num_seqs - scheduled_count):
++            query, cpu = self.block_manager.pending_prefill_work(seq)
++            query_tokens += query
++            cpu_tokens += cpu
++        return query_tokens, cpu_tokens
++
++    def _step_work(self, scheduled_count, query_tokens, cpu_tokens, shape):
++        # Calibrated at first admission, with earlier running requests all in this step.
++        if len(self.running) != scheduled_count:
++            return None
++        window = list(islice(self.waiting, self.max_num_seqs - scheduled_count))
++        # Only project batches that fit even without sharing any active GPU page.
++        if (any(seq.block_table or seq.num_completion_tokens for seq in window)
++                or sum(seq.num_blocks for seq in window) > len(self.block_manager.free_block_ids)):
++            return None
++        recompute = shape.query_tokens + shape.cpu_tokens + shape.gpu_after_cpu_tokens
++        if query_tokens + recompute > self.max_num_batched_tokens:
++            return None
++        peers = [self.block_manager.pending_prefill_work(seq) for seq in window[1:]]
++        work = {}
++        for action, target_query, copy in (("restore", shape.query_tokens, shape.cpu_tokens),
++                                           ("recompute", recompute, 0)):
++            count = scheduled_count + 1
++            queries = query_tokens + target_query
++            copies = cpu_tokens + copy
++            for peer_query, peer_copy in peers:
++                if queries + peer_query > self.max_num_batched_tokens:
++                    break
++                queries += peer_query
++                copies += peer_copy
++                count += 1
++            work[action] = StepWork(count, queries, copies)
++        return work
++
+     def schedule(self) -> tuple[list[Sequence], bool]:
+         scheduled_seqs = []
+         num_batched_tokens = 0
++        restored_batch_tokens = 0
+ 
+         # prefill
+         while self.waiting and len(scheduled_seqs) < self.max_num_seqs:
+@@ -33,7 +86,19 @@ class Scheduler:
+             if remaining == 0:
+                 break
+             if not seq.block_table:
+-                num_cached_blocks = self.block_manager.can_allocate(seq)
++                choice = None
++                if self.restore_policy is None:
++                    num_cached_blocks = self.block_manager.can_allocate(seq)
++                else:
++                    peer_work = None
++                    step_work = None
++                    if getattr(self.restore_policy, "queue_shapes", None):
++                        peer_work = partial(self._peer_work, len(scheduled_seqs), num_batched_tokens, restored_batch_tokens)
++                    if getattr(self.restore_policy, "step_curves", None):
++                        step_work = partial(self._step_work, len(scheduled_seqs), num_batched_tokens, restored_batch_tokens)
++                    num_cached_blocks, choice = self.block_manager.select_prefix(
++                        seq, self.restore_policy, len(self.waiting) + len(self.running), len(self.running), peer_work,
++                        step_work)
+                 if num_cached_blocks == -1:
+                     break
+                 num_tokens = seq.num_tokens - num_cached_blocks * self.block_size
+@@ -42,7 +107,26 @@ class Scheduler:
+             if remaining < num_tokens and scheduled_seqs:  # only allow chunked prefill for the first seq
+                 break
+             if not seq.block_table:
+-                self.block_manager.allocate(seq, num_cached_blocks)
++                restored = self.block_manager.allocate(seq, num_cached_blocks)
++                if restored == -1:
++                    continue
++                cpu_tokens = restored * self.block_size
++                restored_batch_tokens += cpu_tokens
++                if seq.metrics is not None:
++                    gpu_tokens = seq.num_cached_tokens - cpu_tokens
++                    candidate_tokens = cpu_tokens
++                    if choice is not None:
++                        shape, decision = choice
++                        candidate_tokens = shape.cpu_tokens
++                        seq.metrics.restore_decisions.append(dict(
++                            shape=asdict(shape), **asdict(decision), allocation=seq.metrics.allocations,
++                            restored_tokens=cpu_tokens, recompute_candidate_tokens=candidate_tokens-cpu_tokens))
++                    if seq.metrics.allocations == 0:
++                        seq.metrics.initial_gpu_hit_tokens = gpu_tokens
++                        seq.metrics.initial_cpu_hit_tokens = candidate_tokens
++                    seq.metrics.allocation_gpu_hit_tokens += gpu_tokens
++                    seq.metrics.cpu_restored_tokens += cpu_tokens
++                    seq.metrics.allocations += 1
+             seq.num_scheduled_tokens = min(num_tokens, remaining)
+             num_batched_tokens += seq.num_scheduled_tokens
+             if seq.num_cached_tokens + seq.num_scheduled_tokens == seq.num_tokens:
+@@ -73,6 +157,8 @@ class Scheduler:
+         return scheduled_seqs, False
+ 
+     def preempt(self, seq: Sequence):
++        if seq.metrics is not None:
++            seq.metrics.preemptions += 1
+         seq.status = SequenceStatus.WAITING
+         seq.is_prefill = True
+         self.block_manager.deallocate(seq)
+@@ -80,13 +166,24 @@ class Scheduler:
+ 
+     def postprocess(self, seqs: list[Sequence], token_ids: list[int], is_prefill: bool):
+         for seq, token_id in zip(seqs, token_ids):
++            if seq.metrics is not None:
++                if is_prefill:
++                    seq.metrics.prefill_tokens += seq.num_scheduled_tokens
++                    seq.metrics.prompt_computed_tokens += max(0, min(
++                        seq.num_scheduled_tokens, seq.num_prompt_tokens - seq.num_cached_tokens))
++                else:
++                    seq.metrics.decode_tokens += seq.num_scheduled_tokens
+             self.block_manager.hash_blocks(seq)
+             seq.num_cached_tokens += seq.num_scheduled_tokens
+             seq.num_scheduled_tokens = 0
+             if is_prefill and seq.num_cached_tokens < seq.num_tokens:
+                 continue
+             seq.append_token(token_id)
++            if seq.metrics is not None:
++                seq.metrics.token_times.append(perf_counter())
+             if (not seq.ignore_eos and token_id == self.eos) or seq.num_completion_tokens == seq.max_tokens:
+                 seq.status = SequenceStatus.FINISHED
+                 self.block_manager.deallocate(seq)
+                 self.running.remove(seq)
++                if seq.metrics is not None:
++                    seq.metrics.finish_time = perf_counter()
+diff --git a/nanovllm/engine/sequence.py b/nanovllm/engine/sequence.py
+index 4decfce..bfcf484 100644
+--- a/nanovllm/engine/sequence.py
++++ b/nanovllm/engine/sequence.py
+@@ -29,6 +29,7 @@ class Sequence:
+         self.temperature = sampling_params.temperature
+         self.max_tokens = sampling_params.max_tokens
+         self.ignore_eos = sampling_params.ignore_eos
++        self.metrics = None
+ 
+     def __len__(self):
+         return self.num_tokens
+diff --git a/nanovllm/layers/sampler.py b/nanovllm/layers/sampler.py
+index 41838ac..d96d9d3 100644
+--- a/nanovllm/layers/sampler.py
++++ b/nanovllm/layers/sampler.py
+@@ -6,7 +6,9 @@ class Sampler(nn.Module):
+ 
+     @torch.compile
+     def forward(self, logits: torch.Tensor, temperatures: torch.Tensor):
+-        logits = logits.float().div_(temperatures.unsqueeze(dim=1))
++        greedy_tokens = logits.argmax(dim=-1)
++        safe_temperatures = torch.where(temperatures == 0, 1.0, temperatures)
++        logits = logits.float().div_(safe_temperatures.unsqueeze(dim=1))
+         probs = torch.softmax(logits, dim=-1)
+         sample_tokens = probs.div_(torch.empty_like(probs).exponential_(1).clamp_min_(1e-10)).argmax(dim=-1)
+-        return sample_tokens
++        return torch.where(temperatures == 0, greedy_tokens, sample_tokens)
+diff --git a/nanovllm/sampling_params.py b/nanovllm/sampling_params.py
+index 3e46598..b8ccfd4 100644
+--- a/nanovllm/sampling_params.py
++++ b/nanovllm/sampling_params.py
+@@ -1,4 +1,5 @@
+ from dataclasses import dataclass
++from math import isfinite
+ 
+ 
+ @dataclass(slots=True)
+@@ -8,4 +9,5 @@ class SamplingParams:
+     ignore_eos: bool = False
+ 
+     def __post_init__(self):
+-        assert self.temperature > 1e-10, "greedy sampling is not permitted"
++        assert isfinite(self.temperature) and (self.temperature == 0 or self.temperature > 1e-10)
++        assert self.max_tokens > 0

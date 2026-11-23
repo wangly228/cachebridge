@@ -1,0 +1,70 @@
+{
+  "formal_rows": 288,
+  "simultaneous_requests_per_wave": 4,
+  "same_shape_128_token_outputs_exact": 288,
+  "independently_checked_p95_groups": 15,
+  "regenerated_summary_sha256": "81c58170d05d13d3ffd33af317c7c0a2d786254c5624a8c3cb7139837f1ce386",
+  "frozen_new_keys_later_reused": {
+    "fill": 192,
+    "interference": 0
+  },
+  "frozen_new_keys_never_reused": {
+    "fill": 0,
+    "interference": 192
+  },
+  "six_slowest_reuse_rows": [
+    {
+      "rank": 91,
+      "seed": 101,
+      "cycle": 0,
+      "phase": "fill",
+      "ttft_ms": 1274.720976012759,
+      "seq_id": 60
+    },
+    {
+      "rank": 92,
+      "seed": 103,
+      "cycle": 1,
+      "phase": "fill",
+      "ttft_ms": 1284.8159730201587,
+      "seq_id": 268
+    },
+    {
+      "rank": 93,
+      "seed": 102,
+      "cycle": 0,
+      "phase": "fill",
+      "ttft_ms": 1295.0179469771683,
+      "seq_id": 156
+    },
+    {
+      "rank": 94,
+      "seed": 101,
+      "cycle": 1,
+      "phase": "fill",
+      "ttft_ms": 1295.3568309894763,
+      "seq_id": 92
+    },
+    {
+      "rank": 95,
+      "seed": 103,
+      "cycle": 0,
+      "phase": "fill",
+      "ttft_ms": 1298.0961430002935,
+      "seq_id": 220
+    },
+    {
+      "rank": 96,
+      "seed": 102,
+      "cycle": 1,
+      "phase": "fill",
+      "ttft_ms": 1301.7210039834026,
+      "seq_id": 188
+    }
+  ],
+  "probe_kv_blocks_exact": 4,
+  "probe_same_shape_logit_rows_exact": 8,
+  "unit_tests_passed": 35,
+  "final_unit_test_file_sha256": "b8a19ab7bef4356ab6d9d3febeebc33e740b673cbb133fe6bab54c453b08b1f7",
+  "unit_test_log_sha256": "d7336e2bb93bd1fdeeaa8245d2f9da30d9f05ed0b2fa80d38946988f38a43b1a"
+}

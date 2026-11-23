@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-19",
+  "method": "Archived measurements, offline CPU-only recomputation",
+  "new_gpu_runs": 0,
+  "base_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+  "timestamp_check": {
+    "definition": "1000 * (token_s[0] - enqueue_s)",
+    "absolute_tolerance_ms": 1e-05,
+    "output_tokens_per_measured_request": 128,
+    "formal_records_by_suite": {
+      "frozen_ABC": 288,
+      "holdout_ABC": 270,
+      "queue_B_C1_C2": 432,
+      "step_B_C2_C3": 864
+    },
+    "formal_records_total": 1854
+  },
+  "byte_identical_outputs": [
+    {
+      "regenerated": "ab.json",
+      "archived": "results/20261118_stage2_b_pressure36/trace_comparison.json",
+      "sha256": "65a00e607e0da2a761bdc4f2712a18ab21775bb3d17a66102ff2884e14961a4a"
+    },
+    {
+      "regenerated": "c1/summary.json",
+      "archived": "results/20261118_stage2_c_report/summary.json",
+      "sha256": "bc1bc662119ed0fdbfe7a1fb68538d883e3eff2d337c87ca9970d86a9dcd4577"
+    },
+    {
+      "regenerated": "c1/decisions.jsonl",
+      "archived": "results/20261118_stage2_c_report/decisions.jsonl",
+      "sha256": "caf285c162255076d8ac4c0cefb8514cef87636496756d5bc664548df27ee5e7"
+    },
+    {
+      "regenerated": "c2/summary.json",
+      "archived": "results/20261118_queue_c_report/summary.json",
+      "sha256": "f5e66e93412fc021d5bc39b3f359fa7a7da5235f284ae96ae4d20b0a6c889077"
+    },
+    {
+      "regenerated": "c3/summary.json",
+      "archived": "results/20261118_step_c_report/summary.json",
+      "sha256": "bb6bf1fa337fbebad3b2590a0c68a6bdd2c89c7709e35c26f97c8a4fe3ced2b8"
+    },
+    {
+      "regenerated": "c3/cases.jsonl",
+      "archived": "results/20261118_step_c_report/cases.jsonl",
+      "sha256": "bb86b036b83fbcc3df1ff14b91af943328217138e72c621015c7788916f0930a"
+    },
+    {
+      "regenerated": "c3/raw_sha256.json",
+      "archived": "results/20261118_step_c_report/raw_sha256.json",
+      "sha256": "2d5793c60879deeeda1398105f79edda6f26f82d7ec97271de57ea059f944b6a"
+    }
+  ],
+  "evidence": {
+    "frozen_input": "results/20261118_pressure36/trace.json",
+    "frozen_engine": "results/20261118_stage2_b_pressure36/engine.json",
+    "kv_records": "results/20261118_stage2_b_probe/kv.jsonl",
+    "restored_blocks_exact": 4,
+    "logits_records": "results/20261118_stage2_b_probe/logits.jsonl",
+    "same_shape_logit_rows_exact": 8,
+    "refreshed_tail": "results/20261118_stage2_b_full_tail/status.json",
+    "alternating_B_C1": "results/20261118_stage2_c_paired_bc/pairs.jsonl",
+    "alternating_pairs": 6,
+    "latest_evaluation": "results/20261118_step_c_evaluation/status.json",
+    "verified_C2_C3_greedy_requests": 576,
+    "archived_test_log": "results/20261118_step_c_tests.txt",
+    "archived_test_log_sha256": "1c9053ef930e01cbd0a1db83ec7b6baf01101e5e124d16f25bc9e3a8601b2241",
+    "archived_unit_tests_passed": 32,
+    "stage1_numerical_scope": "results/20261118_stage1_acceptance/decision.json"
+  }
+}

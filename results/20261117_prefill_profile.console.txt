@@ -1,0 +1,6 @@
+Artifacts: ./results/20261117_prefill_profile
+prefill cost complete: 512 tokens
+prefill cost complete: 2048 tokens
+prefill cost complete: 8192 tokens
+./.venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(

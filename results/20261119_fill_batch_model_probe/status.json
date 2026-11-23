@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "waves": 8,
+  "restored_kv_blocks_verified": 4,
+  "restored_logit_rows_verified": 8,
+  "greedy_replays_exact": 2,
+  "cpu_evictions": 1
+}

@@ -1,0 +1,19 @@
+Artifacts: ./results/20261120_first_use_config
+auto seed=1800 long cycle=1 checked
+explicit seed=1800 mixed cycle=0 checked
+explicit seed=1801 mixed cycle=0 checked
+explicit seed=1801 long cycle=0 checked
+explicit seed=1801 long cycle=1 checked
+explicit seed=1801 mixed cycle=1 checked
+explicit seed=1802 long cycle=1 checked
+explicit seed=1802 mixed cycle=1 checked
+explicit seed=1802 mixed cycle=0 checked
+explicit seed=1802 long cycle=0 checked
+explicit seed=1803 mixed cycle=0 checked
+explicit seed=1803 long cycle=0 checked
+explicit seed=1803 long cycle=1 checked
+explicit seed=1803 mixed cycle=1 checked
+explicit seed=1804 long cycle=1 checked
+explicit seed=1804 mixed cycle=1 checked
+explicit seed=1804 mixed cycle=0 checked
+explicit seed=1804 long cycle=0 checked

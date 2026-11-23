@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "boundaries": [
+    {
+      "length": 255,
+      "expected_hit": 0,
+      "greedy_equal": true
+    },
+    {
+      "length": 256,
+      "expected_hit": 0,
+      "greedy_equal": true
+    },
+    {
+      "length": 257,
+      "expected_hit": 256,
+      "greedy_equal": true
+    },
+    {
+      "length": 512,
+      "expected_hit": 256,
+      "greedy_equal": true
+    },
+    {
+      "length": 513,
+      "expected_hit": 512,
+      "greedy_equal": true
+    },
+    {
+      "length": 2049,
+      "expected_hit": 2048,
+      "greedy_equal": true
+    }
+  ],
+  "shared_prefix_greedy_equal": true
+}

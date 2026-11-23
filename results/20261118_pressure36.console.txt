@@ -1,0 +1,7 @@
+Artifacts: ./results/20261118_pressure36
+seed=101 cycle=0 finished in 11.65s
+seed=101 cycle=1 finished in 11.61s
+seed=102 cycle=0 finished in 11.55s
+seed=102 cycle=1 finished in 12.30s
+seed=103 cycle=0 finished in 12.31s
+seed=103 cycle=1 finished in 12.36s

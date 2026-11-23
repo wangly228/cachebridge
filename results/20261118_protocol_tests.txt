@@ -1,0 +1,8 @@
+test_bit_check_detects_signed_zero_and_one_bit_change (test_correctness_protocol.CorrectnessProtocolTests.test_bit_check_detects_signed_zero_and_one_bit_change) ... ok
+test_large_error_and_nonfinite_are_rejected (test_correctness_protocol.CorrectnessProtocolTests.test_large_error_and_nonfinite_are_rejected) ... ok
+test_near_tie_is_reported_separately_from_argmax (test_correctness_protocol.CorrectnessProtocolTests.test_near_tie_is_reported_separately_from_argmax) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.019s
+
+OK

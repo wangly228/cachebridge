@@ -1,0 +1,16 @@
+{
+  "baseline_A": "accepted and frozen for the recorded 36-block configuration",
+  "cross_shape_v1": "failed",
+  "all_stage1_checks_passed": false,
+  "completed_review": true,
+  "archived_pressure_requests": 96,
+  "upstream_exact_logit_rows": 288,
+  "upstream_exact_greedy_requests": 96,
+  "original_screen_failures": 6,
+  "cold_tail_exact_decode_positions": 135,
+  "metrics_on_off_wave_pairs": 24,
+  "metrics_on_vs_off_percent": 0.2873570123689495,
+  "evidence_files": 464,
+  "base_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+  "manifest_sha256": "2662a7bed1c6cc09f81c1c810a58c266c56758e686936e50be37a6be4eba66c6"
+}

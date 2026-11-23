@@ -1,0 +1,29 @@
+[
+  {
+    "group": "regression_2048_c4",
+    "positions": 64,
+    "original_numerical_failures": 3,
+    "max_centered_relative_l2": 0.022934651002287865,
+    "max_probability_total_variation": 0.04913034662604332,
+    "max_kl_reference_to_actual": 0.00619973661378026,
+    "max_abs_probability_change": 0.049091339111328125
+  },
+  {
+    "group": "heldout_2048_c4",
+    "positions": 64,
+    "original_numerical_failures": 2,
+    "max_centered_relative_l2": 0.021001702174544334,
+    "max_probability_total_variation": 0.027798494324088097,
+    "max_kl_reference_to_actual": 0.0019285965245217085,
+    "max_abs_probability_change": 0.02593204379081726
+  },
+  {
+    "group": "heldout_8192_c1",
+    "positions": 16,
+    "original_numerical_failures": 1,
+    "max_centered_relative_l2": 0.02473112754523754,
+    "max_probability_total_variation": 0.04022371023893356,
+    "max_kl_reference_to_actual": 0.004028860945254564,
+    "max_abs_probability_change": 0.031097382307052612
+  }
+]

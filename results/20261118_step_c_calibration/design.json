@@ -1,0 +1,61 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64,
+    "cpu_restore_cost_table": "results/20261118_step_c_calibration/v2.json"
+  },
+  "base_sha256": "1d859e7823dd9f8de8a3323e3283858f17f74e380772e3bbfd8a7516069dc9c9",
+  "archived_pairs_sha256": "cdc2eb5e12fdf4e2a28d9addf05c7c1da0f87c80d9c680066a878580107052c6",
+  "archived_seeds": [
+    1301,
+    1302,
+    1303,
+    1304
+  ],
+  "new_seeds": [
+    1401,
+    1402,
+    1403,
+    1404
+  ],
+  "warmup_seed": 1400,
+  "new_sizes": [
+    512,
+    639,
+    641,
+    1663,
+    1664,
+    1665
+  ],
+  "archived_sizes": [
+    640,
+    2176
+  ],
+  "evaluation_seeds": [
+    1501,
+    1502,
+    1503,
+    1504,
+    1505,
+    1506
+  ],
+  "evaluation_sizes": [
+    608,
+    704,
+    1600,
+    1728
+  ],
+  "output_tokens": 2,
+  "profiler": false,
+  "pool": "step-cal-v3",
+  "thresholds": "restore p90 < recompute p10; interpolate within measured step",
+  "endpoints": "target TTFT, replay p95, all-phase p95; separate path accuracy on holdout",
+  "evaluation": "B, fixed C2 and C3; six orders per size; new inputs, 128 greedy outputs"
+}

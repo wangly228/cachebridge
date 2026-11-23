@@ -1,0 +1,15 @@
+Artifacts: ./results/20261118_queue_c_evaluation
+seed=1200 layout=lighter_permuted order=C1,B,C2 complete
+seed=1200 layout=mixed order=C2,C1,B complete
+seed=1201 layout=mixed order=B,C1,C2 complete
+seed=1201 layout=lighter_permuted order=C1,C2,B complete
+seed=1202 layout=lighter_permuted order=C2,B,C1 complete
+seed=1202 layout=mixed order=B,C2,C1 complete
+seed=1203 layout=mixed order=C1,B,C2 complete
+seed=1203 layout=lighter_permuted order=C2,C1,B complete
+seed=1204 layout=lighter_permuted order=B,C1,C2 complete
+seed=1204 layout=mixed order=C1,C2,B complete
+seed=1205 layout=mixed order=C2,B,C1 complete
+seed=1205 layout=lighter_permuted order=B,C2,C1 complete
+seed=1206 layout=lighter_permuted order=C1,B,C2 complete
+seed=1206 layout=mixed order=C2,C1,B complete

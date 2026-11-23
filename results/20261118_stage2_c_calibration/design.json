@@ -1,0 +1,67 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64
+  },
+  "environment": {
+    "namespace": "2bb9b0909191daa81b97b615174bd6fc282ec03ee20cc1cbd753f46d2be9cdd0",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "capability": [
+      8,
+      6
+    ],
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "flash_attention": "2.8.3+cu.12.8.torch.2.10",
+    "block_size": 256,
+    "gpu_blocks": 36,
+    "cpu_blocks": 64,
+    "eager": false,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "tensor_parallel_size": 1
+  },
+  "shapes": [
+    [
+      512,
+      1
+    ],
+    [
+      512,
+      4
+    ],
+    [
+      2048,
+      1
+    ],
+    [
+      2048,
+      4
+    ],
+    [
+      8192,
+      1
+    ]
+  ],
+  "seeds": [
+    701,
+    702,
+    703,
+    704
+  ],
+  "namespace": "calibration",
+  "output_tokens": 2,
+  "suffix_tokens": 128,
+  "margin": "restore p90 < recompute p10, exact shape and running count; otherwise recompute",
+  "profiler": false,
+  "warmup_seed": 700,
+  "input_state": "real fill then 4 disjoint 2176-token requests"
+}

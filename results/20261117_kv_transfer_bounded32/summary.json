@@ -1,0 +1,36 @@
+[
+  {
+    "strategy": "packed_chunked",
+    "blocks": 32,
+    "tokens": 8192,
+    "bytes_per_direction": 1207959552,
+    "roundtrip_bitwise_equal": true,
+    "untouched_blocks_zero": true,
+    "d2h_wall_ms": {
+      "n": 10,
+      "p50": 142.91779050017794,
+      "p95": 144.17010760021185,
+      "min": 141.341062999345,
+      "max": 144.6309940001811
+    },
+    "h2d_wall_ms": {
+      "n": 10,
+      "p50": 142.6510094997866,
+      "p95": 144.84839910055598,
+      "min": 141.8046349999713,
+      "max": 145.31112600070628
+    },
+    "memory": {
+      "gpu_allocated": 5133829632,
+      "gpu_reserved": 12987662336,
+      "gpu_peak_allocated": 11777617408,
+      "gpu_peak_reserved": 12987662336,
+      "gpu_device_used": 14371258368,
+      "cpu_peak_rss": 2705735680,
+      "cpu_rss": 2706739200
+    },
+    "pinned_bytes": 301989888,
+    "pageable_bytes": 1207959552,
+    "staging_bytes": 301989888
+  }
+]

@@ -1,0 +1,12 @@
+{"seed": 901, "request": 0, "exact": true, "action": "restore", "output_tokens": 128}
+{"seed": 901, "request": 1, "exact": true, "action": "recompute", "output_tokens": 128}
+{"seed": 901, "request": 2, "exact": true, "action": "restore", "output_tokens": 128}
+{"seed": 901, "request": 3, "exact": true, "action": "restore", "output_tokens": 128}
+{"seed": 902, "request": 0, "exact": true, "action": "restore", "output_tokens": 128}
+{"seed": 902, "request": 1, "exact": true, "action": "recompute", "output_tokens": 128}
+{"seed": 902, "request": 2, "exact": true, "action": "restore", "output_tokens": 128}
+{"seed": 902, "request": 3, "exact": true, "action": "restore", "output_tokens": 128}
+{"seed": 903, "request": 0, "exact": true, "action": "restore", "output_tokens": 128}
+{"seed": 903, "request": 1, "exact": true, "action": "recompute", "output_tokens": 128}
+{"seed": 903, "request": 2, "exact": true, "action": "restore", "output_tokens": 128}
+{"seed": 903, "request": 3, "exact": true, "action": "restore", "output_tokens": 128}

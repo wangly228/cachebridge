@@ -1,0 +1,7 @@
+{
+  "measurement_complete": true,
+  "workloads": 2,
+  "seeds": 4,
+  "formal_requests": 1152,
+  "formal_cpu_requests_with_native_reference": 864
+}

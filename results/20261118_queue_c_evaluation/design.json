@@ -1,0 +1,80 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64,
+    "cpu_restore_cost_table": "results/20261118_queue_c_evaluation/cost_table.json"
+  },
+  "pool": "queue-eval-v2",
+  "layouts": {
+    "mixed": [
+      512,
+      1024,
+      2048,
+      512
+    ],
+    "lighter_permuted": [
+      512,
+      512,
+      1024,
+      512
+    ]
+  },
+  "seeds": [
+    1201,
+    1202,
+    1203,
+    1204,
+    1205,
+    1206
+  ],
+  "warmup_seed": 1200,
+  "output_tokens": 128,
+  "warmup_output_tokens": 2,
+  "profiler": false,
+  "orders": [
+    [
+      "B",
+      "C1",
+      "C2"
+    ],
+    [
+      "B",
+      "C2",
+      "C1"
+    ],
+    [
+      "C1",
+      "B",
+      "C2"
+    ],
+    [
+      "C1",
+      "C2",
+      "B"
+    ],
+    [
+      "C2",
+      "B",
+      "C1"
+    ],
+    [
+      "C2",
+      "C1",
+      "B"
+    ]
+  ],
+  "alternating_layout_order": true,
+  "base_sha256": "f66c529cec9aad0f80666f842600c4137ab2837b4407985e8a0a2bbc826ff3c4",
+  "table_sha256": "1d859e7823dd9f8de8a3323e3283858f17f74e380772e3bbfd8a7516069dc9c9",
+  "length_only_sha256": "4159825779be771c663a8fa5f7a0a1186aaf141b5bd261394dbc26a072c362f8",
+  "trace_sha256": "b47852b56a7ccac513e3819278e66cd536920826170ffe40bf4fbc86cadab0ff",
+  "disjoint_first_blocks": 56,
+  "whole_trace": "sum of enqueue-to-completion wave times across fill, interference and evicted replay"
+}

@@ -1,0 +1,1 @@
+./.venv/bin/python -m benchmarks.upstream_acceptance --output results/20261118_accept_upstream

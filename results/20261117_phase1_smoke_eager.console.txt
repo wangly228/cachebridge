@@ -1,0 +1,30 @@
+Artifacts: ./results/20261117_phase1_smoke_eager
+{'phase': 'baseline', 'length': 512, 'concurrency': 1, 'seed': 0, 'wave': 0, 'cache': 'cold'}: 0.707s
+{'phase': 'baseline', 'length': 512, 'concurrency': 1, 'seed': 0, 'wave': 0, 'cache': 'warm'}: 0.623s
+{'phase': 'baseline', 'length': 512, 'concurrency': 1, 'seed': 0, 'wave': 1, 'cache': 'cold'}: 0.603s
+{'phase': 'baseline', 'length': 512, 'concurrency': 1, 'seed': 0, 'wave': 1, 'cache': 'warm'}: 0.641s
+{'phase': 'baseline', 'length': 512, 'concurrency': 1, 'seed': 0, 'wave': 2, 'cache': 'cold'}: 0.651s
+{'phase': 'baseline', 'length': 512, 'concurrency': 1, 'seed': 0, 'wave': 2, 'cache': 'warm'}: 0.583s
+{'phase': 'baseline', 'length': 512, 'concurrency': 1, 'seed': 0, 'wave': 3, 'cache': 'cold'}: 0.596s
+{'phase': 'baseline', 'length': 512, 'concurrency': 1, 'seed': 0, 'wave': 3, 'cache': 'warm'}: 0.600s
+{'phase': 'baseline', 'length': 512, 'concurrency': 4, 'seed': 0, 'wave': 0, 'cache': 'cold'}: 0.864s
+{'phase': 'baseline', 'length': 512, 'concurrency': 4, 'seed': 0, 'wave': 0, 'cache': 'warm'}: 0.686s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 1, 'seed': 0, 'wave': 0, 'cache': 'cold'}: 0.784s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 1, 'seed': 0, 'wave': 0, 'cache': 'warm'}: 0.560s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 1, 'seed': 0, 'wave': 1, 'cache': 'cold'}: 0.832s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 1, 'seed': 0, 'wave': 1, 'cache': 'warm'}: 0.560s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 1, 'seed': 0, 'wave': 2, 'cache': 'cold'}: 0.767s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 1, 'seed': 0, 'wave': 2, 'cache': 'warm'}: 0.572s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 1, 'seed': 0, 'wave': 3, 'cache': 'cold'}: 0.744s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 1, 'seed': 0, 'wave': 3, 'cache': 'warm'}: 0.546s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 4, 'seed': 0, 'wave': 0, 'cache': 'cold'}: 1.558s
+{'phase': 'baseline', 'length': 2048, 'concurrency': 4, 'seed': 0, 'wave': 0, 'cache': 'warm'}: 0.703s
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank0]:   File "<frozen runpy>", line 88, in _run_code
+[rank0]:   File "./benchmarks/phase1.py", line 217, in <module>
+[rank0]:     main()
+[rank0]:   File "./benchmarks/phase1.py", line 190, in main
+[rank0]:     assert [r["output_token_ids"] for r in pair[0][0]] == [r["output_token_ids"] for r in pair[1][0]]
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]: AssertionError

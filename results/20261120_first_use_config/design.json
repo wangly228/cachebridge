@@ -1,0 +1,21 @@
+{
+  "reference": "results/20261119_first_use_budget36",
+  "reference_sha256": {
+    "trace.json": "f773a7d3be2e5a1a3571fc3f061be02d8c9ad4f1653842b63d933443d7fb4c1b",
+    "requests.jsonl": "3585ab969aa625205ca9eae6dbda61901165af10fc89fff5f63ca5177263132f",
+    "waves.jsonl": "bd020a9e5f3a67f37cb9a31dc695967b30f9ae23ea6527811a89a42a209ef474",
+    "steps.jsonl": "961c57152c1d93c42c36701d4e3d5dca10949f90ea2b0f90cd59d1fdeff521b9",
+    "environment.json": "fa2410ae3253e591696e571c22d64cdccbfbf9c66ad4c42314ddcde7c95cdbdb",
+    "engine.json": "33798f9a2e96f1313b392a85fd472fa952da180a86e957ba938e919641b184ad"
+  },
+  "purpose": "configuration and exact-output regression",
+  "seeds": [
+    1801,
+    1802,
+    1803,
+    1804
+  ],
+  "warmup_seed": 1800,
+  "output_tokens": 128,
+  "warmup_output_tokens": 8
+}

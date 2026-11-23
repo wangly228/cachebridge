@@ -1,0 +1,24 @@
+Artifacts: ./results/20261117_kv_transfer
+direct 1 blocks: D2H 1.878ms, H2D 1.902ms
+packed 1 blocks: D2H 1.852ms, H2D 1.862ms
+direct 4 blocks: D2H 6.676ms, H2D 6.939ms
+packed 4 blocks: D2H 6.591ms, H2D 6.811ms
+direct 8 blocks: D2H 13.550ms, H2D 14.001ms
+packed 8 blocks: D2H 13.020ms, H2D 13.435ms
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "./benchmarks/kv_transfer.py", line 121, in <module>
+    main()
+  File "./.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "./benchmarks/kv_transfer.py", line 64, in main
+    host = torch.empty(transfer_shape, dtype=source.dtype, pin_memory=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: out of memory
+Search for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

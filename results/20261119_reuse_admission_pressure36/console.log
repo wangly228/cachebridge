@@ -1,0 +1,19 @@
+Artifacts: ./results/20261119_reuse_admission_pressure36
+seed=101 cycle=0 arm=A checked, 11.29s
+seed=101 cycle=0 arm=B checked, 10.65s
+seed=101 cycle=0 arm=reuse checked, 10.60s
+seed=101 cycle=1 arm=A checked, 11.47s
+seed=101 cycle=1 arm=reuse checked, 10.73s
+seed=101 cycle=1 arm=B checked, 10.75s
+seed=102 cycle=0 arm=B checked, 10.71s
+seed=102 cycle=0 arm=A checked, 11.53s
+seed=102 cycle=0 arm=reuse checked, 10.70s
+seed=102 cycle=1 arm=B checked, 10.83s
+seed=102 cycle=1 arm=reuse checked, 10.72s
+seed=102 cycle=1 arm=A checked, 11.55s
+seed=103 cycle=0 arm=reuse checked, 10.81s
+seed=103 cycle=0 arm=A checked, 11.69s
+seed=103 cycle=0 arm=B checked, 10.73s
+seed=103 cycle=1 arm=reuse checked, 10.56s
+seed=103 cycle=1 arm=B checked, 10.73s
+seed=103 cycle=1 arm=A checked, 11.55s

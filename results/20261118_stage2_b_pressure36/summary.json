@@ -1,0 +1,222 @@
+{
+  "phases": {
+    "fill": {
+      "waves": 6,
+      "ttft_ms": {
+        "n": 24,
+        "p50": 868.3489729992289,
+        "p95": 1391.968480903597,
+        "min": 345.1096589997178,
+        "max": 1411.1294370013638
+      },
+      "p95_ms_by_seed": {
+        "101": 1397.9831640008342,
+        "102": 1378.7426859016705,
+        "103": 1391.3138301038998
+      },
+      "output_tokens_per_engine_second": 145.7901913642829,
+      "hit_requests": 0,
+      "prefill_tokens": 52224,
+      "preemptions": 0,
+      "A_p95_ms": 1240.6480535471928,
+      "A_p95_ms_by_seed": {
+        "101": 1169.9361058508657,
+        "102": 1217.0590882502438,
+        "103": 1240.5566249464755
+      },
+      "p95_change_percent": 12.196885887480914,
+      "A_output_tokens_per_engine_second": 156.67352523197843,
+      "cpu_hit_requests": 0,
+      "initial_gpu_hit_tokens": 0,
+      "cpu_restored_tokens": 0,
+      "prompt_computed_tokens": 52224,
+      "d2h_blocks": 192,
+      "h2d_blocks": 0,
+      "d2h_ms": 786.2280330518843,
+      "h2d_ms": 0.0,
+      "cpu_save_failures": 0,
+      "cpu_restore_failures": 0,
+      "d2h_bytes": 7247757312,
+      "h2d_bytes": 0,
+      "tpot_ms": {
+        "n": 24,
+        "p50": 20.825430980297337,
+        "p95": 25.029742101979203,
+        "min": 16.645204196842187,
+        "max": 25.079737669308432
+      },
+      "itl_ms": {
+        "n": 3048,
+        "p50": 16.71602800342953,
+        "p95": 17.61673899854941,
+        "min": 15.195346997643355,
+        "max": 1074.2274160002125
+      }
+    },
+    "hot": {
+      "waves": 6,
+      "ttft_ms": {
+        "n": 24,
+        "p50": 85.8128844993189,
+        "p95": 86.66334335212014,
+        "min": 82.91885999642545,
+        "max": 86.6768569976557
+      },
+      "p95_ms_by_seed": {
+        "101": 85.72023624801659,
+        "102": 86.67224854943925,
+        "103": 86.560683299831
+      },
+      "output_tokens_per_engine_second": 231.32293864503035,
+      "hit_requests": 24,
+      "prefill_tokens": 3072,
+      "preemptions": 0,
+      "A_p95_ms": 85.17083100086893,
+      "A_p95_ms_by_seed": {
+        "101": 80.2986199989391,
+        "102": 83.05996564668021,
+        "103": 85.1803266479692
+      },
+      "p95_change_percent": 1.752375001760842,
+      "A_output_tokens_per_engine_second": 237.22136576251023,
+      "cpu_hit_requests": 0,
+      "initial_gpu_hit_tokens": 49152,
+      "cpu_restored_tokens": 0,
+      "prompt_computed_tokens": 3072,
+      "d2h_blocks": 0,
+      "h2d_blocks": 0,
+      "d2h_ms": 0.0,
+      "h2d_ms": 0.0,
+      "cpu_save_failures": 0,
+      "cpu_restore_failures": 0,
+      "d2h_bytes": 0,
+      "h2d_bytes": 0,
+      "tpot_ms": {
+        "n": 24,
+        "p50": 16.749287055106144,
+        "p95": 16.845168644503012,
+        "min": 16.68869850398078,
+        "max": 16.84517047242408
+      },
+      "itl_ms": {
+        "n": 3048,
+        "p50": 16.755598000600003,
+        "p95": 17.596409997713636,
+        "min": 15.222485002595931,
+        "max": 18.556408998847473
+      }
+    },
+    "interference": {
+      "waves": 6,
+      "ttft_ms": {
+        "n": 24,
+        "p50": 930.0300854956731,
+        "p95": 1438.8603273469926,
+        "min": 342.9219550016569,
+        "max": 1664.0309700014768
+      },
+      "p95_ms_by_seed": {
+        "101": 1560.182737402283,
+        "102": 1428.3840173462522,
+        "103": 1417.340039497867
+      },
+      "output_tokens_per_engine_second": 143.4930417202747,
+      "hit_requests": 0,
+      "prefill_tokens": 52224,
+      "preemptions": 0,
+      "A_p95_ms": 1237.8871810018609,
+      "A_p95_ms_by_seed": {
+        "101": 1156.9218634493154,
+        "102": 1213.2059142022626,
+        "103": 1247.6313750965346
+      },
+      "p95_change_percent": 16.235174693583776,
+      "A_output_tokens_per_engine_second": 157.001983634825,
+      "cpu_hit_requests": 0,
+      "initial_gpu_hit_tokens": 0,
+      "cpu_restored_tokens": 0,
+      "prompt_computed_tokens": 52224,
+      "d2h_blocks": 192,
+      "h2d_blocks": 0,
+      "d2h_ms": 1119.8375370076974,
+      "h2d_ms": 0.0,
+      "cpu_save_failures": 0,
+      "cpu_restore_failures": 0,
+      "d2h_bytes": 7247757312,
+      "h2d_bytes": 0,
+      "tpot_ms": {
+        "n": 24,
+        "p50": 20.93971959840828,
+        "p95": 25.10858778464246,
+        "min": 16.561699724425267,
+        "max": 26.478509598445537
+      },
+      "itl_ms": {
+        "n": 3048,
+        "p50": 16.670377503032796,
+        "p95": 17.629671002578107,
+        "min": 15.080215001944453,
+        "max": 1262.2996380014229
+      }
+    },
+    "evicted": {
+      "waves": 6,
+      "ttft_ms": {
+        "n": 24,
+        "p50": 215.0124939980742,
+        "p95": 248.63548675057245,
+        "min": 211.9793409947306,
+        "max": 248.67632499808678
+      },
+      "p95_ms_by_seed": {
+        "101": 214.29064339863544,
+        "102": 219.9420579989237,
+        "103": 248.66247234895127
+      },
+      "output_tokens_per_engine_second": 218.84990564097595,
+      "hit_requests": 0,
+      "prefill_tokens": 3072,
+      "preemptions": 0,
+      "A_p95_ms": 1239.9918442020862,
+      "A_p95_ms_by_seed": {
+        "101": 1174.7861345553247,
+        "102": 1206.5946011483902,
+        "103": 1252.1562365971477
+      },
+      "p95_change_percent": -79.94861918542979,
+      "A_output_tokens_per_engine_second": 156.55651207864213,
+      "cpu_hit_requests": 24,
+      "initial_gpu_hit_tokens": 0,
+      "cpu_restored_tokens": 49152,
+      "prompt_computed_tokens": 3072,
+      "d2h_blocks": 0,
+      "h2d_blocks": 192,
+      "d2h_ms": 0.0,
+      "h2d_ms": 815.6140199716901,
+      "cpu_save_failures": 0,
+      "cpu_restore_failures": 0,
+      "d2h_bytes": 0,
+      "h2d_bytes": 7247757312,
+      "tpot_ms": {
+        "n": 24,
+        "p50": 16.66685418111472,
+        "p95": 16.788102894852774,
+        "min": 16.62117059837099,
+        "max": 16.78812086615871
+      },
+      "itl_ms": {
+        "n": 3048,
+        "p50": 16.680575001373654,
+        "p95": 17.55894534944673,
+        "min": 15.088305997778662,
+        "max": 18.96620899788104
+      }
+    }
+  },
+  "A_cold_start_wall_s": 71.77516017499875,
+  "B_cold_start_wall_s": 69.82913106900378,
+  "cold_start_wall_change_percent": -2.711284936529923,
+  "A_total_output_tokens_per_wall_second": 171.20128983397584,
+  "B_total_output_tokens_per_wall_second": 175.97240309144388,
+  "p95_uncertainty": "Per-seed p95 range; 8 correlated requests per phase per seed."
+}

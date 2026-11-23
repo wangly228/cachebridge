@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "target_pairs": 8,
+  "summary": {
+    "640": {
+      "restore": {
+        "n": 4,
+        "ttft_p50_ms": 163.7114620025386,
+        "forecast_ms": 136.14527249592356,
+        "cost_basis": "shape",
+        "cold_in_same_step": 4,
+        "step_query_tokens": [
+          1024
+        ]
+      },
+      "recompute": {
+        "n": 4,
+        "ttft_p50_ms": 279.32776349189226,
+        "forecast_ms": 274.1919474938186,
+        "cost_basis": "shape",
+        "cold_in_same_step": 4,
+        "step_query_tokens": [
+          2048
+        ]
+      }
+    },
+    "2176": {
+      "restore": {
+        "n": 4,
+        "ttft_p50_ms": 88.38909499900183,
+        "forecast_ms": 136.14527249592356,
+        "cost_basis": "shape",
+        "cold_in_same_step": 0,
+        "step_query_tokens": [
+          384
+        ]
+      },
+      "recompute": {
+        "n": 4,
+        "ttft_p50_ms": 220.0058989910758,
+        "forecast_ms": 274.1919474938186,
+        "cost_basis": "shape",
+        "cold_in_same_step": 0,
+        "step_query_tokens": [
+          1408
+        ]
+      }
+    }
+  }
+}

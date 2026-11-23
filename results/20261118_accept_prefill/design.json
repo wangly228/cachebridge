@@ -1,0 +1,23 @@
+{
+  "config": {
+    "model": "~/models/huggingface/Qwen3-4B",
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "tensor_parallel_size": 1,
+    "enforce_eager": true,
+    "eos": 151645,
+    "kvcache_block_size": 256,
+    "max_kvcache_blocks": 160,
+    "enable_metrics": true
+  },
+  "source_sha256": "e44fab2ace591ff74bb1c6f86c1dbae592ad52a30b69d0f16754818fdba1f7d7",
+  "changed_input": "Only last prompt page for decode attention reads; all generated tokens teacher-forced",
+  "controls": [
+    "original cold",
+    "original warm",
+    "scratch remap with native warm pages"
+  ],
+  "criterion": "bitwise equality of all vocabulary logits at matched positions"
+}

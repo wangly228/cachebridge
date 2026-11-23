@@ -1,0 +1,13 @@
+Artifacts: ./results/20261118_stage2_c_holdout_b_isolated
+B seed=900 short complete
+B seed=900 long complete
+B seed=900 mixed complete
+B seed=901 short complete
+B seed=901 long complete
+B seed=901 mixed complete
+B seed=902 short complete
+B seed=902 long complete
+B seed=902 mixed complete
+B seed=903 short complete
+B seed=903 long complete
+B seed=903 mixed complete

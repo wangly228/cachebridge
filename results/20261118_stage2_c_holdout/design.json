@@ -1,0 +1,33 @@
+{
+  "lengths": {
+    "short": [
+      512,
+      512,
+      512,
+      512
+    ],
+    "long": [
+      8192
+    ],
+    "mixed": [
+      512,
+      1024,
+      2048,
+      512
+    ]
+  },
+  "seeds": [
+    901,
+    902,
+    903
+  ],
+  "warmup_seed": 900,
+  "output_tokens": 128,
+  "suffix_tokens": 128,
+  "temperature": 0,
+  "ignore_eos": true,
+  "table_sha256": "f66c529cec9aad0f80666f842600c4137ab2837b4407985e8a0a2bbc826ff3c4",
+  "trace_sha256": "e0ed12ca77d33e9d6c98c6a57b0e3d5ca761950d560dcf0a6a55be9bc8e32527",
+  "profiler": false,
+  "cycle_timing": "sum of enqueue-to-wave-finish wall times, fill+interference+replay"
+}

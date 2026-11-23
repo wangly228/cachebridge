@@ -1,0 +1,95 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64
+  },
+  "environment": {
+    "namespace": "2bb9b0909191daa81b97b615174bd6fc282ec03ee20cc1cbd753f46d2be9cdd0",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "capability": [
+      8,
+      6
+    ],
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "flash_attention": "2.8.3+cu.12.8.torch.2.10",
+    "block_size": 256,
+    "gpu_blocks": 36,
+    "cpu_blocks": 64,
+    "eager": false,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "tensor_parallel_size": 1
+  },
+  "base_sha256": "f66c529cec9aad0f80666f842600c4137ab2837b4407985e8a0a2bbc826ff3c4",
+  "calibration_layouts": {
+    "single1024": [
+      1024
+    ],
+    "uniform1024": [
+      1024,
+      1024,
+      1024,
+      1024
+    ],
+    "mixed": [
+      512,
+      1024,
+      2048,
+      512
+    ],
+    "lighter": [
+      512,
+      1024,
+      512,
+      512
+    ]
+  },
+  "calibration_seeds": [
+    1101,
+    1102,
+    1103,
+    1104
+  ],
+  "warmup_seed": 1100,
+  "evaluation_layouts": {
+    "mixed": [
+      512,
+      1024,
+      2048,
+      512
+    ],
+    "lighter_permuted": [
+      512,
+      512,
+      1024,
+      512
+    ]
+  },
+  "evaluation_seeds": [
+    1201,
+    1202,
+    1203,
+    1204,
+    1205,
+    1206
+  ],
+  "pool": "queue-cal-v2",
+  "suffix_tokens": 128,
+  "output_tokens": 2,
+  "evaluation_output_tokens": 128,
+  "threshold": "restore p90 < recompute p10",
+  "endpoint": "enqueue to first real output token",
+  "intervention": "restore all peers and vary only the target; match first visible decision context",
+  "primary": "mixed replay p95 TTFT and uncalibrated recomputes: C2 vs C1; also compare B",
+  "evaluation_order": "all six permutations of B, C1, C2; one engine and equal starting states",
+  "profiler": false
+}

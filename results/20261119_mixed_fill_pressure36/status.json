@@ -1,0 +1,9 @@
+{
+  "measurement_complete": true,
+  "arms": 3,
+  "seeds": 6,
+  "formal_cycles_per_arm": 12,
+  "requests_per_arm": 240,
+  "timed_requests": 720,
+  "cpu_requests_checked_against_native": 480
+}

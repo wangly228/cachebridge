@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "exact_invariants_passed": true,
+  "numerical_screen_passed": false,
+  "baseline_frozen": false,
+  "note": "scope limited to this fixed-path protocol; historic strict greedy failure remains failed"
+}

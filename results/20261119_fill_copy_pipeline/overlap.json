@@ -1,0 +1,36 @@
+{
+  "serial_group": {
+    "cpu_copies": 8,
+    "gpu_d2h": 8,
+    "adjacent_overlapping_pairs": 0,
+    "adjacent_overlap_ms": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "overlap_ms": 0.0,
+    "d2h_ms": 12.408007,
+    "cpu_copy_ms": 16.421936000000002
+  },
+  "two_buffer_group": {
+    "cpu_copies": 8,
+    "gpu_d2h": 8,
+    "adjacent_overlapping_pairs": 7,
+    "adjacent_overlap_ms": [
+      2.69008203125,
+      2.68539697265625,
+      2.67389501953125,
+      2.673326171875,
+      3.01141162109375,
+      3.74166796875,
+      2.74667626953125
+    ],
+    "overlap_ms": 20.2224560546875,
+    "d2h_ms": 22.829224000000004,
+    "cpu_copy_ms": 23.927114000000003
+  }
+}

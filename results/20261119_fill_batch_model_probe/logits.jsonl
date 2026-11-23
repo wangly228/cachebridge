@@ -1,0 +1,8 @@
+{"case": "restore1", "position": 0, "input_ids": [6182], "positions": [512], "is_prefill": true, "path_equal": true, "shape": [1, 151936], "dtype": "torch.bfloat16", "different_bytes": 0}
+{"case": "restore1", "position": 1, "input_ids": [198], "positions": [513], "is_prefill": false, "path_equal": true, "shape": [1, 151936], "dtype": "torch.bfloat16", "different_bytes": 0}
+{"case": "restore1", "position": 2, "input_ids": [13874], "positions": [514], "is_prefill": false, "path_equal": true, "shape": [1, 151936], "dtype": "torch.bfloat16", "different_bytes": 0}
+{"case": "restore1", "position": 3, "input_ids": [19324], "positions": [515], "is_prefill": false, "path_equal": true, "shape": [1, 151936], "dtype": "torch.bfloat16", "different_bytes": 0}
+{"case": "restore2", "position": 0, "input_ids": [6182], "positions": [512], "is_prefill": true, "path_equal": true, "shape": [1, 151936], "dtype": "torch.bfloat16", "different_bytes": 0}
+{"case": "restore2", "position": 1, "input_ids": [198], "positions": [513], "is_prefill": false, "path_equal": true, "shape": [1, 151936], "dtype": "torch.bfloat16", "different_bytes": 0}
+{"case": "restore2", "position": 2, "input_ids": [13874], "positions": [514], "is_prefill": false, "path_equal": true, "shape": [1, 151936], "dtype": "torch.bfloat16", "different_bytes": 0}
+{"case": "restore2", "position": 3, "input_ids": [19324], "positions": [515], "is_prefill": false, "path_equal": true, "shape": [1, 151936], "dtype": "torch.bfloat16", "different_bytes": 0}

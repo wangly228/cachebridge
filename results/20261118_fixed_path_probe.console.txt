@@ -1,0 +1,24 @@
+Artifacts: ./results/20261118_fixed_path_probe
+regression_2048_c4/cold: 64 positions, 0 prefix bit checks
+regression_2048_c4/warm: 64 positions, 128 prefix bit checks
+regression_2048_c4/warm_repeat: 64 positions, 128 prefix bit checks
+regression_2048_c4: real KV roundtrip passed; pinned scratch 37748736 bytes
+regression_2048_c4/warm_after_roundtrip: 64 positions, 128 prefix bit checks
+heldout_2048_c4/cold: 64 positions, 0 prefix bit checks
+heldout_2048_c4/warm: 64 positions, 128 prefix bit checks
+heldout_2048_c4/warm_repeat: 64 positions, 128 prefix bit checks
+heldout_2048_c4: real KV roundtrip passed; pinned scratch 37748736 bytes
+heldout_2048_c4/warm_after_roundtrip: 64 positions, 128 prefix bit checks
+heldout_8192_c1/cold: 16 positions, 0 prefix bit checks
+heldout_8192_c1/warm: 16 positions, 32 prefix bit checks
+heldout_8192_c1/warm_repeat: 16 positions, 32 prefix bit checks
+heldout_8192_c1: real KV roundtrip passed; pinned scratch 37748736 bytes
+heldout_8192_c1/warm_after_roundtrip: 16 positions, 32 prefix bit checks
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<frozen runpy>", line 198, in _run_module_as_main
+[rank0]:   File "<frozen runpy>", line 88, in _run_code
+[rank0]:   File "./benchmarks/fixed_path_probe.py", line 235, in <module>
+[rank0]:     main()
+[rank0]:   File "./benchmarks/fixed_path_probe.py", line 223, in main
+[rank0]:     raise RuntimeError("predeclared numerical screening failed; thresholds left unchanged")
+[rank0]: RuntimeError: predeclared numerical screening failed; thresholds left unchanged

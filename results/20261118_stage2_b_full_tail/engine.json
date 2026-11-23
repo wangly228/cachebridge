@@ -1,0 +1,32 @@
+{
+  "config": {
+    "max_kvcache_blocks": 3,
+    "cpu_prefix_cache_blocks": 4,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 512,
+    "max_model_len": 768,
+    "max_num_seqs": 8,
+    "tensor_parallel_size": 1,
+    "enforce_eager": false,
+    "gpu_memory_utilization": 0.8
+  },
+  "kv_budget": {
+    "safe_blocks": 291,
+    "requested_cap": 3,
+    "actual_blocks": 3,
+    "block_bytes": 37748736
+  },
+  "namespace": "2bb9b0909191daa81b97b615174bd6fc282ec03ee20cc1cbd753f46d2be9cdd0",
+  "dtype": "torch.bfloat16",
+  "graph_bs": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "output_tokens": 1,
+  "temperature": 0,
+  "ignore_eos": true,
+  "concurrency": 1,
+  "diagnostic_hooks": true
+}

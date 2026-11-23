@@ -1,0 +1,86 @@
+[
+  {
+    "group": "regression_2048_c4",
+    "mode": "cold",
+    "positions": 64,
+    "exact": 64,
+    "exact_at_outliers": 3
+  },
+  {
+    "group": "regression_2048_c4",
+    "mode": "warm",
+    "positions": 64,
+    "exact": 64,
+    "exact_at_outliers": 3
+  },
+  {
+    "group": "regression_2048_c4",
+    "mode": "warm_remap",
+    "positions": 64,
+    "exact": 64,
+    "exact_at_outliers": 3
+  },
+  {
+    "group": "regression_2048_c4",
+    "mode": "cold_tail",
+    "positions": 64,
+    "exact": 64,
+    "exact_at_outliers": 3
+  },
+  {
+    "group": "heldout_2048_c4",
+    "mode": "cold",
+    "positions": 64,
+    "exact": 64,
+    "exact_at_outliers": 2
+  },
+  {
+    "group": "heldout_2048_c4",
+    "mode": "warm",
+    "positions": 64,
+    "exact": 64,
+    "exact_at_outliers": 2
+  },
+  {
+    "group": "heldout_2048_c4",
+    "mode": "warm_remap",
+    "positions": 64,
+    "exact": 64,
+    "exact_at_outliers": 2
+  },
+  {
+    "group": "heldout_2048_c4",
+    "mode": "cold_tail",
+    "positions": 64,
+    "exact": 64,
+    "exact_at_outliers": 2
+  },
+  {
+    "group": "heldout_8192_c1",
+    "mode": "cold",
+    "positions": 16,
+    "exact": 16,
+    "exact_at_outliers": 1
+  },
+  {
+    "group": "heldout_8192_c1",
+    "mode": "warm",
+    "positions": 16,
+    "exact": 16,
+    "exact_at_outliers": 1
+  },
+  {
+    "group": "heldout_8192_c1",
+    "mode": "warm_remap",
+    "positions": 16,
+    "exact": 16,
+    "exact_at_outliers": 1
+  },
+  {
+    "group": "heldout_8192_c1",
+    "mode": "cold_tail",
+    "positions": 16,
+    "exact": 16,
+    "exact_at_outliers": 1
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "command": ".venv/bin/python -m benchmarks.analyze_fixed_path --input-run results/20261118_fixed_path_probe --output results/20261118_fixed_path_analysis",
+  "input_sha256": {
+    "cases.jsonl": "c94f38653be43a0abc1750ce7ad7890892a604f7f47a1a4b73cead071df7c29c",
+    "comparisons.jsonl": "e44fab2ace591ff74bb1c6f86c1dbae592ad52a30b69d0f16754818fdba1f7d7",
+    "engine.json": "df326f4308939a4b67c8e299bd0f14cfe0701279a7b215ad445c9b648911dc6f",
+    "environment.json": "cc8498afc802b0feba848cf696a6b6ee2e3e945e4da428261d9c0e33d1015ae5",
+    "heldout_2048_c4_logits_bf16.npz": "c1171b9063f80d24d83ad03d41386faf4762aa1798eda61d56dbb5b2bee834cd",
+    "heldout_2048_c4_path.json": "102c1f47c3bb58d24f0362c0cc7599454207914f6e18ca40df7284e10b9babde",
+    "heldout_2048_c4_roundtrip_logits_bf16.npz": "91197c26711cbee40b0de7dbbb128c1d9150537bf7a033ac0bd58c9e4439379c",
+    "heldout_8192_c1_logits_bf16.npz": "cbdcca73e4ecd664cefafd33d734cec56269035867116b9a5885f1f53dbb1d44",
+    "heldout_8192_c1_path.json": "a53afeac507dc49e07acb4004313afee8c60e60155b6ce83618885d2aeb32500",
+    "heldout_8192_c1_roundtrip_logits_bf16.npz": "25dc607b80cdaff1e1b6ef8441c833a067aa3b1d090342ed974a3d7ede2fd8b8",
+    "inputs.json": "f5ef531dc923eaaf8b8ee225b45240bc705087ef4f909427de9f88e55d250e92",
+    "positions.jsonl": "362409dc5f3b5d5a0281e8022ae0d162b3c805563b447d361136561b20f3501d",
+    "prefix_snapshots.jsonl": "a90ce78fe68776d7ffe3506b13aaef64c4fb9e04386d879b6daf32bcf2b4895a",
+    "protocol.json": "7e17ef46f260ef904c11d92447e314edf951b124209538ba783363fb966ed4c9",
+    "regression_2048_c4_logits_bf16.npz": "b621aafa6917454e41860ee1c2a5ca790a2a3f2dd3ecd0a282eb2b9fa4b2090c",
+    "regression_2048_c4_path.json": "eb0ecbfddd10f2c65474554efa7b8c5385781ff1e3634cc155e70a6f8325ad1f",
+    "regression_2048_c4_roundtrip_logits_bf16.npz": "addd672cd257b44c0477f648134b8c9a2b74acfd3161370f56bb2ae4c5d894fe",
+    "roundtrip.jsonl": "a04c44bc61d0ef48f98529fb93eae5d86d4bea2d7de846c9db4920dbdd74c50c",
+    "status.json": "b5aaf6495375da6ee0b06f69e9e9638ac973d7086cbb653d2bb95c77303841cc",
+    "summary.json": "5ba56884c57bf2e600cfdf2654c4ddc9c954db9839ad04f8cabf14c9163e0e99"
+  },
+  "source_sha256": {
+    "test_correctness_protocol.py": "dd945727f2457f561e4cca06d87759a0e691c1de5489a932e78e50297a92a8d1",
+    "correctness_protocol.py": "18d41fcf2d507f7687004ff3d0c631dc510c67b159a909fd850af31d83992831",
+    "analyze_fixed_path.py": "5e7f8aa1f7149bcc6e9f20b84ab16014b21255f5a16b40b18b0b7c4f04244a77"
+  },
+  "environment_reference": "../20261118_fixed_path_probe/environment.json",
+  "validation": "offline integrity checks passed; failed experimental verdicts unchanged"
+}

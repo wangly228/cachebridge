@@ -1,0 +1,7 @@
+{
+  "measurement_complete": true,
+  "cache_accounting_passed": true,
+  "strict_greedy_equal_pairs": 14,
+  "total_replay_pairs": 24,
+  "stage1_frozen": false
+}

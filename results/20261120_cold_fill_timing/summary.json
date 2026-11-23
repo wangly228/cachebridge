@@ -1,0 +1,1159 @@
+{
+  "pooled": {
+    "n_pairs": 32,
+    "p95": {
+      "32": {
+        "ms": {
+          "ttft_ms": 1017.5819272102672,
+          "runner_ms": 935.8465804165462,
+          "write_ms": 80.42830389022129,
+          "other_ms": 1.3070429034996778,
+          "runner_before_admission_ms": 628.4118238239898,
+          "runner_from_admission_ms": 307.43475659255637,
+          "own_write_ms": 26.207154149597045,
+          "peer_write_ms": 54.22114974062424,
+          "outside_steps_ms": 0.04576479841489345,
+          "inside_other_ms": 1.2612781050847843
+        },
+        "matched_delta_ms": {
+          "ttft_ms": 34.87172606983212,
+          "runner_ms": 32.886957054142755,
+          "write_ms": 1.9437891882262128,
+          "other_ms": 0.04097982746316115,
+          "runner_before_admission_ms": 19.739390967879388,
+          "runner_from_admission_ms": 13.14756608626336,
+          "own_write_ms": 0.3098956891335515,
+          "peer_write_ms": 1.6338934990926615,
+          "outside_steps_ms": -0.0009424067684449355,
+          "inside_other_ms": 0.041922234231606084
+        },
+        "supports": [
+          {
+            "rank": 30,
+            "key": [
+              1804,
+              1,
+              4
+            ],
+            "weight": 0.5500000000000007
+          },
+          {
+            "rank": 31,
+            "key": [
+              1803,
+              0,
+              4
+            ],
+            "weight": 0.4499999999999993
+          }
+        ]
+      },
+      "36": {
+        "ms": {
+          "ttft_ms": 1000.8876125561073,
+          "runner_ms": 919.506390960305,
+          "write_ms": 80.06500133487862,
+          "other_ms": 1.3162202609237283,
+          "runner_before_admission_ms": 620.6893440641579,
+          "runner_from_admission_ms": 298.8170468961471,
+          "own_write_ms": 26.593057696300093,
+          "peer_write_ms": 53.47194363857852,
+          "outside_steps_ms": 0.06424653693102303,
+          "inside_other_ms": 1.2519737239927053
+        },
+        "matched_delta_ms": {
+          "ttft_ms": 18.905307390377843,
+          "runner_ms": 18.38556324801174,
+          "write_ms": 0.5236114433500869,
+          "other_ms": -0.0038673009839841413,
+          "runner_before_admission_ms": 13.667440933932077,
+          "runner_from_admission_ms": 4.718122314079663,
+          "own_write_ms": 0.2136680399416931,
+          "peer_write_ms": 0.30994340340839377,
+          "outside_steps_ms": -0.020743832283187685,
+          "inside_other_ms": 0.016876531299203544
+        },
+        "supports": [
+          {
+            "rank": 30,
+            "key": [
+              1802,
+              1,
+              4
+            ],
+            "weight": 0.5500000000000007
+          },
+          {
+            "rank": 31,
+            "key": [
+              1801,
+              0,
+              4
+            ],
+            "weight": 0.4499999999999993
+          }
+        ]
+      }
+    },
+    "p95_delta_ms": {
+      "ttft_ms": 16.694314654159825,
+      "runner_ms": 16.340189456241205,
+      "write_ms": 0.36330255534267053,
+      "other_ms": -0.00917735742405057,
+      "runner_before_admission_ms": 7.722479759831913,
+      "runner_from_admission_ms": 8.617709696409293,
+      "own_write_ms": -0.38590354670304805,
+      "peer_write_ms": 0.7492061020457186,
+      "outside_steps_ms": -0.01848173851612958,
+      "inside_other_ms": 0.009304381092078984
+    },
+    "paired_mean_delta_ms": {
+      "ttft_ms": 9.27992206379713,
+      "runner_ms": 9.311078713835741,
+      "write_ms": -0.02926843262684997,
+      "other_ms": -0.0018882174117607065,
+      "runner_before_admission_ms": 4.754544433126284,
+      "runner_from_admission_ms": 4.556534280709457,
+      "own_write_ms": 0.032938750337052625,
+      "peer_write_ms": -0.062207182963902596,
+      "outside_steps_ms": -0.00562147397431545,
+      "inside_other_ms": 0.003733256562554743
+    }
+  },
+  "paired_seed_bootstrap_95": {
+    "delta_ms": {
+      "ttft_ms": [
+        -26.457283966010436,
+        45.42938627128024
+      ],
+      "runner_ms": [
+        -24.394636013312265,
+        44.18868371431017
+      ],
+      "write_ms": [
+        -2.764619098161347,
+        4.431724995083641
+      ],
+      "other_ms": [
+        -0.07501497748307884,
+        0.08309097029268742
+      ],
+      "runner_before_admission_ms": [
+        -104.18569576868322,
+        19.881643995177
+      ],
+      "runner_from_admission_ms": [
+        -9.021557023515925,
+        148.3743794829934
+      ],
+      "own_write_ms": [
+        -1.6826530045364052,
+        13.33868203946622
+      ],
+      "peer_write_ms": [
+        -12.04386999597773,
+        3.302366891875863
+      ],
+      "outside_steps_ms": [
+        -0.036937970435246825,
+        0.00859785795910284
+      ],
+      "inside_other_ms": [
+        -0.05493154749274254,
+        0.08404196705669165
+      ]
+    },
+    "ttft_pct": [
+      -2.5646635668379436,
+      4.601162688848848
+    ]
+  },
+  "by_seed": {
+    "1801": {
+      "n_pairs": 8,
+      "p95": {
+        "32": {
+          "ms": {
+            "ttft_ms": 1012.2158006561222,
+            "runner_ms": 931.3190163535182,
+            "write_ms": 79.58203224116005,
+            "other_ms": 1.314752061443869,
+            "runner_before_admission_ms": 676.4209850909538,
+            "runner_from_admission_ms": 254.8980312625644,
+            "own_write_ms": 22.329328698106103,
+            "peer_write_ms": 57.25270354305394,
+            "outside_steps_ms": 0.041837659955490374,
+            "inside_other_ms": 1.2729144014883786
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 8.185646795027388,
+            "runner_ms": 7.594824861735077,
+            "write_ms": 0.5743482048273965,
+            "other_ms": 0.01647372846491625,
+            "runner_before_admission_ms": 4.60094042937269,
+            "runner_from_admission_ms": 2.993884432362387,
+            "own_write_ms": 0.42952625808538736,
+            "peer_write_ms": 0.14482194674200888,
+            "outside_steps_ms": -0.003584410296753053,
+            "inside_other_ms": 0.0200581387616693
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1801,
+                1,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1801,
+                0,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        },
+        "36": {
+          "ms": {
+            "ttft_ms": 1004.0301538610947,
+            "runner_ms": 923.7241914917831,
+            "write_ms": 79.00768403633265,
+            "other_ms": 1.2982783329789527,
+            "runner_before_admission_ms": 671.820044661581,
+            "runner_from_admission_ms": 251.904146830202,
+            "own_write_ms": 21.899802440020714,
+            "peer_write_ms": 57.107881596311934,
+            "outside_steps_ms": 0.04542207025224343,
+            "inside_other_ms": 1.2528562627267092
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 8.185646795027388,
+            "runner_ms": 7.594824861735077,
+            "write_ms": 0.5743482048273965,
+            "other_ms": 0.01647372846491625,
+            "runner_before_admission_ms": 4.60094042937269,
+            "runner_from_admission_ms": 2.993884432362387,
+            "own_write_ms": 0.42952625808538736,
+            "peer_write_ms": 0.14482194674200888,
+            "outside_steps_ms": -0.003584410296753053,
+            "inside_other_ms": 0.0200581387616693
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1801,
+                1,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1801,
+                0,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        }
+      },
+      "p95_delta_ms": {
+        "ttft_ms": 8.185646795027424,
+        "runner_ms": 7.5948248617351055,
+        "write_ms": 0.5743482048274018,
+        "other_ms": 0.01647372846491635,
+        "runner_before_admission_ms": 4.600940429372713,
+        "runner_from_admission_ms": 2.9938844323623925,
+        "own_write_ms": 0.4295262580853887,
+        "peer_write_ms": 0.144821946742006,
+        "outside_steps_ms": -0.003584410296753056,
+        "inside_other_ms": 0.020058138761669397
+      },
+      "paired_mean_delta_ms": {
+        "ttft_ms": -5.056114627222996,
+        "runner_ms": -4.115391391678713,
+        "write_ms": -0.9497213613940403,
+        "other_ms": 0.008998125849757344,
+        "runner_before_admission_ms": -3.8434095149568748,
+        "runner_from_admission_ms": -0.2719818767218385,
+        "own_write_ms": -0.24054899768088944,
+        "peer_write_ms": -0.7091723637131508,
+        "outside_steps_ms": -0.0038787729863543063,
+        "inside_other_ms": 0.01287689883611165
+      }
+    },
+    "1802": {
+      "n_pairs": 8,
+      "p95": {
+        "32": {
+          "ms": {
+            "ttft_ms": 997.9120623887866,
+            "runner_ms": 916.5451114575262,
+            "write_ms": 80.09425555210328,
+            "other_ms": 1.272695379157085,
+            "runner_before_admission_ms": 657.8007004456595,
+            "runner_from_admission_ms": 258.7444110118667,
+            "own_write_ms": 21.80868724390165,
+            "peer_write_ms": 58.285568308201626,
+            "outside_steps_ms": 0.03958345187129453,
+            "inside_other_ms": 1.2331119272857904
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 17.81391143886141,
+            "runner_ms": 18.355493890703666,
+            "write_ms": -0.4785153898410468,
+            "other_ms": -0.06306706200120969,
+            "runner_before_admission_ms": 14.053019680432051,
+            "runner_from_admission_ms": 4.302474210271614,
+            "own_write_ms": -0.707815402711276,
+            "peer_write_ms": 0.22930001287022894,
+            "outside_steps_ms": -0.023227420751936713,
+            "inside_other_ms": -0.03983964124927297
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1802,
+                0,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1802,
+                1,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        },
+        "36": {
+          "ms": {
+            "ttft_ms": 980.0981509499252,
+            "runner_ms": 898.1896175668226,
+            "write_ms": 80.57277094194433,
+            "other_ms": 1.3357624411582947,
+            "runner_before_admission_ms": 643.7476807652274,
+            "runner_from_admission_ms": 254.44193680159506,
+            "own_write_ms": 22.516502646612928,
+            "peer_write_ms": 58.0562682953314,
+            "outside_steps_ms": 0.06281087262323123,
+            "inside_other_ms": 1.2729515685350634
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 17.81391143886141,
+            "runner_ms": 18.355493890703666,
+            "write_ms": -0.4785153898410468,
+            "other_ms": -0.06306706200120969,
+            "runner_before_admission_ms": 14.053019680432051,
+            "runner_from_admission_ms": 4.302474210271614,
+            "own_write_ms": -0.707815402711276,
+            "peer_write_ms": 0.22930001287022894,
+            "outside_steps_ms": -0.023227420751936713,
+            "inside_other_ms": -0.03983964124927297
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1802,
+                0,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1802,
+                1,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        }
+      },
+      "p95_delta_ms": {
+        "ttft_ms": 17.813911438861396,
+        "runner_ms": 18.355493890703656,
+        "write_ms": -0.4785153898410499,
+        "other_ms": -0.0630670620012097,
+        "runner_before_admission_ms": 14.053019680432044,
+        "runner_from_admission_ms": 4.30247421027164,
+        "own_write_ms": -0.707815402711276,
+        "peer_write_ms": 0.22930001287022606,
+        "outside_steps_ms": -0.023227420751936706,
+        "inside_other_ms": -0.03983964124927297
+      },
+      "paired_mean_delta_ms": {
+        "ttft_ms": 15.369473505415954,
+        "runner_ms": 15.220185243379092,
+        "write_ms": 0.1941270165843889,
+        "other_ms": -0.04483875454752706,
+        "runner_before_admission_ms": 8.774645866651554,
+        "runner_from_admission_ms": 6.445539376727538,
+        "own_write_ms": 0.09174125443678349,
+        "peer_write_ms": 0.10238576214760542,
+        "outside_steps_ms": -0.023687476641498506,
+        "inside_other_ms": -0.021151277906028554
+      }
+    },
+    "1803": {
+      "n_pairs": 8,
+      "p95": {
+        "32": {
+          "ms": {
+            "ttft_ms": 1016.9931382057257,
+            "runner_ms": 933.8314578533755,
+            "write_ms": 81.87166183779482,
+            "other_ms": 1.2900185145554133,
+            "runner_before_admission_ms": 663.1053882709239,
+            "runner_from_admission_ms": 270.72606958245154,
+            "own_write_ms": 22.352275338198517,
+            "peer_write_ms": 59.5193864995963,
+            "outside_steps_ms": 0.042525022581685334,
+            "inside_other_ms": 1.247493491973728
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 71.96041090792272,
+            "runner_ms": 67.51587337494124,
+            "write_ms": 4.370885307434943,
+            "other_ms": 0.07365222554653882,
+            "runner_before_admission_ms": 41.503560131241066,
+            "runner_from_admission_ms": 26.01231324370017,
+            "own_write_ms": 1.9555353326722966,
+            "peer_write_ms": 2.4153499747626457,
+            "outside_steps_ms": 0.005794480966869741,
+            "inside_other_ms": 0.06785774457966907
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1803,
+                1,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1803,
+                0,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        },
+        "36": {
+          "ms": {
+            "ttft_ms": 981.2818963415339,
+            "runner_ms": 903.7065419834107,
+            "write_ms": 76.36858704354381,
+            "other_ms": 1.2067673145793378,
+            "runner_before_admission_ms": 635.1056599320144,
+            "runner_from_admission_ms": 268.6008820513963,
+            "own_write_ms": 17.914672952611006,
+            "peer_write_ms": 58.4539140909328,
+            "outside_steps_ms": 0.03550002729753032,
+            "inside_other_ms": 1.1712672872818075
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 1.4489658147795124,
+            "runner_ms": 1.8065940239466727,
+            "write_ms": -0.40471989923389656,
+            "other_ms": 0.04709169006673617,
+            "runner_before_admission_ms": 2.799830585718156,
+            "runner_from_admission_ms": -0.9932365617714831,
+            "own_write_ms": 0.39471894560847415,
+            "peer_write_ms": -0.7994388448423707,
+            "outside_steps_ms": 0.0046189932618290195,
+            "inside_other_ms": 0.04247269680490716
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1803,
+                1,
+                3
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1803,
+                1,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        }
+      },
+      "p95_delta_ms": {
+        "ttft_ms": 35.711241864191834,
+        "runner_ms": 30.124915869964752,
+        "write_ms": 5.503074794251006,
+        "other_ms": 0.08325119997607544,
+        "runner_before_admission_ms": 27.99972833890945,
+        "runner_from_admission_ms": 2.1251875310552464,
+        "own_write_ms": 4.43760238558751,
+        "peer_write_ms": 1.0654724086635028,
+        "outside_steps_ms": 0.007024995284155011,
+        "inside_other_ms": 0.07622620469192043
+      },
+      "paired_mean_delta_ms": {
+        "ttft_ms": 35.590609008067986,
+        "runner_ms": 33.5563693952281,
+        "write_ms": 1.9869060088240076,
+        "other_ms": 0.04733360401587561,
+        "runner_before_admission_ms": 17.716753391141538,
+        "runner_from_admission_ms": 15.839616004086565,
+        "own_write_ms": 0.8270787511719391,
+        "peer_write_ms": 1.1598272576520685,
+        "outside_steps_ms": 0.007380131137324497,
+        "inside_other_ms": 0.03995347287855111
+      }
+    },
+    "1804": {
+      "n_pairs": 8,
+      "p95": {
+        "32": {
+          "ms": {
+            "ttft_ms": 997.5471268029651,
+            "runner_ms": 917.3889415586018,
+            "write_ms": 78.86430949583882,
+            "other_ms": 1.2938757485244423,
+            "runner_before_admission_ms": 666.935169705539,
+            "runner_from_admission_ms": 250.4537718530627,
+            "own_write_ms": 21.402840552036643,
+            "peer_write_ms": 57.46146894380218,
+            "outside_steps_ms": 0.043171732977498316,
+            "inside_other_ms": 1.250704015546944
+          },
+          "matched_delta_ms": {
+            "ttft_ms": -19.123073178343464,
+            "runner_ms": -16.948803915875022,
+            "write_ms": -2.1514128282433376,
+            "other_ms": -0.022856434225104794,
+            "runner_before_admission_ms": -10.9819944074843,
+            "runner_from_admission_ms": -5.96680950839072,
+            "own_write_ms": -1.1250466559431507,
+            "peer_write_ms": -1.026366172300187,
+            "outside_steps_ms": -0.005266889638733116,
+            "inside_other_ms": -0.01758954458637168
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1804,
+                0,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1804,
+                1,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        },
+        "36": {
+          "ms": {
+            "ttft_ms": 1016.6701999813085,
+            "runner_ms": 934.3377454744768,
+            "write_ms": 81.01572232408216,
+            "other_ms": 1.316732182749547,
+            "runner_before_admission_ms": 677.9171641130233,
+            "runner_from_admission_ms": 256.4205813614534,
+            "own_write_ms": 22.527887207979795,
+            "peer_write_ms": 58.48783511610237,
+            "outside_steps_ms": 0.048438622616231435,
+            "inside_other_ms": 1.2682935601333156
+          },
+          "matched_delta_ms": {
+            "ttft_ms": -19.123073178343464,
+            "runner_ms": -16.948803915875022,
+            "write_ms": -2.1514128282433376,
+            "other_ms": -0.022856434225104794,
+            "runner_before_admission_ms": -10.9819944074843,
+            "runner_from_admission_ms": -5.96680950839072,
+            "own_write_ms": -1.1250466559431507,
+            "peer_write_ms": -1.026366172300187,
+            "outside_steps_ms": -0.005266889638733116,
+            "inside_other_ms": -0.01758954458637168
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1804,
+                0,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1804,
+                1,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        }
+      },
+      "p95_delta_ms": {
+        "ttft_ms": -19.123073178343475,
+        "runner_ms": -16.948803915875033,
+        "write_ms": -2.1514128282433376,
+        "other_ms": -0.02285643422510475,
+        "runner_before_admission_ms": -10.981994407484308,
+        "runner_from_admission_ms": -5.966809508390696,
+        "own_write_ms": -1.1250466559431516,
+        "peer_write_ms": -1.026366172300186,
+        "outside_steps_ms": -0.005266889638733119,
+        "inside_other_ms": -0.01758954458637163
+      },
+      "paired_mean_delta_ms": {
+        "ttft_ms": -8.784279631072422,
+        "runner_ms": -7.416848391585518,
+        "write_ms": -1.348385394521756,
+        "other_ms": -0.019045844965148717,
+        "runner_before_admission_ms": -3.6298120103310794,
+        "runner_from_admission_ms": -3.7870363812544383,
+        "own_write_ms": -0.5465160065796226,
+        "peer_write_ms": -0.8018693879421335,
+        "outside_steps_ms": -0.002299777406733483,
+        "inside_other_ms": -0.016746067558415234
+      }
+    }
+  },
+  "by_fifo": {
+    "1": {
+      "n_pairs": 8,
+      "p95": {
+        "32": {
+          "ms": {
+            "ttft_ms": 484.18105750897666,
+            "runner_ms": 456.35479045304237,
+            "write_ms": 27.33423834433779,
+            "other_ms": 0.49202871159650385,
+            "runner_before_admission_ms": 0.0,
+            "runner_from_admission_ms": 456.35479045304237,
+            "own_write_ms": 27.33423834433779,
+            "peer_write_ms": 0.0,
+            "outside_steps_ms": 0.04645250883186235,
+            "inside_other_ms": 0.4455762027646415
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 34.3611102653085,
+            "runner_ms": 32.80793564917983,
+            "write_ms": 1.5456956592970508,
+            "other_ms": 0.007478956831619074,
+            "runner_before_admission_ms": 0.0,
+            "runner_from_admission_ms": 32.80793564917983,
+            "own_write_ms": 1.5456956592970508,
+            "peer_write_ms": 0.0,
+            "outside_steps_ms": -0.009219888306688552,
+            "inside_other_ms": 0.016698845138307626
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1802,
+                1,
+                1
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1803,
+                0,
+                1
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        },
+        "36": {
+          "ms": {
+            "ttft_ms": 460.4924457380548,
+            "runner_ms": 433.713299203373,
+            "write_ms": 26.265243285160977,
+            "other_ms": 0.5139032495208085,
+            "runner_before_admission_ms": 0.0,
+            "runner_from_admission_ms": 433.713299203373,
+            "own_write_ms": 26.265243285160977,
+            "peer_write_ms": 0.0,
+            "outside_steps_ms": 0.07123759132809934,
+            "inside_other_ms": 0.4426656581927091
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 21.334688768547515,
+            "runner_ms": 20.837563343229725,
+            "write_ms": 0.5293073641951214,
+            "other_ms": -0.03218193887732916,
+            "runner_before_admission_ms": 0.0,
+            "runner_from_admission_ms": 20.837563343229725,
+            "own_write_ms": 0.5293073641951214,
+            "peer_write_ms": 0.0,
+            "outside_steps_ms": -0.029636082763317938,
+            "inside_other_ms": -0.002545856114011223
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1803,
+                0,
+                1
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1802,
+                1,
+                1
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        }
+      },
+      "p95_delta_ms": {
+        "ttft_ms": 23.688611770921852,
+        "runner_ms": 22.641491249669343,
+        "write_ms": 1.0689950591768138,
+        "other_ms": -0.021874537924304605,
+        "runner_before_admission_ms": 0.0,
+        "runner_from_admission_ms": 22.641491249669343,
+        "own_write_ms": 1.0689950591768138,
+        "peer_write_ms": 0.0,
+        "outside_steps_ms": -0.02478508249623699,
+        "inside_other_ms": 0.0029105445719324052
+      },
+      "paired_mean_delta_ms": {
+        "ttft_ms": 6.362639876897447,
+        "runner_ms": 6.310092994681327,
+        "write_ms": 0.0469221304228995,
+        "other_ms": 0.005624751793220639,
+        "runner_before_admission_ms": 0.0,
+        "runner_from_admission_ms": 6.310092994681327,
+        "own_write_ms": 0.0469221304228995,
+        "peer_write_ms": 0.0,
+        "outside_steps_ms": -0.005843499820912257,
+        "inside_other_ms": 0.011468251614132896
+      }
+    },
+    "2": {
+      "n_pairs": 8,
+      "p95": {
+        "32": {
+          "ms": {
+            "ttft_ms": 784.8000637502992,
+            "runner_ms": 732.7800313243642,
+            "write_ms": 51.174860245373566,
+            "other_ms": 0.8451721805613488,
+            "runner_before_admission_ms": 297.7988339451258,
+            "runner_from_admission_ms": 434.98119737923844,
+            "own_write_ms": 25.37880525487708,
+            "peer_write_ms": 25.796054990496486,
+            "outside_steps_ms": 0.0376941985450685,
+            "inside_other_ms": 0.8074779820162803
+          },
+          "matched_delta_ms": {
+            "ttft_ms": -13.168623149977076,
+            "runner_ms": -10.159758143709052,
+            "write_ms": -2.968697113101372,
+            "other_ms": -0.0401678931666538,
+            "runner_before_admission_ms": -6.740405157324866,
+            "runner_from_admission_ms": -3.4193529863841867,
+            "own_write_ms": -2.047797161503695,
+            "peer_write_ms": -0.9208999515976768,
+            "outside_steps_ms": -0.006846871110610667,
+            "inside_other_ms": -0.033321022056043134
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1801,
+                1,
+                2
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1804,
+                0,
+                2
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        },
+        "36": {
+          "ms": {
+            "ttft_ms": 799.1424471038044,
+            "runner_ms": 744.4258355739294,
+            "write_ms": 53.83137764438288,
+            "other_ms": 0.8852338854921982,
+            "runner_before_admission_ms": 306.6698169175652,
+            "runner_from_admission_ms": 437.7560186563642,
+            "own_write_ms": 27.208131611405406,
+            "peer_write_ms": 26.623246032977477,
+            "outside_steps_ms": 0.047781984903849654,
+            "inside_other_ms": 0.8374519005883485
+          },
+          "matched_delta_ms": {
+            "ttft_ms": -20.141957848682058,
+            "runner_ms": -16.444873946602446,
+            "write_ms": -3.6641228914959347,
+            "other_ms": -0.03296101058367641,
+            "runner_before_admission_ms": -11.068345871171907,
+            "runner_from_admission_ms": -5.376528075430539,
+            "own_write_ms": -2.08620585326571,
+            "peer_write_ms": -1.5779170382302241,
+            "outside_steps_ms": -0.008554177475161847,
+            "inside_other_ms": -0.02440683310851456
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1804,
+                0,
+                2
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1801,
+                1,
+                2
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        }
+      },
+      "p95_delta_ms": {
+        "ttft_ms": -14.342383353505284,
+        "runner_ms": -11.645804249565117,
+        "write_ms": -2.656517399009317,
+        "other_ms": -0.04006170493084937,
+        "runner_before_admission_ms": -8.870982972439378,
+        "runner_from_admission_ms": -2.7748212771257386,
+        "own_write_ms": -1.8293263565283269,
+        "peer_write_ms": -0.8271910424809903,
+        "outside_steps_ms": -0.010087786358781152,
+        "inside_other_ms": -0.029973918572068214
+      },
+      "paired_mean_delta_ms": {
+        "ttft_ms": 5.515246128197759,
+        "runner_ms": 5.928220987698296,
+        "write_ms": -0.4118779907003045,
+        "other_ms": -0.001096868800232187,
+        "runner_before_admission_ms": 3.143950496450998,
+        "runner_from_admission_ms": 2.784270491247298,
+        "own_write_ms": -0.458800121123204,
+        "peer_write_ms": 0.0469221304228995,
+        "outside_steps_ms": -0.006437632691813633,
+        "inside_other_ms": 0.005340763891581446
+      }
+    },
+    "3": {
+      "n_pairs": 8,
+      "p95": {
+        "32": {
+          "ms": {
+            "ttft_ms": 975.0383636943297,
+            "runner_ms": 906.3022210553754,
+            "write_ms": 67.61483167501865,
+            "other_ms": 1.1213109639356844,
+            "runner_before_admission_ms": 469.32949719630415,
+            "runner_from_admission_ms": 436.97272385907127,
+            "own_write_ms": 27.17831237387145,
+            "peer_write_ms": 40.4365193011472,
+            "outside_steps_ms": 0.04115900956094265,
+            "inside_other_ms": 1.0801519543747418
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 22.759601251163968,
+            "runner_ms": 20.483738872280792,
+            "write_ms": 2.2769688584958176,
+            "other_ms": -0.0011064796126447392,
+            "runner_before_admission_ms": 12.301112595014267,
+            "runner_from_admission_ms": 8.182626277266527,
+            "own_write_ms": 1.7198648536577807,
+            "peer_write_ms": 0.5571040048380369,
+            "outside_steps_ms": 0.002722306817304345,
+            "inside_other_ms": -0.0038287864299490857
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1803,
+                1,
+                3
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1802,
+                0,
+                3
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        },
+        "36": {
+          "ms": {
+            "ttft_ms": 961.5767185474397,
+            "runner_ms": 894.0745097832405,
+            "write_ms": 66.38229120580945,
+            "other_ms": 1.1199175583897159,
+            "runner_before_admission_ms": 461.79274339665426,
+            "runner_from_admission_ms": 432.28176638658624,
+            "own_write_ms": 25.77021051401971,
+            "peer_write_ms": 40.61208069178974,
+            "outside_steps_ms": 0.03828131448244676,
+            "inside_other_ms": 1.081636243907269
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 12.766797754738963,
+            "runner_ms": 11.863518173049684,
+            "write_ms": 0.892580159415959,
+            "other_ms": 0.010699422273319194,
+            "runner_before_admission_ms": 8.410333411302425,
+            "runner_from_admission_ms": 3.45318476174726,
+            "own_write_ms": 1.027486159000547,
+            "peer_write_ms": -0.13490599958458788,
+            "outside_steps_ms": 0.0038677026168443245,
+            "inside_other_ms": 0.006831719656474869
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1802,
+                0,
+                3
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1803,
+                1,
+                3
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        }
+      },
+      "p95_delta_ms": {
+        "ttft_ms": 13.461645146890078,
+        "runner_ms": 12.227711272134911,
+        "write_ms": 1.232540469209198,
+        "other_ms": 0.0013934055459685624,
+        "runner_before_admission_ms": 7.536753799649887,
+        "runner_from_admission_ms": 4.6909574724850245,
+        "own_write_ms": 1.4081018598517403,
+        "peer_write_ms": -0.1755613906425424,
+        "outside_steps_ms": 0.00287769507849589,
+        "inside_other_ms": -0.0014842895325273275
+      },
+      "paired_mean_delta_ms": {
+        "ttft_ms": 10.299093872163212,
+        "runner_ms": 10.186114370299038,
+        "write_ms": 0.11612712842179462,
+        "other_ms": -0.0031476265576202422,
+        "runner_before_admission_ms": 6.427213367715012,
+        "runner_from_admission_ms": 3.7589010025840253,
+        "own_write_ms": 0.5280051191220991,
+        "peer_write_ms": -0.4118779907003045,
+        "outside_steps_ms": -0.0049321388360112906,
+        "inside_other_ms": 0.0017845122783910483
+      }
+    },
+    "4": {
+      "n_pairs": 8,
+      "p95": {
+        "32": {
+          "ms": {
+            "ttft_ms": 1037.9929146060022,
+            "runner_ms": 954.5666540550883,
+            "write_ms": 82.09690998628503,
+            "other_ms": 1.3293505646288395,
+            "runner_before_admission_ms": 643.5084694559919,
+            "runner_from_admission_ms": 311.0581845990964,
+            "own_write_ms": 27.111168693227228,
+            "peer_write_ms": 54.9857412930578,
+            "outside_steps_ms": 0.045462265552487224,
+            "inside_other_ms": 1.2838882990763523
+          },
+          "matched_delta_ms": {
+            "ttft_ms": 58.38510169560327,
+            "runner_ms": 53.20127667655474,
+            "write_ms": 5.101327301235871,
+            "other_ms": 0.08249771781265736,
+            "runner_before_admission_ms": 34.85218980640641,
+            "runner_from_admission_ms": 18.34908687014833,
+            "own_write_ms": 1.8321935975109236,
+            "peer_write_ms": 3.2691337037249477,
+            "outside_steps_ms": 0.0016908204997889737,
+            "inside_other_ms": 0.08080689731286839
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1803,
+                0,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1801,
+                0,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        },
+        "36": {
+          "ms": {
+            "ttft_ms": 1024.0867885411717,
+            "runner_ms": 942.9969596705632,
+            "write_ms": 79.78329041361576,
+            "other_ms": 1.3065384569927119,
+            "runner_before_admission_ms": 639.6219169095275,
+            "runner_from_admission_ms": 303.37504276103573,
+            "own_write_ms": 26.847098254074808,
+            "peer_write_ms": 52.93619215954095,
+            "outside_steps_ms": 0.051292173156980425,
+            "inside_other_ms": 1.2552462838357314
+          },
+          "matched_delta_ms": {
+            "ttft_ms": -6.457721530750829,
+            "runner_ms": -6.60194849915567,
+            "write_ms": 0.11000227677869012,
+            "other_ms": 0.0342246916261502,
+            "runner_before_admission_ms": -3.0339259450556515,
+            "runner_from_admission_ms": -3.5680225541000175,
+            "own_write_ms": -0.6245295007829539,
+            "peer_write_ms": 0.734531777561644,
+            "outside_steps_ms": -0.0049550348194316,
+            "inside_other_ms": 0.0391797264455818
+          },
+          "supports": [
+            {
+              "rank": 7,
+              "key": [
+                1801,
+                0,
+                4
+              ],
+              "weight": 0.35000000000000053
+            },
+            {
+              "rank": 8,
+              "key": [
+                1804,
+                1,
+                4
+              ],
+              "weight": 0.6499999999999995
+            }
+          ]
+        }
+      },
+      "p95_delta_ms": {
+        "ttft_ms": 13.90612606483046,
+        "runner_ms": 11.569694384525064,
+        "write_ms": 2.3136195726692677,
+        "other_ms": 0.02281210763612762,
+        "runner_before_admission_ms": 3.8865525464643724,
+        "runner_from_admission_ms": 7.683141838060692,
+        "own_write_ms": 0.26407043915241957,
+        "peer_write_ms": 2.049549133516848,
+        "outside_steps_ms": -0.005829907604493201,
+        "inside_other_ms": 0.02864201524062082
+      },
+      "paired_mean_delta_ms": {
+        "ttft_ms": 14.942708377930103,
+        "runner_ms": 14.819886502664303,
+        "write_ms": 0.1317550013482105,
+        "other_ms": -0.008933126082411036,
+        "runner_before_admission_ms": 9.447013868339127,
+        "runner_from_admission_ms": 5.3728726343251765,
+        "own_write_ms": 0.015627872926415876,
+        "peer_write_ms": 0.11612712842179462,
+        "outside_steps_ms": -0.005272624548524618,
+        "inside_other_ms": -0.0036605015338864177
+      }
+    }
+  },
+  "cycles_per_arm": 8,
+  "prefill_steps_per_arm": 42,
+  "write_blocks_per_arm": 192,
+  "archive": "results/20261119_first_use_budget36",
+  "input_sha256": {
+    "requests.jsonl": "3585ab969aa625205ca9eae6dbda61901165af10fc89fff5f63ca5177263132f",
+    "steps.jsonl": "961c57152c1d93c42c36701d4e3d5dca10949f90ea2b0f90cd59d1fdeff521b9",
+    "waves.jsonl": "bd020a9e5f3a67f37cb9a31dc695967b30f9ae23ea6527811a89a42a209ef474",
+    "trace.json": "f773a7d3be2e5a1a3571fc3f061be02d8c9ad4f1653842b63d933443d7fb4c1b",
+    "engine.json": "33798f9a2e96f1313b392a85fd472fa952da180a86e957ba938e919641b184ad",
+    "environment.json": "fa2410ae3253e591696e571c22d64cdccbfbf9c66ad4c42314ddcde7c95cdbdb",
+    "design.json": "8420a4d313d25d16208c06ad0bb28c066053d0f48bff5680ff372f026045180a",
+    "summary.json": "7a49c2d7e68def15278721080293b602002257d2ca11631a1cabef6c965349a5"
+  },
+  "recording_head": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+  "analysis_sha256": "909704d2ced33f85beb184934fec00a3c4de748511b2e51579b2d8f17a322a83"
+}

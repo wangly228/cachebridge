@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "./benchmarks/fixed_path_probe.py", line 223, in main
+    raise RuntimeError("predeclared numerical screening failed; thresholds left unchanged")
+RuntimeError: predeclared numerical screening failed; thresholds left unchanged

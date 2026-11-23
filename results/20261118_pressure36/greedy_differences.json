@@ -1,0 +1,62 @@
+[
+  {
+    "seed": 101,
+    "cycle": 1,
+    "request": 0,
+    "first_difference": 40
+  },
+  {
+    "seed": 101,
+    "cycle": 1,
+    "request": 2,
+    "first_difference": 7
+  },
+  {
+    "seed": 101,
+    "cycle": 1,
+    "request": 3,
+    "first_difference": 31
+  },
+  {
+    "seed": 102,
+    "cycle": 0,
+    "request": 0,
+    "first_difference": 64
+  },
+  {
+    "seed": 102,
+    "cycle": 0,
+    "request": 1,
+    "first_difference": 51
+  },
+  {
+    "seed": 102,
+    "cycle": 1,
+    "request": 0,
+    "first_difference": 92
+  },
+  {
+    "seed": 102,
+    "cycle": 1,
+    "request": 1,
+    "first_difference": 12
+  },
+  {
+    "seed": 102,
+    "cycle": 1,
+    "request": 3,
+    "first_difference": 57
+  },
+  {
+    "seed": 103,
+    "cycle": 0,
+    "request": 1,
+    "first_difference": 37
+  },
+  {
+    "seed": 103,
+    "cycle": 1,
+    "request": 0,
+    "first_difference": 95
+  }
+]

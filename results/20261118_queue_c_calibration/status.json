@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "target_pairs": 52,
+  "homogeneous_buckets_added": 5,
+  "queue_buckets_added": 8,
+  "frozen_base_buckets": 11,
+  "table_sha256": "1d859e7823dd9f8de8a3323e3283858f17f74e380772e3bbfd8a7516069dc9c9",
+  "length_only_sha256": "4159825779be771c663a8fa5f7a0a1186aaf141b5bd261394dbc26a072c362f8"
+}

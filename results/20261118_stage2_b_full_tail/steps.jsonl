@@ -1,0 +1,6 @@
+{"phase": "cold", "is_prefill": true, "scheduled_tokens": 512, "seq_ids": [1], "used_blocks": 2, "run_ms": 772.3683660005918, "step_ms": 799.554947996512, "start_s": 4.044199886266142e-05}
+{"phase": "recomputed_tail", "is_prefill": true, "scheduled_tokens": 256, "seq_ids": [3], "used_blocks": 2, "run_ms": 55.863474000943825, "step_ms": 60.66153799474705, "start_s": 2.9808012186549604e-05}
+{"phase": "hot", "is_prefill": true, "scheduled_tokens": 1, "seq_ids": [5], "used_blocks": 3, "run_ms": 419.4784670107765, "step_ms": 419.66804799449164, "start_s": 3.2491007004864514e-05}
+{"phase": "evict", "is_prefill": true, "scheduled_tokens": 512, "seq_ids": [6], "used_blocks": 3, "run_ms": 75.09572300477885, "step_ms": 94.67787700123154, "start_s": 1.559899828862399e-05}
+{"phase": "evict", "is_prefill": true, "scheduled_tokens": 1, "seq_ids": [6], "used_blocks": 3, "run_ms": 47.38494100456592, "step_ms": 47.42816201178357, "start_s": 0.09470480198797304}
+{"phase": "restore", "is_prefill": true, "scheduled_tokens": 1, "seq_ids": [7], "used_blocks": 3, "run_ms": 61.6855529951863, "step_ms": 69.67229800648056, "start_s": 1.7785001546144485e-05}

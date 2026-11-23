@@ -1,0 +1,58 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64,
+    "cpu_restore_cost_table": "results/20261118_stage2_c_pressure36/cost_table.json"
+  },
+  "kv_budget": {
+    "safe_blocks": 287,
+    "requested_cap": 36,
+    "actual_blocks": 36,
+    "block_bytes": 37748736
+  },
+  "dtype": "torch.bfloat16",
+  "weight_dtype": "torch.bfloat16",
+  "graph_batch_sizes": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "seeds": [
+    101,
+    102,
+    103
+  ],
+  "cycles_per_seed": 2,
+  "concurrency": 4,
+  "output_tokens": 128,
+  "prefix_tokens": 2048,
+  "suffix_tokens": 128,
+  "temperature": 0,
+  "ignore_eos": true,
+  "profiler": false,
+  "namespace": "2bb9b0909191daa81b97b615174bd6fc282ec03ee20cc1cbd753f46d2be9cdd0",
+  "cpu_pageable_bytes": 2415919104,
+  "pinned_staging_bytes": 37748736,
+  "gpu_staging_bytes": 37748736,
+  "baseline": "results/20261118_pressure36",
+  "baseline_sha256": {
+    "trace.json": "aca10c236683ad1f28fc76f6d9898521e20d24b1ba977fe816fc34859f1a98cb",
+    "summary.json": "c1047c1adc14d2f756e12fed45762dc9beec8e724cc7d593494b300b0fc9e8e8",
+    "cycles.json": "fb209180636dc38011cbd596a97abd2fa52c62dd63d8fd895aea7b6f75026cbb",
+    "engine.json": "c3a80ca32ce03d7f4785b238b69f59337168a918acd31f1865535bdb353a5323",
+    "requests.jsonl": "7f17a8121f3991111c1802a81cd9f6d61d5e2f1ec5f53dc423306c081839b175",
+    "environment.json": "a23b99a5e10396c0c63723b9072a4175965c3bce62323ffda477e6fd4dd5d335"
+  },
+  "strategy": "C",
+  "table_sha256": "f66c529cec9aad0f80666f842600c4137ab2837b4407985e8a0a2bbc826ff3c4",
+  "cpu_write_policy": "synchronous write-through on computed full prompt blocks",
+  "cold_reset": "empty GPU and CPU indices; fixed-size buffers reused"
+}

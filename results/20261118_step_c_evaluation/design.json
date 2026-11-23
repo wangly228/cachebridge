@@ -1,0 +1,75 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64,
+    "cpu_restore_cost_table": "results/20261118_step_c_evaluation/cost_table.json"
+  },
+  "seeds": [
+    1501,
+    1502,
+    1503,
+    1504,
+    1505,
+    1506
+  ],
+  "cold_lengths": [
+    608,
+    704,
+    1600,
+    1728
+  ],
+  "warmup_seed": 1500,
+  "pool": "step-eval-v3",
+  "arms": [
+    "B",
+    "C2",
+    "C3"
+  ],
+  "orders": [
+    [
+      "B",
+      "C2",
+      "C3"
+    ],
+    [
+      "B",
+      "C3",
+      "C2"
+    ],
+    [
+      "C2",
+      "B",
+      "C3"
+    ],
+    [
+      "C2",
+      "C3",
+      "B"
+    ],
+    [
+      "C3",
+      "B",
+      "C2"
+    ],
+    [
+      "C3",
+      "C2",
+      "B"
+    ]
+  ],
+  "output_tokens": 128,
+  "alternate_output_tokens": 2,
+  "trace_sha256": "0a9c24ac5b1ba564a2b89a45cb2f9007c64fe413f0c8a3a3dbbe0325a2170dee",
+  "v2_sha256": "1d859e7823dd9f8de8a3323e3283858f17f74e380772e3bbfd8a7516069dc9c9",
+  "table_sha256": "2453c8f94be5c9251d92849c7fe9375f9b58f05fe1def83af6ff441d7470d373",
+  "disjoint_roots": 28,
+  "profiler": false,
+  "order": "six permutations per cold length; rotate length order per seed"
+}

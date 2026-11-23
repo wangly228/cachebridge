@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "waves": 5,
+  "restored_logit_rows_verified": 1,
+  "recomputed_vs_original_tail_different_bytes": 15128983,
+  "restored_vs_recomputed_tail_different_bytes": 0
+}

@@ -1,0 +1,53 @@
+{
+  "seeds": [
+    1801,
+    1802,
+    1803,
+    1804
+  ],
+  "iterations": 2,
+  "arms": [
+    "A",
+    "24",
+    "32",
+    "36"
+  ],
+  "orders": [
+    [
+      "A",
+      "24",
+      "36",
+      "32"
+    ],
+    [
+      "24",
+      "32",
+      "A",
+      "36"
+    ],
+    [
+      "32",
+      "36",
+      "24",
+      "A"
+    ],
+    [
+      "36",
+      "A",
+      "32",
+      "24"
+    ]
+  ],
+  "trace_sha256": "f773a7d3be2e5a1a3571fc3f061be02d8c9ad4f1653842b63d933443d7fb4c1b",
+  "reference_run": "results/20261119_mixed_fill_pressure36",
+  "admission": "fresh GPU/CPU indices each arm and cycle; set first_use_limit once before enqueue",
+  "no_reuse": "all disjoint pressure waves, also report first separately",
+  "goals_pct": {
+    "no_reuse_vs_A_max": 5,
+    "evicted_vs_A_max": -20
+  },
+  "selection": "smallest tested budget passing both pooled gates and retaining every early replay in both loads",
+  "uncertainty": "paired whole-seed bootstrap, 4000 draws with RNG 1800",
+  "timing": "four queued requests, first real greedy token; reference and file IO outside timing",
+  "partial_reference": "native three target prefixes and disjoint fourth, then two real replay waves"
+}

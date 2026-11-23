@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "strategies": [
+    "A",
+    "B",
+    "C"
+  ],
+  "formal_requests_per_strategy": 90,
+  "mixed_oracle_exact_requests": 12
+}

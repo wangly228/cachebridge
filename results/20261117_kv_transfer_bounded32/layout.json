@@ -1,0 +1,27 @@
+{
+  "shape": [
+    2,
+    36,
+    64,
+    256,
+    8,
+    128
+  ],
+  "stride": [
+    603979776,
+    16777216,
+    262144,
+    1024,
+    128,
+    1
+  ],
+  "dtype": "torch.bfloat16",
+  "block_bytes": 37748736,
+  "source": "scratch tensor with Qwen3-4B runner layout; not model-generated KV",
+  "max_pinned_blocks": 8,
+  "copies_synchronous": true,
+  "allocation_excluded": true,
+  "timing": "wall includes CPU loop/launch and end-event wait; CUDA event includes stream idle gaps",
+  "profiler_enabled": false,
+  "cpu_cache_enabled": false
+}

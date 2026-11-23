@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "paired_requests": 44,
+  "measured_wave_pairs": 20,
+  "buckets": 11,
+  "restore_buckets": 11,
+  "table_sha256": "f66c529cec9aad0f80666f842600c4137ab2837b4407985e8a0a2bbc826ff3c4"
+}

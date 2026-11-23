@@ -1,0 +1,29 @@
+{
+  "workloads": {
+    "mixed": {
+      "requests": 160,
+      "d2h_blocks": 256,
+      "early_replays": 16,
+      "fully_restored_early_replays": 16,
+      "early_h2d_blocks": 96
+    },
+    "long": {
+      "requests": 128,
+      "d2h_blocks": 256,
+      "early_replays": 16,
+      "fully_restored_early_replays": 16,
+      "early_h2d_blocks": 128
+    }
+  },
+  "exact_formal_requests": 288,
+  "exact_automatic_smoke_requests": 16,
+  "exact_explicit_smoke_requests": 20,
+  "exact_waves": 81,
+  "raw_sha256": {
+    "requests.jsonl": "c78d1b3c50f4fb5f4f3f4bae8ac48aff0fa1dc6a18315335d902876ca86a44b4",
+    "waves.jsonl": "75552237f948f0285249e9b65202d6698ea59d60cda334ded19069cafcfe5387",
+    "steps.jsonl": "8081479afeef17d8ead1ffd1e03779e72cabfa6636b194decb784d9d4e462b63",
+    "engine.json": "3ffd4b698a3c0997a29f8bd2f3ea8c6f9b0331b590aa97130868cd8bff162c7b",
+    "design.json": "14034b1f3d46dd879d0a2fdefde8427707626a308e94035ba6c394341ecc8bd7"
+  }
+}

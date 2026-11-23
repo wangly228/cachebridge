@@ -1,0 +1,13 @@
+test_admission_at_last_output_kv_boundary (test_phase1.BudgetAndSamplingTests.test_admission_at_last_output_kv_boundary) ... ok
+test_cap_never_exceeds_safe_budget (test_phase1.BudgetAndSamplingTests.test_cap_never_exceeds_safe_budget) ... ok
+test_mixed_greedy_and_sampling_finite (test_phase1.BudgetAndSamplingTests.test_mixed_greedy_and_sampling_finite) ... ok
+test_chunk_does_not_emit_and_boundary_hit_retains_query (test_phase1.MetricsTests.test_chunk_does_not_emit_and_boundary_hit_retains_query) ... ok
+test_metrics_disabled_has_same_output_and_cache_state (test_phase1.MetricsTests.test_metrics_disabled_has_same_output_and_cache_state) ... ok
+test_preemption_counts_recomputed_generated_token (test_phase1.MetricsTests.test_preemption_counts_recomputed_generated_token) ... ok
+test_shared_refs_survive_one_finish_and_eviction (test_phase1.MetricsTests.test_shared_refs_survive_one_finish_and_eviction) ... ok
+test_timing_definitions (test_phase1.MetricsTests.test_timing_definitions) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 12.791s
+
+OK

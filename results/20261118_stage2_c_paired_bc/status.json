@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "pairs": 6,
+  "requests_per_arm": 24,
+  "C_minus_B_paired_wave_p95_ms": {
+    "median": 0.4958109806466382,
+    "min": -0.6354656848998275,
+    "max": 8.334196398209315
+  },
+  "C_faster_pairs": 2
+}

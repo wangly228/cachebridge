@@ -1,0 +1,17 @@
+Artifacts: ./results/20261119_fill_copy_pipeline
+./.venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "./benchmarks/fill_copy_probe.py", line 113, in <module>
+    main()
+  File "./.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "./benchmarks/fill_copy_probe.py", line 107, in main
+    overlap_trace(transfer, out)
+  File "./benchmarks/fill_copy_probe.py", line 38, in overlap_trace
+    group, = (e for e in events if e["name"] == name)
+    ^^^^^^
+ValueError: too many values to unpack (expected 1)

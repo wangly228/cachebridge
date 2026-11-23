@@ -1,0 +1,12 @@
+{
+  "analysis_completed": true,
+  "input_run": "results/20261118_fixed_path_probe",
+  "original_status": {
+    "success": false,
+    "exact_invariants_passed": true,
+    "numerical_screen_passed": false,
+    "baseline_frozen": false,
+    "note": "scope limited to this fixed-path protocol; historic strict greedy failure remains failed"
+  },
+  "interpretation": "Post-hoc diagnostics only; no new acceptance thresholds or verdict changes."
+}

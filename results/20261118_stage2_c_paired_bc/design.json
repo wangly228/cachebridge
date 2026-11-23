@@ -1,0 +1,30 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64,
+    "cpu_restore_cost_table": "results/20261118_stage2_c_paired_bc/cost_table.json"
+  },
+  "table_sha256": "f66c529cec9aad0f80666f842600c4137ab2837b4407985e8a0a2bbc826ff3c4",
+  "seeds": [
+    911,
+    912,
+    913,
+    914,
+    915,
+    916
+  ],
+  "prefix": 2048,
+  "suffix": 128,
+  "concurrency": 4,
+  "warmup_seed": 910,
+  "output_tokens": 2,
+  "endpoint": "enqueue to first token before decode",
+  "profiler": false
+}

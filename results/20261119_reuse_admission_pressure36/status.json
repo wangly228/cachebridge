@@ -1,0 +1,16 @@
+{
+  "measurement_complete": true,
+  "same_shape_equal_requests": 288,
+  "requests_per_arm": 96,
+  "cycles_per_arm": 6,
+  "gate": {
+    "reuse_vs_A_pct": {
+      "no_reuse_within_5pct": true,
+      "evicted_at_least_20pct_faster": true
+    },
+    "reuse_vs_frozen_A_pct": {
+      "no_reuse_within_5pct": true,
+      "evicted_at_least_20pct_faster": true
+    }
+  }
+}

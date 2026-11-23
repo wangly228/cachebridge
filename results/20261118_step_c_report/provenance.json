@@ -1,0 +1,28 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "benchmarks.step_report",
+    "--calibration",
+    "results/20261118_step_c_calibration",
+    "--evaluation",
+    "results/20261118_step_c_evaluation",
+    "--output",
+    "results/20261118_step_c_report"
+  ],
+  "git_head": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+  "report_and_test_sources": {
+    "benchmarks/step_report.py": "0c3e645608b0af9c43c9bd89562d4397852e2324f09fb0dddf482f189a780314",
+    "benchmarks/step_evaluation.py": "da418cd352488feb181fdde18239f1af5305af063b833ce80ae508af06a5610d",
+    "tests/test_restore_policy.py": "3c4382c568edf4eef48aa037ca1945e0c4541e689d820e01d9169c3c8ac290f0",
+    "tests/test_cpu_prefix_cache.py": "fa9810dc438b11f36214a2eac760e39bb5375880393892cda1254c08505dc99d"
+  },
+  "formal_sources": "results/20261118_step_c_evaluation/source",
+  "calibration_sources": "results/20261118_step_c_calibration/source",
+  "identical_model_manifest_packages_gpu": true,
+  "archived_raw_files_verified": 366,
+  "engine_files_matching_current": 23,
+  "greedy_reference_requests": 24,
+  "test_log_sha256": "1c9053ef930e01cbd0a1db83ec7b6baf01101e5e124d16f25bc9e3a8601b2241",
+  "resume_on_completed_evaluation_scheduled_new_cycles": 0
+}

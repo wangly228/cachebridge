@@ -1,0 +1,21 @@
+Artifacts: ./results/20261118_queue_c_calibration
+seed=1100 layout=single1024 complete
+seed=1100 layout=uniform1024 complete
+seed=1100 layout=mixed complete
+seed=1100 layout=lighter complete
+seed=1101 layout=single1024 complete
+seed=1101 layout=uniform1024 complete
+seed=1101 layout=mixed complete
+seed=1101 layout=lighter complete
+seed=1102 layout=single1024 complete
+seed=1102 layout=uniform1024 complete
+seed=1102 layout=mixed complete
+seed=1102 layout=lighter complete
+seed=1103 layout=single1024 complete
+seed=1103 layout=uniform1024 complete
+seed=1103 layout=mixed complete
+seed=1103 layout=lighter complete
+seed=1104 layout=single1024 complete
+seed=1104 layout=uniform1024 complete
+seed=1104 layout=mixed complete
+seed=1104 layout=lighter complete

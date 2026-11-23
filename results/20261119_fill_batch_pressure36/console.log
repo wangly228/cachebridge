@@ -1,0 +1,19 @@
+Artifacts: ./results/20261119_fill_batch_pressure36
+seed=101 cycle=0 arm=A checked, 11.13s
+seed=101 cycle=0 arm=reuse checked, 10.37s
+seed=101 cycle=0 arm=batch checked, 10.39s
+seed=101 cycle=1 arm=A checked, 11.28s
+seed=101 cycle=1 arm=batch checked, 10.58s
+seed=101 cycle=1 arm=reuse checked, 10.65s
+seed=102 cycle=0 arm=reuse checked, 10.57s
+seed=102 cycle=0 arm=A checked, 11.28s
+seed=102 cycle=0 arm=batch checked, 10.31s
+seed=102 cycle=1 arm=reuse checked, 10.85s
+seed=102 cycle=1 arm=batch checked, 10.46s
+seed=102 cycle=1 arm=A checked, 11.29s
+seed=103 cycle=0 arm=batch checked, 10.58s
+seed=103 cycle=0 arm=A checked, 11.42s
+seed=103 cycle=0 arm=reuse checked, 10.59s
+seed=103 cycle=1 arm=batch checked, 10.77s
+seed=103 cycle=1 arm=reuse checked, 10.62s
+seed=103 cycle=1 arm=A checked, 11.40s

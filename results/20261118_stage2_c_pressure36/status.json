@@ -1,0 +1,12 @@
+{
+  "measurement_complete": true,
+  "cache_accounting_passed": true,
+  "same_shape_equal_requests": 96,
+  "requests": 96,
+  "seeds": [
+    101,
+    102,
+    103
+  ],
+  "cycles": 6
+}

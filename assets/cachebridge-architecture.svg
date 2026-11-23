@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="445" viewBox="0 0 920 445" role="img" aria-labelledby="title desc">
+  <title id="title">Prefix lookup and KV transfer across GPU and CPU</title>
+  <desc id="desc">In this example, a GPU hit and two CPU hits form the longest contiguous prefix. The first miss and the final query block require GPU prefill. Policy B restores the CPU hits. Policy C may instead recompute from the first CPU hit. Active attention reads GPU KV. Eligible, complete prompt blocks are copied to a bounded CPU store with LRU eviction.</desc>
+  <defs>
+    <marker id="restore" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 8 4 0 8 2 4Z" fill="#12736e"/>
+    </marker>
+    <marker id="save" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 8 4 0 8 2 4Z" fill="#986022"/>
+    </marker>
+    <style>
+      text { font-family: Inter, "DejaVu Sans", Arial, sans-serif; fill: #193249 }
+      .title { font-size: 28px; font-weight: 700 }
+      .body { font-size: 16px; fill: #425b6a }
+      .label { font-size: 18px; font-weight: 600 }
+      .note { font-size: 15px; fill: #425b6a }
+      .gpu { fill: #0e6763 }
+      .cpu { fill: #855018 }
+    </style>
+  </defs>
+  <rect x="1" y="1" width="918" height="443" rx="14" fill="#fbfcfd" stroke="#d6e0e5"/>
+  <text x="30" y="44" class="title">Prefix lookup across GPU and CPU</text>
+  <text x="30" y="72" class="body">The block manager walks the model-scoped hash chain and verifies each block’s token IDs.</text>
+
+  <g text-anchor="middle" class="label">
+    <rect x="30" y="99" width="159" height="48" rx="5" fill="#e4f3f0" stroke="#84bbae"/>
+    <text x="109.5" y="129" class="gpu">GPU hit</text>
+    <rect x="200" y="99" width="159" height="48" rx="5" fill="#fcf1dc" stroke="#d9b779"/>
+    <text x="279.5" y="129" class="cpu">CPU hit</text>
+    <rect x="370" y="99" width="159" height="48" rx="5" fill="#fcf1dc" stroke="#d9b779"/>
+    <text x="449.5" y="129" class="cpu">CPU hit</text>
+    <rect x="553" y="99" width="159" height="48" rx="5" fill="#f1f4f7" stroke="#a3b2bc"/>
+    <text x="632.5" y="129">First miss</text>
+    <rect x="723" y="99" width="167" height="48" rx="5" fill="#f1f4f7" stroke="#a3b2bc"/>
+    <text x="806.5" y="129">Query block</text>
+  </g>
+  <path d="M31 154v7h497v-7 M554 154v7h335v-7" fill="none" stroke="#9cabb4" stroke-width="1.4"/>
+  <g text-anchor="middle" class="note">
+    <text x="279.5" y="184">Longest contiguous prefix available for reuse</text>
+    <text x="721.5" y="184">Remaining GPU prefill</text>
+  </g>
+
+  <rect x="30" y="216" width="248" height="139" rx="8" fill="#f0f9f6" stroke="#94bdb2"/>
+  <text x="50" y="249" font-size="23" font-weight="700" class="gpu">GPU KV pool</text>
+  <text x="50" y="279" class="body">Active attention reads</text>
+  <text x="50" y="301" class="body">GPU-resident KV pages.</text>
+  <g fill="#80b8aa">
+    <rect x="50" y="322" width="32" height="10" rx="2"/>
+    <rect x="88" y="322" width="32" height="10" rx="2"/>
+    <rect x="126" y="322" width="32" height="10" rx="2"/>
+  </g>
+  <rect x="164" y="322" width="32" height="10" rx="2" fill="none" stroke="#80b8aa"/>
+
+  <rect x="642" y="216" width="248" height="139" rx="8" fill="#fff8e9" stroke="#d8ba85"/>
+  <text x="662" y="249" font-size="23" font-weight="700" class="cpu">CPU prefix store</text>
+  <text x="662" y="279" class="body">Bounded slots hold full</text>
+  <text x="662" y="301" class="body">prompt blocks under LRU.</text>
+  <g fill="#d5ad68">
+    <rect x="662" y="322" width="32" height="10" rx="2"/>
+    <rect x="700" y="322" width="32" height="10" rx="2"/>
+    <rect x="738" y="322" width="32" height="10" rx="2"/>
+  </g>
+  <rect x="776" y="322" width="32" height="10" rx="2" fill="none" stroke="#cda35a"/>
+
+  <g text-anchor="middle" font-size="16" font-weight="600">
+    <text x="460" y="254" class="gpu">H2D · Restore before prefill</text>
+    <path d="M631 268H289" fill="none" stroke="#12736e" stroke-width="2.4" marker-end="url(#restore)"/>
+    <text x="460" y="308" class="cpu">D2H · Save admitted blocks</text>
+    <path d="M289 322H631" fill="none" stroke="#986022" stroke-width="2.4" marker-end="url(#save)"/>
+  </g>
+
+  <path d="M30 376H890" stroke="#d6e0e5"/>
+  <g font-size="16">
+    <text x="30" y="402"><tspan font-weight="700">Policy B</tspan><tspan dx="12">Restore available CPU hits.</tspan></text>
+    <text x="30" y="426"><tspan font-weight="700">Policy C</tspan><tspan dx="12">Use measured costs to restore or recompute from the first CPU hit.</tspan></text>
+  </g>
+</svg>

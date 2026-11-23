@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "verified_block_writes": 208,
+  "trace_summary_rebuilt_offline": true,
+  "trace_sha256": "4a4de2cbccd683e09f3661c5d9e03286a364c41665c6d2f5340d057206ee5484",
+  "analysis_sha256": "99ca61e533837569291d4ca9b677ddae7dadcdf086b573ec76532205ee6ac389"
+}

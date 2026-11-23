@@ -1,0 +1,34 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64,
+    "cpu_restore_cost_table": "results/20261118_queue_c_peer_probe/cost_table.json"
+  },
+  "table_sha256": "1d859e7823dd9f8de8a3323e3283858f17f74e380772e3bbfd8a7516069dc9c9",
+  "warmup_seed": 1300,
+  "seeds": [
+    1301,
+    1302,
+    1303,
+    1304
+  ],
+  "target_rank": 1,
+  "target_prefix": 1024,
+  "target_query": 128,
+  "cold_peer_rank": 3,
+  "cold_peer_prompt_lengths": [
+    640,
+    2176
+  ],
+  "pool": "queue-peer-probe-v2",
+  "output_tokens": 2,
+  "endpoint": "enqueue to first token before decode",
+  "profiler": false
+}

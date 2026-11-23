@@ -1,0 +1,1 @@
+./.venv/bin/python -m benchmarks.first_use_config --output results/20261120_first_use_config

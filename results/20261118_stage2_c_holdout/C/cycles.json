@@ -1,0 +1,47 @@
+[
+  {
+    "seed": 901,
+    "workload": "short",
+    "cold_start_wall_s": 7.460110197993345
+  },
+  {
+    "seed": 901,
+    "workload": "long",
+    "cold_start_wall_s": 8.808687630982604
+  },
+  {
+    "seed": 901,
+    "workload": "mixed",
+    "cold_start_wall_s": 8.44028851800249
+  },
+  {
+    "seed": 902,
+    "workload": "short",
+    "cold_start_wall_s": 7.534258301995578
+  },
+  {
+    "seed": 902,
+    "workload": "long",
+    "cold_start_wall_s": 8.923038010005257
+  },
+  {
+    "seed": 902,
+    "workload": "mixed",
+    "cold_start_wall_s": 8.455480542004807
+  },
+  {
+    "seed": 903,
+    "workload": "short",
+    "cold_start_wall_s": 7.54406697700324
+  },
+  {
+    "seed": 903,
+    "workload": "long",
+    "cold_start_wall_s": 8.953816027002176
+  },
+  {
+    "seed": 903,
+    "workload": "mixed",
+    "cold_start_wall_s": 8.46036179199291
+  }
+]

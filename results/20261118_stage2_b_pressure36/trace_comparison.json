@@ -1,0 +1,66 @@
+{
+  "A": {
+    "ttft_ms": {
+      "n": 96,
+      "p50": 582.9926559999876,
+      "p95": 1240.3737677450408,
+      "min": 77.15578900388209,
+      "max": 1258.29892699403
+    },
+    "p95_ms_by_seed": {
+      "101": 1170.4527450008754,
+      "102": 1235.1777303996641,
+      "103": 1246.072526498756
+    }
+  },
+  "B": {
+    "ttft_ms": {
+      "n": 96,
+      "p50": 295.79913999987184,
+      "p95": 1404.626961746544,
+      "min": 82.91885999642545,
+      "max": 1664.0309700014768
+    },
+    "p95_ms_by_seed": {
+      "101": 1390.4710080005316,
+      "102": 1392.7470645481662,
+      "103": 1402.165698551471
+    }
+  },
+  "pooled_p95_change_percent": 13.242233774429968,
+  "same_phase_exact_output_requests": {
+    "fill": 24,
+    "hot": 24,
+    "interference": 24,
+    "evicted": 14
+  },
+  "full_prompt_block_writes": 384,
+  "writes_of_previously_stored_prefix": 0,
+  "cpu_evictions": 0,
+  "cpu_blocks_per_cycle": [
+    64,
+    64,
+    64,
+    64,
+    64,
+    64
+  ],
+  "A_memory_max_bytes": {
+    "gpu_allocated": 9498719744,
+    "gpu_reserved": 9749659648,
+    "gpu_peak_allocated": 9670728704,
+    "gpu_peak_reserved": 9749659648,
+    "gpu_device_used": 11179393024,
+    "cpu_peak_rss": 4972568576,
+    "cpu_rss": 1681821696
+  },
+  "B_memory_max_bytes": {
+    "gpu_allocated": 9536468480,
+    "gpu_reserved": 9787408384,
+    "gpu_peak_allocated": 9708477440,
+    "gpu_peak_reserved": 9787408384,
+    "gpu_device_used": 11217141760,
+    "cpu_peak_rss": 4988203008,
+    "cpu_rss": 4239597568
+  }
+}

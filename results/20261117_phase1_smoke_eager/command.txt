@@ -1,0 +1,1 @@
+./.venv/bin/python -m benchmarks.phase1 --output results/20261117_phase1_smoke_eager --eager --profile

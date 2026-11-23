@@ -1,0 +1,53 @@
+Artifacts: ./results/20261119_mixed_fill_pressure36
+seed=1700 cycle=1 arm=batch wall=4.18s
+seed=1700 cycle=1 arm=reuse wall=3.48s
+seed=1700 cycle=1 arm=A wall=3.97s
+seed=1700 cycle=1 paths and greedy checked
+seed=1701 cycle=0 arm=A wall=13.38s
+seed=1701 cycle=0 arm=reuse wall=12.71s
+seed=1701 cycle=0 arm=batch wall=12.75s
+seed=1701 cycle=0 paths and greedy checked
+seed=1701 cycle=1 arm=reuse wall=12.84s
+seed=1701 cycle=1 arm=batch wall=12.87s
+seed=1701 cycle=1 arm=A wall=13.68s
+seed=1701 cycle=1 paths and greedy checked
+seed=1702 cycle=1 arm=batch wall=12.77s
+seed=1702 cycle=1 arm=A wall=13.32s
+seed=1702 cycle=1 arm=reuse wall=12.83s
+seed=1702 cycle=1 paths and greedy checked
+seed=1702 cycle=0 arm=A wall=13.43s
+seed=1702 cycle=0 arm=batch wall=13.05s
+seed=1702 cycle=0 arm=reuse wall=12.90s
+seed=1702 cycle=0 paths and greedy checked
+seed=1703 cycle=0 arm=reuse wall=12.96s
+seed=1703 cycle=0 arm=A wall=13.49s
+seed=1703 cycle=0 arm=batch wall=12.90s
+seed=1703 cycle=0 paths and greedy checked
+seed=1703 cycle=1 arm=batch wall=12.89s
+seed=1703 cycle=1 arm=reuse wall=13.03s
+seed=1703 cycle=1 arm=A wall=13.54s
+seed=1703 cycle=1 paths and greedy checked
+seed=1704 cycle=1 arm=A wall=13.52s
+seed=1704 cycle=1 arm=reuse wall=12.94s
+seed=1704 cycle=1 arm=batch wall=12.76s
+seed=1704 cycle=1 paths and greedy checked
+seed=1704 cycle=0 arm=reuse wall=12.83s
+seed=1704 cycle=0 arm=batch wall=12.86s
+seed=1704 cycle=0 arm=A wall=13.45s
+seed=1704 cycle=0 paths and greedy checked
+seed=1705 cycle=0 arm=batch wall=12.81s
+seed=1705 cycle=0 arm=A wall=13.59s
+seed=1705 cycle=0 arm=reuse wall=12.91s
+seed=1705 cycle=0 paths and greedy checked
+seed=1705 cycle=1 arm=A wall=13.38s
+seed=1705 cycle=1 arm=batch wall=12.54s
+seed=1705 cycle=1 arm=reuse wall=12.91s
+seed=1705 cycle=1 paths and greedy checked
+seed=1706 cycle=1 arm=reuse wall=12.90s
+seed=1706 cycle=1 arm=A wall=13.66s
+seed=1706 cycle=1 arm=batch wall=12.86s
+seed=1706 cycle=1 paths and greedy checked
+seed=1706 cycle=0 arm=batch wall=12.68s
+seed=1706 cycle=0 arm=reuse wall=12.91s
+seed=1706 cycle=0 arm=A wall=13.45s
+seed=1706 cycle=0 paths and greedy checked

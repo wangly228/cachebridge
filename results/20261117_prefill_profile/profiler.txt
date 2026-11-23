@@ -1,0 +1,36 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                               aten::mm         2.03%       4.677ms         3.07%       7.081ms      48.835us     206.336ms        85.64%     206.336ms       1.423ms           145  
+void cutlass::Kernel2<cutlass_80_tensorop_bf16_s1681...         0.00%       0.000us         0.00%       0.000us       0.000us     171.997ms        71.39%     171.997ms       1.593ms           108  
+ampere_bf16_s16816gemm_bf16_256x128_ldg8_f2f_stages_...         0.00%       0.000us         0.00%       0.000us       0.000us      33.462ms        13.89%      33.462ms     929.486us            36  
+                 flash_attn::_flash_attn_varlen_forward         0.69%       1.595ms         1.33%       3.067ms      85.186us      20.153ms         8.36%      20.153ms     559.794us            36  
+void flash::flash_fwd_kernel<Flash_fwd_kernel_traits...         0.00%       0.000us         0.00%       0.000us       0.000us      20.153ms         8.36%      20.153ms     559.794us            36  
+     triton_red_fused__to_copy_add_mean_mul_pow_rsqrt_0         1.20%       2.771ms         2.25%       5.187ms      35.775us       5.890ms         2.44%       5.890ms      40.617us           145  
+     triton_red_fused__to_copy_add_mean_mul_pow_rsqrt_0         0.00%       0.000us         0.00%       0.000us       0.000us       5.890ms         2.44%       5.890ms      40.617us           145  
+                      triton_poi_fused_mul_silu_split_0         0.22%     500.302us         0.47%       1.076ms      29.880us       5.580ms         2.32%       5.580ms     155.000us            36  
+                      triton_poi_fused_mul_silu_split_0         0.00%       0.000us         0.00%       0.000us       0.000us       5.580ms         2.32%       5.580ms     155.000us            36  
+## Call CompiledFxGraph fbrvi2deuts3zppenboc2z4jniqc...         0.00%       0.000us         0.00%       0.000us       0.000us       5.580ms         2.32%       5.580ms     155.000us            36  
+## Call CompiledFxGraph fodcwkh5wb7eh2auq7jyw6vnlofj...         0.00%       0.000us         0.00%       0.000us       0.000us       3.863ms         1.60%       3.863ms      53.650us            72  
+## Call CompiledFxGraph fm2awk6sdzjs4o5dnhccypptqmqc...         0.00%       0.000us         0.00%       0.000us       0.000us       2.113ms         0.88%       2.113ms      58.683us            36  
+## Call CompiledFxGraph fnccxlxdsefg25cqgoesrf5xm6wr...         0.00%       0.000us         0.00%       0.000us       0.000us       2.001ms         0.83%       2.001ms      27.788us            72  
+                                       cuLaunchKernelEx         0.24%     543.376us         0.24%     543.376us      15.094us       1.795ms         0.75%       1.795ms      49.870us            36  
+triton_poi_fused__to_copy_add_cat_index_mul_split_su...         0.28%     655.209us         0.56%       1.281ms      35.587us       1.598ms         0.66%       1.598ms      44.383us            36  
+triton_poi_fused__to_copy_add_cat_index_mul_split_su...         0.00%       0.000us         0.00%       0.000us       0.000us       1.598ms         0.66%       1.598ms      44.383us            36  
+void gemv2T_kernel_val<int, int, __nv_bfloat16, __nv...         0.00%       0.000us         0.00%       0.000us       0.000us     877.284us         0.36%     877.284us     877.284us             1  
+                                   store_kvcache_kernel         0.00%       0.000us         0.00%       0.000us       0.000us     735.462us         0.31%     735.462us      20.430us            36  
+                               cudaEventRecordWithFlags         0.00%       8.365us         0.00%       8.365us       1.394us     598.917us         0.25%     598.917us      99.820us             6  
+triton_poi_fused__to_copy_add_cat_index_mul_split_su...         0.24%     548.322us         0.42%     978.660us      27.185us     448.312us         0.19%     448.312us      12.453us            36  
+triton_poi_fused__to_copy_add_cat_index_mul_split_su...         0.00%       0.000us         0.00%       0.000us       0.000us     448.312us         0.19%     448.312us      12.453us            36  
+## Call CompiledFxGraph fhu44wkj4k72fonijz3oyr6pzafi...         0.00%       0.000us         0.00%       0.000us       0.000us     160.307us         0.07%     160.307us     160.307us             1  
+triton_red_fused__softmax_argmax_clamp_min_div_eq_ex...         0.01%      18.767us         0.01%      30.482us      30.482us      99.989us         0.04%      99.989us      99.989us             1  
+triton_red_fused__softmax_argmax_clamp_min_div_eq_ex...         0.00%       0.000us         0.00%       0.000us       0.000us      99.989us         0.04%      99.989us      99.989us             1  
+triton_red_fused__softmax__to_copy_argmax_div_eq_ge_...         0.01%      18.490us         0.01%      30.938us      30.938us      39.099us         0.02%      39.099us      39.099us             1  
+triton_red_fused__softmax__to_copy_argmax_div_eq_ge_...         0.00%       0.000us         0.00%       0.000us       0.000us      39.099us         0.02%      39.099us      39.099us             1  
+## Call CompiledFxGraph fpi5zet76wcutr7ngtavkk4bdpcw...         0.00%       0.000us         0.00%       0.000us       0.000us      25.960us         0.01%      25.960us      25.960us             1  
+                                           aten::gather         0.01%      32.056us         0.03%      78.247us      78.247us      23.287us         0.01%      23.287us      23.287us             1  
+void at::native::vectorized_gather_kernel<16, long>(...         0.00%       0.000us         0.00%       0.000us       0.000us      23.287us         0.01%      23.287us      23.287us             1  
+                                            aten::copy_         0.04%      80.738us        76.12%     175.314ms      21.914ms      15.335us         0.01%      15.335us       1.917us             8  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 230.321ms
+Self CUDA time total: 240.934ms

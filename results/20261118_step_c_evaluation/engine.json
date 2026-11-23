@@ -1,0 +1,34 @@
+{
+  "environment": {
+    "namespace": "2bb9b0909191daa81b97b615174bd6fc282ec03ee20cc1cbd753f46d2be9cdd0",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "capability": [
+      8,
+      6
+    ],
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "flash_attention": "2.8.3+cu.12.8.torch.2.10",
+    "block_size": 256,
+    "gpu_blocks": 36,
+    "cpu_blocks": 64,
+    "eager": false,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "tensor_parallel_size": 1
+  },
+  "actual_budget": {
+    "safe_blocks": 287,
+    "requested_cap": 36,
+    "actual_blocks": 36,
+    "block_bytes": 37748736
+  },
+  "graph_bs": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "dtype": "torch.bfloat16"
+}

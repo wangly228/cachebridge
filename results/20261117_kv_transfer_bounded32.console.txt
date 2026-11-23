@@ -1,0 +1,2 @@
+Artifacts: ./results/20261117_kv_transfer_bounded32
+packed_chunked 32 blocks: D2H 142.918ms, H2D 142.651ms

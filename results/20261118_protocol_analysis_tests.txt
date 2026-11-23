@@ -1,0 +1,10 @@
+test_bit_check_detects_signed_zero_and_one_bit_change (test_correctness_protocol.CorrectnessProtocolTests.test_bit_check_detects_signed_zero_and_one_bit_change) ... ok
+test_constant_logit_shift_does_not_change_probabilities (test_correctness_protocol.CorrectnessProtocolTests.test_constant_logit_shift_does_not_change_probabilities) ... ok
+test_large_error_and_nonfinite_are_rejected (test_correctness_protocol.CorrectnessProtocolTests.test_large_error_and_nonfinite_are_rejected) ... ok
+test_near_tie_is_reported_separately_from_argmax (test_correctness_protocol.CorrectnessProtocolTests.test_near_tie_is_reported_separately_from_argmax) ... ok
+test_offline_bf16_decode_preserves_bits (test_correctness_protocol.CorrectnessProtocolTests.test_offline_bf16_decode_preserves_bits) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+OK

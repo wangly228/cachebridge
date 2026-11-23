@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "./benchmarks/phase1.py", line 190, in main
+    assert [r["output_token_ids"] for r in pair[0][0]] == [r["output_token_ids"] for r in pair[1][0]]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

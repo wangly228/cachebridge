@@ -1,0 +1,63 @@
+{
+  "formal_requests": 288,
+  "validated_p95_groups": 15,
+  "paired_cycles": [
+    {
+      "seed": 101,
+      "cycle": 0,
+      "batch_minus_serial_p95_ms": {
+        "fill": -6.572789048368577,
+        "all": -1.5290590017684735
+      }
+    },
+    {
+      "seed": 101,
+      "cycle": 1,
+      "batch_minus_serial_p95_ms": {
+        "fill": -32.57439493900165,
+        "all": -24.14357847737847
+      }
+    },
+    {
+      "seed": 102,
+      "cycle": 0,
+      "batch_minus_serial_p95_ms": {
+        "fill": -23.48530828312505,
+        "all": 0.8324415030074306
+      }
+    },
+    {
+      "seed": 102,
+      "cycle": 1,
+      "batch_minus_serial_p95_ms": {
+        "fill": -19.141887620207854,
+        "all": -50.60738850443158
+      }
+    },
+    {
+      "seed": 103,
+      "cycle": 0,
+      "batch_minus_serial_p95_ms": {
+        "fill": -35.820634552510455,
+        "all": -2.8252227493794635
+      }
+    },
+    {
+      "seed": 103,
+      "cycle": 1,
+      "batch_minus_serial_p95_ms": {
+        "fill": -34.925224135804456,
+        "all": 13.40373425045982
+      }
+    }
+  ],
+  "six_slowest_batch_phases": [
+    "fill",
+    "fill",
+    "fill",
+    "fill",
+    "fill",
+    "fill"
+  ],
+  "matched_128_token_outputs": 288
+}

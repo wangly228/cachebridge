@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "matched_cases": 24,
+  "per_arm_requests": 288,
+  "replay_per_arm": 96,
+  "greedy_C2_C3_verified": 576,
+  "extra_independent_reference_replays": 24,
+  "two_output_counterfactuals": 18
+}

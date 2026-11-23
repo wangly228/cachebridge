@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="448" viewBox="0 0 940 448" role="img" aria-labelledby="title desc">
+  <title id="title">Engine p95 time to first token with a CPU prefix cache</title>
+  <desc id="desc">Compared with the native GPU prefix cache, cachebridge with a 32-block first-use budget reduces evicted-prefix replay p95 by 81.05% and 82.39% for mixed- and long-prefix workloads. Full-trace p95 increases by 5.02% and 5.28%. Whiskers show 95% paired-seed bootstrap intervals.</desc>
+  <rect width="940" height="448" rx="10" fill="#fafcfd"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#193447">
+    <text x="26" y="37" font-size="26" font-weight="bold" fill="#193447" text-anchor="start">Engine p95 time to first token</text>
+    <text x="26" y="63" font-size="15" font-weight="normal" fill="#425969" text-anchor="start">Qwen3-4B BF16   ·   RTX 3090   ·   4 concurrent requests   ·   36 GPU blocks   ·   64 CPU slots</text>
+    <line x1="26.00" x2="914.00" y1="80" y2="80" stroke="#c8d5da" stroke-width="1"/>
+    <text x="26" y="106" font-size="15" font-weight="bold" fill="#193447" text-anchor="start">Request phase</text>
+    <text x="234" y="106" font-size="15" font-weight="bold" fill="#193447" text-anchor="end">n</text>
+    <text x="282" y="106" font-size="15" font-weight="bold" fill="#193447" text-anchor="start">Change vs. GPU-only</text>
+    <text x="705" y="106" font-size="15" font-weight="bold" fill="#193447" text-anchor="end">Change</text>
+    <text x="792" y="106" font-size="15" font-weight="bold" fill="#193447" text-anchor="end">GPU-only</text>
+    <text x="914" y="106" font-size="15" font-weight="bold" fill="#193447" text-anchor="end">cachebridge</text>
+    <text x="234" y="126" font-size="13" font-weight="normal" fill="#465e6c" text-anchor="end">per arm</text>
+    <text x="792" y="126" font-size="13" font-weight="normal" fill="#465e6c" text-anchor="end">ms</text>
+    <text x="914" y="126" font-size="13" font-weight="normal" fill="#465e6c" text-anchor="end">ms</text>
+    <text x="316.7" y="126" font-size="12" font-weight="normal" fill="#465e6c" text-anchor="middle">−80%</text>
+    <line x1="316.70" x2="316.70" y1="162" y2="246" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="316.70" x2="316.70" y1="298" y2="382" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="386.1" y="126" font-size="12" font-weight="normal" fill="#465e6c" text-anchor="middle">−60%</text>
+    <line x1="386.10" x2="386.10" y1="162" y2="246" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="386.10" x2="386.10" y1="298" y2="382" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="455.5" y="126" font-size="12" font-weight="normal" fill="#465e6c" text-anchor="middle">−40%</text>
+    <line x1="455.50" x2="455.50" y1="162" y2="246" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="455.50" x2="455.50" y1="298" y2="382" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="524.9" y="126" font-size="12" font-weight="normal" fill="#465e6c" text-anchor="middle">−20%</text>
+    <line x1="524.90" x2="524.90" y1="162" y2="246" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="524.90" x2="524.90" y1="298" y2="382" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="594.3" y="126" font-size="12" font-weight="normal" fill="#465e6c" text-anchor="middle">0%</text>
+    <line x1="594.30" x2="594.30" y1="162" y2="246" stroke="#94a9b5" stroke-width="1.4"/>
+    <line x1="594.30" x2="594.30" y1="298" y2="382" stroke="#94a9b5" stroke-width="1.4"/>
+    <text x="629.0" y="126" font-size="12" font-weight="normal" fill="#465e6c" text-anchor="middle">+10%</text>
+    <line x1="629.00" x2="629.00" y1="162" y2="246" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="629.00" x2="629.00" y1="298" y2="382" stroke="#d8e2e7" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="26" y="152" font-size="16" font-weight="bold" fill="#174f56" text-anchor="start">Mixed prefixes · 1,024 / 2,048 tokens</text>
+    <text x="26" y="179" font-size="15" font-weight="normal" fill="#193447" text-anchor="start">Replay after eviction</text>
+    <text x="234" y="179" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">32</text>
+    <text x="705" y="179" font-size="15" font-weight="bold" fill="#08676e" text-anchor="end">−81.05%</text>
+    <text x="792" y="179" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">932.9</text>
+    <text x="914" y="179" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">176.8</text>
+    <line x1="311.69" x2="313.77" y1="174" y2="174" stroke="#109096" stroke-width="2.3"/>
+    <line x1="311.69" x2="311.69" y1="170" y2="178" stroke="#109096" stroke-width="1.4"/>
+    <line x1="313.77" x2="313.77" y1="170" y2="178" stroke="#109096" stroke-width="1.4"/>
+    <circle cx="313.07" cy="174" r="4.3" fill="#096c72"/>
+    <text x="26" y="210" font-size="15" font-weight="normal" fill="#193447" text-anchor="start">No reuse</text>
+    <text x="234" y="210" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">64</text>
+    <text x="705" y="210" font-size="15" font-weight="bold" fill="#08676e" text-anchor="end">+2.26%</text>
+    <text x="792" y="210" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">930.1</text>
+    <text x="914" y="210" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">951.0</text>
+    <line x1="598.03" x2="614.12" y1="205" y2="205" stroke="#109096" stroke-width="2.3"/>
+    <line x1="598.03" x2="598.03" y1="201" y2="209" stroke="#109096" stroke-width="1.4"/>
+    <line x1="614.12" x2="614.12" y1="201" y2="209" stroke="#109096" stroke-width="1.4"/>
+    <circle cx="602.13" cy="205" r="4.3" fill="#096c72"/>
+    <text x="26" y="241" font-size="15" font-weight="normal" fill="#193447" text-anchor="start">Full trace</text>
+    <text x="234" y="241" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">160</text>
+    <text x="705" y="241" font-size="15" font-weight="bold" fill="#08676e" text-anchor="end">+5.02%</text>
+    <text x="792" y="241" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">929.0</text>
+    <text x="914" y="241" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">975.6</text>
+    <line x1="609.52" x2="617.27" y1="236" y2="236" stroke="#109096" stroke-width="2.3"/>
+    <line x1="609.52" x2="609.52" y1="232" y2="240" stroke="#109096" stroke-width="1.4"/>
+    <line x1="617.27" x2="617.27" y1="232" y2="240" stroke="#109096" stroke-width="1.4"/>
+    <circle cx="611.73" cy="236" r="4.3" fill="#096c72"/>
+    <line x1="26.00" x2="914.00" y1="257" y2="257" stroke="#d6e0e5" stroke-width="1"/>
+    <text x="26" y="288" font-size="16" font-weight="bold" fill="#174f56" text-anchor="start">Long prefixes · 2,048 tokens</text>
+    <text x="26" y="315" font-size="15" font-weight="normal" fill="#193447" text-anchor="start">Replay after eviction</text>
+    <text x="234" y="315" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">32</text>
+    <text x="705" y="315" font-size="15" font-weight="bold" fill="#08676e" text-anchor="end">−82.39%</text>
+    <text x="792" y="315" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">1,212.2</text>
+    <text x="914" y="315" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">213.4</text>
+    <line x1="306.84" x2="308.81" y1="310" y2="310" stroke="#109096" stroke-width="2.3"/>
+    <line x1="306.84" x2="306.84" y1="306" y2="314" stroke="#109096" stroke-width="1.4"/>
+    <line x1="308.81" x2="308.81" y1="306" y2="314" stroke="#109096" stroke-width="1.4"/>
+    <circle cx="308.40" cy="310" r="4.3" fill="#096c72"/>
+    <text x="26" y="346" font-size="15" font-weight="normal" fill="#193447" text-anchor="start">No reuse</text>
+    <text x="234" y="346" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">32</text>
+    <text x="705" y="346" font-size="15" font-weight="bold" fill="#08676e" text-anchor="end">−0.43%</text>
+    <text x="792" y="346" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">1,218.7</text>
+    <text x="914" y="346" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">1,213.4</text>
+    <line x1="590.15" x2="595.86" y1="341" y2="341" stroke="#109096" stroke-width="2.3"/>
+    <line x1="590.15" x2="590.15" y1="337" y2="345" stroke="#109096" stroke-width="1.4"/>
+    <line x1="595.86" x2="595.86" y1="337" y2="345" stroke="#109096" stroke-width="1.4"/>
+    <circle cx="592.79" cy="341" r="4.3" fill="#096c72"/>
+    <text x="26" y="377" font-size="15" font-weight="normal" fill="#193447" text-anchor="start">Full trace</text>
+    <text x="234" y="377" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">128</text>
+    <text x="705" y="377" font-size="15" font-weight="bold" fill="#08676e" text-anchor="end">+5.28%</text>
+    <text x="792" y="377" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">1,214.3</text>
+    <text x="914" y="377" font-size="15" font-weight="normal" fill="#193447" text-anchor="end">1,278.4</text>
+    <line x1="606.87" x2="622.76" y1="372" y2="372" stroke="#109096" stroke-width="2.3"/>
+    <line x1="606.87" x2="606.87" y1="368" y2="376" stroke="#109096" stroke-width="1.4"/>
+    <line x1="622.76" x2="622.76" y1="368" y2="376" stroke="#109096" stroke-width="1.4"/>
+    <circle cx="612.62" cy="372" r="4.3" fill="#096c72"/>
+    <line x1="26.00" x2="914.00" y1="391" y2="391" stroke="#c8d5da" stroke-width="1"/>
+    <text x="26" y="413" font-size="14" font-weight="normal" fill="#364e5e" text-anchor="start">Whiskers show 95% paired-seed bootstrap intervals (4 seeds, 4,000 draws). Negative values mean lower latency.</text>
+    <text x="26" y="435" font-size="14" font-weight="normal" fill="#364e5e" text-anchor="start">cachebridge uses a 32-block first-use budget. Full traces include cold fill, pressure and replay.</text>
+  </g>
+</svg>

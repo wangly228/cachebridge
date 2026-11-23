@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "replay_requests_per_arm": 48,
+  "all_requests_per_arm": 144,
+  "verified_C1_C2_greedy_requests": 288,
+  "independent_reference_replays": 48
+}

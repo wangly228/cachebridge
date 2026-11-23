@@ -1,0 +1,38 @@
+[
+  {
+    "group": "regression_2048_c4",
+    "held_out": false,
+    "positions": 64,
+    "exact_repeat": true,
+    "exact_after_roundtrip": true,
+    "numerical_screen_passed": false,
+    "numerical_failures": 3,
+    "argmax_mismatches": 2,
+    "max_abs_error": 0.3125,
+    "max_relative_l2": 0.051786866039037704
+  },
+  {
+    "group": "heldout_2048_c4",
+    "held_out": true,
+    "positions": 64,
+    "exact_repeat": true,
+    "exact_after_roundtrip": true,
+    "numerical_screen_passed": false,
+    "numerical_failures": 2,
+    "argmax_mismatches": 0,
+    "max_abs_error": 0.375,
+    "max_relative_l2": 0.0422217883169651
+  },
+  {
+    "group": "heldout_8192_c1",
+    "held_out": true,
+    "positions": 16,
+    "exact_repeat": true,
+    "exact_after_roundtrip": true,
+    "numerical_screen_passed": false,
+    "numerical_failures": 1,
+    "argmax_mismatches": 0,
+    "max_abs_error": 0.375,
+    "max_relative_l2": 0.05194724351167679
+  }
+]

@@ -1,0 +1,140 @@
+{
+  "arms": [
+    "A",
+    "reuse",
+    "batch"
+  ],
+  "seeds": [
+    1701,
+    1702,
+    1703,
+    1704,
+    1705,
+    1706
+  ],
+  "cycles_per_seed": 2,
+  "previous_engine": "results/20261119_fill_batch_pressure36",
+  "same_engine_sources": true,
+  "trace_sha256": "eb83c0c8d8b584866d91734023427668dbf610d1ccfaba8c17d08d30fb2b7933",
+  "cycles": [
+    {
+      "seed": 1701,
+      "cycle": 0,
+      "arms": [
+        "A",
+        "reuse",
+        "batch"
+      ]
+    },
+    {
+      "seed": 1701,
+      "cycle": 1,
+      "arms": [
+        "reuse",
+        "batch",
+        "A"
+      ]
+    },
+    {
+      "seed": 1702,
+      "cycle": 1,
+      "arms": [
+        "batch",
+        "A",
+        "reuse"
+      ]
+    },
+    {
+      "seed": 1702,
+      "cycle": 0,
+      "arms": [
+        "A",
+        "batch",
+        "reuse"
+      ]
+    },
+    {
+      "seed": 1703,
+      "cycle": 0,
+      "arms": [
+        "reuse",
+        "A",
+        "batch"
+      ]
+    },
+    {
+      "seed": 1703,
+      "cycle": 1,
+      "arms": [
+        "batch",
+        "reuse",
+        "A"
+      ]
+    },
+    {
+      "seed": 1704,
+      "cycle": 1,
+      "arms": [
+        "A",
+        "reuse",
+        "batch"
+      ]
+    },
+    {
+      "seed": 1704,
+      "cycle": 0,
+      "arms": [
+        "reuse",
+        "batch",
+        "A"
+      ]
+    },
+    {
+      "seed": 1705,
+      "cycle": 0,
+      "arms": [
+        "batch",
+        "A",
+        "reuse"
+      ]
+    },
+    {
+      "seed": 1705,
+      "cycle": 1,
+      "arms": [
+        "A",
+        "batch",
+        "reuse"
+      ]
+    },
+    {
+      "seed": 1706,
+      "cycle": 1,
+      "arms": [
+        "reuse",
+        "A",
+        "batch"
+      ]
+    },
+    {
+      "seed": 1706,
+      "cycle": 0,
+      "arms": [
+        "batch",
+        "reuse",
+        "A"
+      ]
+    }
+  ],
+  "initial_state": "fresh GPU/CPU indices per arm per cycle; shared pre-touched host allocation",
+  "warmup": "disjoint seed 1700, all three arms, all five waves, 8 outputs, excluded",
+  "no_reuse": "pool both consecutive disjoint mixed waves; additionally report each pass",
+  "endpoint": "per request enqueue to first materialized greedy token; whole includes all five waves",
+  "gates": {
+    "fill_vs_serial_pct_lt": 0,
+    "whole_vs_serial_pct_lt": 0,
+    "pooled_no_reuse_vs_native_pct_le": 5,
+    "evicted_vs_native_pct_le": -20
+  },
+  "uncertainty": "paired whole-seed bootstrap 95% percentile interval, 4000 resamples, RNG 1700"
+}

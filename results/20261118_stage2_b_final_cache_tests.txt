@@ -1,0 +1,12 @@
+test_copy_errors_replan_and_publish_only_ready_data (test_cpu_prefix_cache.CacheTests.test_copy_errors_replan_and_publish_only_ready_data) ... ok
+test_edges_and_query_retention (test_cpu_prefix_cache.CacheTests.test_edges_and_query_retention) ... ok
+test_full_lru_touch_and_gap (test_cpu_prefix_cache.CacheTests.test_full_lru_touch_and_gap) ... ok
+test_partial_cpu_then_gpu_and_shared_live_reference (test_cpu_prefix_cache.CacheTests.test_partial_cpu_then_gpu_and_shared_live_reference) ... ok
+test_preempt_resume_and_generated_kv_exclusion (test_cpu_prefix_cache.CacheTests.test_preempt_resume_and_generated_kv_exclusion) ... ok
+test_recomputed_full_tail_refreshes_the_cpu_copy (test_cpu_prefix_cache.CacheTests.test_recomputed_full_tail_refreshes_the_cpu_copy) ... ok
+test_token_validation_namespace_and_ancestor_collisions (test_cpu_prefix_cache.CacheTests.test_token_validation_namespace_and_ancestor_collisions) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.003s
+
+OK

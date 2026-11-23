@@ -1,0 +1,19 @@
+{
+  "version": "bf16-prefix-v1",
+  "bf16_epsilon": 0.0078125,
+  "max_abs_budget_eps": 2,
+  "relative_l2_budget_eps": 4,
+  "near_tie_regret_budget_multiplier": 2,
+  "hard_checks": [
+    "identical teacher-forced input/position",
+    "expected contiguous prefix hits",
+    "hash chain and tokens",
+    "cached prefix bitwise unchanged",
+    "same-shape repeated logits bitwise equal",
+    "real KV roundtrip bitwise equal",
+    "post-roundtrip logits bitwise equal"
+  ],
+  "numerical_scope": "Engineering screening envelope, not a proven error bound or full baseline acceptance. Known regression data is not independent calibration. Held-out cases are reported separately.",
+  "performance_scope": "Diagnostic hooks synchronize and copy logits/KV; never use these times as performance results.",
+  "document_sha256": "d73765fa462a7635d3e898b16fa5d67f3081b9575a0d7875c5b53ded5da0befb"
+}

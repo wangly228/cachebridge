@@ -1,0 +1,1 @@
+./.venv/bin/python -m benchmarks.cpu_cache_pressure --cost-table results/20261118_stage2_c_calibration/cost_table.json --output results/20261118_stage2_c_pressure36

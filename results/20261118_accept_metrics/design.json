@@ -1,0 +1,24 @@
+{
+  "trace_sha256": "aca10c236683ad1f28fc76f6d9898521e20d24b1ba977fe816fc34859f1a98cb",
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36
+  },
+  "actual_kv_budget": {
+    "safe_blocks": 288,
+    "requested_cap": 36,
+    "actual_blocks": 36,
+    "block_bytes": 37748736
+  },
+  "unit": "pair of four-wave traces",
+  "timed": "enqueue through synchronized completion per wave",
+  "observer": "identical first-visible step-return clock in each arm",
+  "estimand": "100 * (sum on / sum off - 1)",
+  "uncertainty": "range of six paired trace deltas"
+}
