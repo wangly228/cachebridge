@@ -57,6 +57,10 @@ def cost_environment(config, namespace):
             environment["cpu_prefix_first_use_blocks"] = limit
     if config.cpu_prefix_batch_writes:
         environment["cpu_prefix_batch_writes"] = True
+    if getattr(config, "cpu_prefix_transfer_mode", "sync") != "sync":
+        environment["cpu_prefix_transfer_mode"] = config.cpu_prefix_transfer_mode
+    if getattr(config, "cpu_prefix_pack_cold", False):
+        environment["cpu_prefix_pack_cold"] = True
     return environment
 
 

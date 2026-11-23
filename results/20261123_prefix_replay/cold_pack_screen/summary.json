@@ -1,0 +1,153 @@
+{
+  "reference": "https://github.com/cacheMon/PrefixSim/tree/160d5f81724dd9ec28b10d6abb64615e6adbb332",
+  "transfer_mode": "overlap",
+  "pack_cold": true,
+  "cpu_slots": 64,
+  "input": "results/20261123_cold_pack_screen",
+  "arm": "candidate",
+  "groups": {
+    "long": {
+      "n": 16,
+      "revisits": 8,
+      "incomplete": 0,
+      "causes": {},
+      "lost_tokens_by_cause": {},
+      "first_gap_indices": {},
+      "stranded_cpu_blocks": 0,
+      "gpu_hit_tokens": 8192,
+      "d2h_blocks": 32,
+      "h2d_blocks": 32,
+      "prompt_computed_tokens": 18432,
+      "measured_p95_ms": 1125.202463250389,
+      "measured_p95_support": [
+        {
+          "warmup": false,
+          "seed": 2099,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "pressure1",
+          "seq_id": 232,
+          "measured_ttft_ms": 1117.4602339997364,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2099,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 228,
+          "measured_ttft_ms": 1148.4291510023468,
+          "revisited_prefix": false
+        }
+      ],
+      "slowest_five_percent": [
+        {
+          "warmup": false,
+          "seed": 2099,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 228,
+          "measured_ttft_ms": 1148.4291510023468,
+          "revisited_prefix": false
+        }
+      ],
+      "idealized_zero_revisit_latency_p95_ms": 1125.202463250389
+    },
+    "mixed": {
+      "n": 20,
+      "revisits": 8,
+      "incomplete": 0,
+      "causes": {},
+      "lost_tokens_by_cause": {},
+      "first_gap_indices": {},
+      "stranded_cpu_blocks": 0,
+      "gpu_hit_tokens": 6144,
+      "d2h_blocks": 32,
+      "h2d_blocks": 24,
+      "prompt_computed_tokens": 20992,
+      "measured_p95_ms": 863.7978363001821,
+      "measured_p95_support": [
+        {
+          "warmup": false,
+          "seed": 2099,
+          "cycle": 1,
+          "workload": "mixed",
+          "wave": "pressure1",
+          "seq_id": 172,
+          "measured_ttft_ms": 863.4733170001709,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2099,
+          "cycle": 1,
+          "workload": "mixed",
+          "wave": "fill",
+          "seq_id": 168,
+          "measured_ttft_ms": 869.9637030003942,
+          "revisited_prefix": false
+        }
+      ],
+      "slowest_five_percent": [
+        {
+          "warmup": false,
+          "seed": 2099,
+          "cycle": 1,
+          "workload": "mixed",
+          "wave": "fill",
+          "seq_id": 168,
+          "measured_ttft_ms": 869.9637030003942,
+          "revisited_prefix": false
+        }
+      ],
+      "idealized_zero_revisit_latency_p95_ms": 863.7978363001821
+    }
+  },
+  "policy": "baseline",
+  "replayed_requests": 36,
+  "replayed_waves": 9,
+  "calibrated": true,
+  "request_counters": [
+    "initial_gpu_hit_tokens",
+    "initial_cpu_hit_tokens",
+    "allocation_gpu_hit_tokens",
+    "allocations",
+    "cpu_restored_tokens",
+    "prompt_computed_tokens",
+    "prefill_tokens",
+    "decode_tokens",
+    "preemptions",
+    "d2h_blocks",
+    "h2d_blocks",
+    "d2h_batches",
+    "batched_d2h_blocks",
+    "cpu_save_failures",
+    "cpu_restore_failures"
+  ],
+  "gap_records": 0,
+  "skipped_warmups": true,
+  "input_sha256": {
+    "requests.jsonl": "e8d94575ed449daa0767b69eef857cd1ba135255474cd3ded00d09bae9f25bf0",
+    "waves.jsonl": "49dfd44db84f5a43866fad54f462822bfe0a7b451c612087c1463a21c31edc3e",
+    "steps.jsonl": "3fb4459467b01fa964e8688a8bf043a709b3f2fc0e7fe932cc7fc3fe17f992a6",
+    "engine.json": "e1799925790d00e571739f96f4d90f05319bdd2e544bdbb896f2e09729529443",
+    "design.json": "abb013bf00282eae68d169e977bfe59b0cad7164581992147c3c8a5ac20351b7",
+    "trace.json": "98154863ab4593653f63cfb41ac360bb7f82471b1e4e1d423bbaa57d38496ef4"
+  },
+  "code_sha256": {
+    "nanovllm/engine/cpu_prefix_cache.py": "45330b4e67d035d7dd24fa9ea04dbf53990d6f8d432327bbb5ab518b04974148",
+    "nanovllm/engine/block_manager.py": "0bbd54beac82658001d9430cc0e9970cac9c68ed12e1f5890568e102b8a2e030",
+    "nanovllm/engine/scheduler.py": "8526f20c30aba1aebcb3cf2af889755c54b55c19efd2d5ffe7ed6d75c81994d7",
+    "nanovllm/engine/sequence.py": "cf32c40919722aa99875dd7e795cb198e9c63b7aa6eb058402176aae147c51de",
+    "nanovllm/engine/metrics.py": "38d556aa66d7c1b5c1a9adacc05c209c0453ca9165a236f2793d178a289f3604",
+    "benchmarks/prefix_replay.py": "54b1e2961c0cf39ecd02b3a9bb74cdfc3bc5d509ecba9ac6f0acaf0129651143"
+  },
+  "output_sha256": {
+    "requests.jsonl": "0f17bc8b13654b7d3a3adf96fa65bea23c91cd94920565c6e9c77b3bbc86addc",
+    "events.jsonl": "ebc2f8a064d464041ed1c302f1ea53acda53dd75a3391f20ec18a3029e1bde6f"
+  },
+  "publication": "Simulation future completes immediately; production manager still reserves/publishes at its own barriers.",
+  "measurement": "Baseline latency comes from the source log. Alternatives have no simulated latency or numeric output validation."
+}

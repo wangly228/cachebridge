@@ -1,0 +1,395 @@
+{
+  "reference": "https://github.com/cacheMon/PrefixSim/tree/160d5f81724dd9ec28b10d6abb64615e6adbb332",
+  "input": "results/20261123_revisit_boundary",
+  "arm": "CPU",
+  "groups": {
+    "0": {
+      "n": 144,
+      "revisits": 0,
+      "incomplete": 0,
+      "causes": {},
+      "lost_tokens_by_cause": {},
+      "first_gap_indices": {},
+      "stranded_cpu_blocks": 0,
+      "gpu_hit_tokens": 0,
+      "d2h_blocks": 128,
+      "h2d_blocks": 0,
+      "prompt_computed_tokens": 239616,
+      "measured_p95_ms": 918.0195699016622,
+      "measured_p95_support": [
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 0,
+          "wave": 7,
+          "seq_id": 788,
+          "measured_ttft_ms": 915.594609999971,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 0,
+          "wave": 6,
+          "seq_id": 784,
+          "measured_ttft_ms": 918.4475040019606,
+          "revisited_prefix": false
+        }
+      ],
+      "slowest_five_percent": [
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 0,
+          "wave": 6,
+          "seq_id": 784,
+          "measured_ttft_ms": 918.4475040019606,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 0,
+          "wave": 8,
+          "seq_id": 792,
+          "measured_ttft_ms": 921.1133640019398,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1801,
+          "revisit_waves": 0,
+          "wave": 0,
+          "seq_id": 256,
+          "measured_ttft_ms": 935.9064700001909,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 0,
+          "wave": 6,
+          "seq_id": 892,
+          "measured_ttft_ms": 995.7693169999402,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 0,
+          "wave": 5,
+          "seq_id": 887,
+          "measured_ttft_ms": 1020.0660370028345,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 0,
+          "wave": 5,
+          "seq_id": 888,
+          "measured_ttft_ms": 1020.1974369992968,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 0,
+          "wave": 4,
+          "seq_id": 884,
+          "measured_ttft_ms": 1036.503471998003,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 0,
+          "wave": 7,
+          "seq_id": 896,
+          "measured_ttft_ms": 1104.1564849983843,
+          "revisited_prefix": false
+        }
+      ],
+      "idealized_zero_revisit_latency_p95_ms": 918.0195699016622
+    },
+    "3": {
+      "n": 144,
+      "revisits": 48,
+      "incomplete": 27,
+      "causes": {
+        "never_written_admission": 27
+      },
+      "lost_tokens_by_cause": {
+        "never_written_admission": 40960
+      },
+      "first_gap_indices": {
+        "0": 26,
+        "4": 1
+      },
+      "stranded_cpu_blocks": 0,
+      "gpu_hit_tokens": 0,
+      "d2h_blocks": 240,
+      "h2d_blocks": 128,
+      "prompt_computed_tokens": 206848,
+      "measured_p95_ms": 904.6544418497433,
+      "measured_p95_support": [
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 3,
+          "wave": 8,
+          "seq_id": 828,
+          "measured_ttft_ms": 902.7223060002143,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 3,
+          "wave": 0,
+          "seq_id": 796,
+          "measured_ttft_ms": 904.9954069996602,
+          "revisited_prefix": false
+        }
+      ],
+      "slowest_five_percent": [
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 3,
+          "wave": 0,
+          "seq_id": 796,
+          "measured_ttft_ms": 904.9954069996602,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 3,
+          "wave": 1,
+          "seq_id": 980,
+          "measured_ttft_ms": 907.0714740009862,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1801,
+          "revisit_waves": 3,
+          "wave": 1,
+          "seq_id": 296,
+          "measured_ttft_ms": 910.645513999043,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 3,
+          "wave": 7,
+          "seq_id": 1004,
+          "measured_ttft_ms": 911.3847820008232,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 3,
+          "wave": 2,
+          "seq_id": 804,
+          "measured_ttft_ms": 918.0919190002896,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1801,
+          "revisit_waves": 3,
+          "wave": 0,
+          "seq_id": 292,
+          "measured_ttft_ms": 923.3218489971478,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1801,
+          "revisit_waves": 3,
+          "wave": 5,
+          "seq_id": 312,
+          "measured_ttft_ms": 959.1312689990446,
+          "revisited_prefix": true
+        },
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 3,
+          "wave": 5,
+          "seq_id": 816,
+          "measured_ttft_ms": 1021.1150760005694,
+          "revisited_prefix": true
+        }
+      ],
+      "idealized_zero_revisit_latency_p95_ms": 897.704625352344
+    },
+    "6": {
+      "n": 144,
+      "revisits": 96,
+      "incomplete": 33,
+      "causes": {
+        "never_written_admission": 27,
+        "previously_written_evicted": 6
+      },
+      "lost_tokens_by_cause": {
+        "never_written_admission": 40960,
+        "previously_written_evicted": 9216
+      },
+      "first_gap_indices": {
+        "4": 1,
+        "0": 32
+      },
+      "stranded_cpu_blocks": 4,
+      "gpu_hit_tokens": 0,
+      "d2h_blocks": 292,
+      "h2d_blocks": 380,
+      "prompt_computed_tokens": 142336,
+      "measured_p95_ms": 913.9168700497976,
+      "measured_p95_support": [
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 6,
+          "wave": 2,
+          "seq_id": 696,
+          "measured_ttft_ms": 905.4824619997817,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1801,
+          "revisit_waves": 6,
+          "wave": 0,
+          "seq_id": 400,
+          "measured_ttft_ms": 915.4052949998004,
+          "revisited_prefix": false
+        }
+      ],
+      "slowest_five_percent": [
+        {
+          "warmup": false,
+          "seed": 1801,
+          "revisit_waves": 6,
+          "wave": 0,
+          "seq_id": 400,
+          "measured_ttft_ms": 915.4052949998004,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 6,
+          "wave": 1,
+          "seq_id": 1016,
+          "measured_ttft_ms": 918.9832430020033,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 6,
+          "wave": 0,
+          "seq_id": 1012,
+          "measured_ttft_ms": 922.8246949969616,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 6,
+          "wave": 5,
+          "seq_id": 1031,
+          "measured_ttft_ms": 959.7820009985298,
+          "revisited_prefix": true
+        },
+        {
+          "warmup": false,
+          "seed": 1802,
+          "revisit_waves": 6,
+          "wave": 5,
+          "seq_id": 528,
+          "measured_ttft_ms": 962.3815850027313,
+          "revisited_prefix": true
+        },
+        {
+          "warmup": false,
+          "seed": 1804,
+          "revisit_waves": 6,
+          "wave": 5,
+          "seq_id": 1032,
+          "measured_ttft_ms": 974.5643909991486,
+          "revisited_prefix": true
+        },
+        {
+          "warmup": false,
+          "seed": 1801,
+          "revisit_waves": 6,
+          "wave": 5,
+          "seq_id": 420,
+          "measured_ttft_ms": 976.527074999467,
+          "revisited_prefix": true
+        },
+        {
+          "warmup": false,
+          "seed": 1803,
+          "revisit_waves": 6,
+          "wave": 5,
+          "seq_id": 708,
+          "measured_ttft_ms": 983.879182000237,
+          "revisited_prefix": true
+        }
+      ],
+      "idealized_zero_revisit_latency_p95_ms": 884.4399276518743
+    }
+  },
+  "policy": "baseline",
+  "replayed_requests": 432,
+  "replayed_waves": 108,
+  "calibrated": true,
+  "request_counters": [
+    "initial_gpu_hit_tokens",
+    "initial_cpu_hit_tokens",
+    "allocation_gpu_hit_tokens",
+    "allocations",
+    "cpu_restored_tokens",
+    "prompt_computed_tokens",
+    "prefill_tokens",
+    "decode_tokens",
+    "preemptions",
+    "d2h_blocks",
+    "h2d_blocks",
+    "d2h_batches",
+    "batched_d2h_blocks",
+    "cpu_save_failures",
+    "cpu_restore_failures"
+  ],
+  "gap_records": 60,
+  "skipped_warmups": true,
+  "input_sha256": {
+    "requests.jsonl": "541246c0e16f51338ce943de0b9c8e69498e658fb9fe504fdebf4a71a9c77dfd",
+    "waves.jsonl": "123bf1d974126c86e404ffa852c20da2dcbe66c48def50d42db46a2448586d70",
+    "steps.jsonl": "68a1f48806e3b11b0e0d057c422e5a4ef97ef3f73c84a774f490bcf024b8132b",
+    "engine.json": "da9aefb09fd0d30ee9f1a0ce395e684e9aed4c9b0db589023d43bf94329e80fc",
+    "design.json": "2e2dfb85c37d829a788bd61c3ec9ff7c101129db37813d7d63164e0f6e6f3d63",
+    "trace.json": "53bff82eea6da3da1153f43914f8cac7259c02743cc0b3c229fe4f2f9605c5c9"
+  },
+  "code_sha256": {
+    "nanovllm/engine/cpu_prefix_cache.py": "45330b4e67d035d7dd24fa9ea04dbf53990d6f8d432327bbb5ab518b04974148",
+    "nanovllm/engine/block_manager.py": "0bbd54beac82658001d9430cc0e9970cac9c68ed12e1f5890568e102b8a2e030",
+    "nanovllm/engine/scheduler.py": "8526f20c30aba1aebcb3cf2af889755c54b55c19efd2d5ffe7ed6d75c81994d7",
+    "nanovllm/engine/sequence.py": "cf32c40919722aa99875dd7e795cb198e9c63b7aa6eb058402176aae147c51de",
+    "nanovllm/engine/metrics.py": "38d556aa66d7c1b5c1a9adacc05c209c0453ca9165a236f2793d178a289f3604",
+    "benchmarks/prefix_replay.py": "da8ea9c4d61ee382ec181a49578ad47b9219129c1cdfff5027381cda91be9a59"
+  },
+  "output_sha256": {
+    "requests.jsonl": "e4134a636ca025144c284a7112a7c4855c4f3fd92bee622ef60202d91f4c0f0f",
+    "events.jsonl": "60c008647054403c01ff3ea54ab5369a85d39ebc739bb2ea1f57d6e00891f71f"
+  },
+  "publication": "Simulation future completes immediately; production manager still reserves/publishes at its own barriers.",
+  "measurement": "Baseline latency comes from the source log. Alternatives have no simulated latency or numeric output validation."
+}

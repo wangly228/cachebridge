@@ -1,0 +1,12 @@
+test_background_copy_waits_for_producer_and_round_trips_bf16_bits (test_overlap_writes.OverlapCUDATests.test_background_copy_waits_for_producer_and_round_trips_bf16_bits) ... ok
+test_full_capacity_touches_and_replaces_lru (test_overlap_writes.OverlapTests.test_full_capacity_touches_and_replaces_lru) ... ok
+test_last_reference_preempted_while_copy_is_pending (test_overlap_writes.OverlapTests.test_last_reference_preempted_while_copy_is_pending) ... ok
+test_partial_memory_failure_retries_every_page (test_overlap_writes.OverlapTests.test_partial_memory_failure_retries_every_page) ... ok
+test_reservations_preemption_and_shared_reference (test_overlap_writes.OverlapTests.test_reservations_preemption_and_shared_reference) ... ok
+test_submit_reports_failure_after_worker_started (test_overlap_writes.OverlapTests.test_submit_reports_failure_after_worker_started) ... ok
+test_unrecoverable_partial_failure_returns_reserved_slots (test_overlap_writes.OverlapTests.test_unrecoverable_partial_failure_returns_reserved_slots) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.169s
+
+OK

@@ -1,0 +1,9 @@
+{
+  "case_sha256": "fcc41bcc94a03742dfb127659f6fd60d8dd094856d9aa378e95738381a0f21ca",
+  "n": 13,
+  "selection": "every case with either 64-token semantic miss",
+  "max_tokens": 192,
+  "ignore_eos": false,
+  "check": "both greedy paths must reproduce all original tokens through EOS or position 64",
+  "scope": "post-hoc diagnosis of reading the code before the output limit"
+}

@@ -1,0 +1,13 @@
+{
+  "trace_sha256": "c1bcd27580e52af884be00a11c2d01463cb4834ce4025f11c49fd9920669fb8a",
+  "source_config_sha256": "da9aefb09fd0d30ee9f1a0ce395e684e9aed4c9b0db589023d43bf94329e80fc",
+  "source_script_sha256": "9ce98fe68ab5d4202e74d5a311a67db120aa136fdad05245fd119ed163f2e735",
+  "script_sha256": "bfdc40302df19d336c98ade5f13940372bc8a433581a7296acabeaec4d6ec371",
+  "implicit_sync_and_explicit_sync_identical": {
+    "requests.jsonl": "4036d73785ea9a0a092ff156052fa07ae58b1f0dbcf21590ec94a4238111ff87",
+    "events.jsonl": "ed773d506987b610717e6d66708296892841c31051534871ab662ed4d9439019"
+  },
+  "n": 20,
+  "waves": 5,
+  "invalid_arm_rejected_before_writing": true
+}

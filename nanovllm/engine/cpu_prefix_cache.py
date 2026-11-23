@@ -24,6 +24,8 @@ def cache_namespace(config) -> bytes:
         weights.append((shard.name, identity, stat.st_size, stat.st_mtime_ns))
     spec = (str(model), weights, json.loads(config.hf_config.to_json_string(use_diff=False)),
             str(config.hf_config.dtype), config.kvcache_block_size, config.tensor_parallel_size)
+    if getattr(config, "cpu_prefix_cache_format", "native") == "int4":
+        spec += ("int4-symmetric-group32-bf16-absmax-v1",)
     return sha256(json.dumps(spec, sort_keys=True).encode()).digest()
 
 
@@ -41,10 +43,10 @@ class PrefixHit:
 
 
 class TieredBlockManager(BlockManager):
-    """Synchronous CPU prefix cache. All metadata runs on the scheduler thread."""
+    """Bounded CPU prefix cache. All metadata runs on the scheduler thread."""
 
     def __init__(self, num_blocks, block_size, transfer, namespace: bytes, admission="always", batch_writes=False,
-                 first_use_blocks: int | None = None):
+                 first_use_blocks: int | None = None, transfer_mode="sync"):
         super().__init__(num_blocks, block_size)
         self.transfer = transfer
         self.namespace = namespace
@@ -52,6 +54,8 @@ class TieredBlockManager(BlockManager):
         self.entries: OrderedDict[bytes, tuple[int, list[int]]] = OrderedDict()
         self.free_slots = list(reversed(range(transfer.capacity)))
         self.evictions = 0
+        self.transfer_mode = transfer_mode
+        self.pending_write = None
         self.admission = admission
         self.batch_writes = batch_writes
         self.first_use_limit = min(num_blocks, transfer.capacity)
@@ -126,7 +130,18 @@ class TieredBlockManager(BlockManager):
             decision = replace(decision, action="restore", reason="gpu_capacity")
         return len(hits), (shape, decision)
 
+    def deallocate(self, seq: Sequence):
+        # A source is owned by an active sequence from reservation to publication.
+        # Finish before any release (completion, preemption or allocation rollback).
+        if self.pending_write is not None:
+            self.finish_write()
+        super().deallocate(seq)
+
     def allocate(self, seq: Sequence, num_cached_blocks: int):
+        # Hits can change LRU order, promote GPU pages or reuse transfer staging.
+        # A cold allocation only uses free GPU blocks, disjoint from the active sources.
+        if self.pending_write is not None and num_cached_blocks:
+            self.finish_write()
         hits = self._lookup(seq)
         assert not seq.block_table and 0 <= num_cached_blocks <= len(hits)
         if num_cached_blocks < len(hits):
@@ -229,6 +244,8 @@ class TieredBlockManager(BlockManager):
     def _admit_computed(self, pages, seq):
         # Only group unconditional first writes into unused slots. Mixed groups
         # follow normal admission in order, including refreshes, LRU and second uses.
+        if self.pending_write is not None:
+            self.finish_write()
         room = len(self.free_slots)
         if self.admission == "reuse":
             room = min(room, self.first_use_limit - len(self.entries))
@@ -248,9 +265,17 @@ class TieredBlockManager(BlockManager):
         del self.free_slots[-count:]
         start = perf_counter() if metrics else 0
         try:
+            if self.transfer_mode == "overlap":
+                future = self.transfer.submit_save_many(pairs)
+                self.pending_write = (future, pages, slots, metrics, start)
+                return True
             self.transfer.save_many(pairs)
         except BaseException as exc:
-            # Transfer has drained its stream. No mapping from this group is visible.
+            if self.transfer_mode == "overlap":
+                # submit() or registering the handle may fail after enqueue.
+                # Cancel queued work and join any running copy before slot reuse.
+                self.transfer.stop_writer()
+                self.pending_write = None
             self.free_slots.extend(reversed(slots))
             if not isinstance(exc, (MemoryError, torch.OutOfMemoryError)):
                 raise
@@ -258,11 +283,40 @@ class TieredBlockManager(BlockManager):
                 metrics.cpu_save_failures += 1
                 metrics.d2h_ms += (perf_counter() - start) * 1000
             return False  # Retry via the regular one-block path.
+        self._publish_group(pages, slots, metrics, perf_counter() - start if metrics else 0)
+        return True
+
+    def finish_write(self):
+        if self.pending_write is None:
+            return
+        future, pages, slots, metrics, start = self.pending_write
+        try:
+            completed = future.result()
+        except BaseException as exc:
+            if not future.done():
+                raise  # An interrupted waiter must keep the reservation.
+            self.pending_write = None
+            self.free_slots.extend(reversed(slots))
+            if not isinstance(exc, (MemoryError, torch.OutOfMemoryError)):
+                raise
+            if metrics:
+                metrics.cpu_save_failures += 1
+                metrics.d2h_ms += (perf_counter() - start) * 1000
+            for key, block in pages:
+                self._save(key, block, metrics)
+                if key in self.entries:
+                    self.recent_uses.pop(key, None)
+            return
+        self.pending_write = None
+        self._publish_group(pages, slots, metrics, completed - start)
+
+    def _publish_group(self, pages, slots, metrics, elapsed):
         if metrics:
+            count = len(pages)
             metrics.d2h_blocks += count
             metrics.d2h_batches += 1
             metrics.batched_d2h_blocks += count
-            metrics.d2h_ms += (perf_counter() - start) * 1000
+            metrics.d2h_ms += elapsed * 1000
         try:
             for (key, block), slot in zip(pages, slots):
                 self.entries[key] = (slot, block.token_ids)
@@ -272,7 +326,6 @@ class TieredBlockManager(BlockManager):
                 self.entries.pop(key, None)
             self.free_slots.extend(reversed(slots))
             raise
-        return True
 
     def hash_blocks(self, seq: Sequence):
         start = seq.num_cached_tokens // self.block_size

@@ -1,0 +1,6 @@
+Artifacts: ./results/20261123_int4_answer_length
+[rank0]:W1123 21:52:11.727000 49344 torch/_dynamo/convert_frame.py:1676] [0/8] torch._dynamo hit config.recompile_limit (8)
+[rank0]:W1123 21:52:11.727000 49344 torch/_dynamo/convert_frame.py:1676] [0/8]    function: 'rms_forward' (./nanovllm/layers/layernorm.py:16)
+[rank0]:W1123 21:52:11.727000 49344 torch/_dynamo/convert_frame.py:1676] [0/8]    last reason: 0/7: tensor 'x' rank mismatch. expected 2, actual 3
+[rank0]:W1123 21:52:11.727000 49344 torch/_dynamo/convert_frame.py:1676] [0/8] To log all recompilation reasons, use TORCH_LOGS="recompiles".
+[rank0]:W1123 21:52:11.727000 49344 torch/_dynamo/convert_frame.py:1676] [0/8] To diagnose recompilation issues, see https://pytorch.org/docs/main/compile/programming_model.recompilation.html

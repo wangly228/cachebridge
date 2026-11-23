@@ -45,8 +45,13 @@ class LLMEngine:
     def exit(self):
         if not hasattr(self, "model_runner"):
             return
-        self.model_runner.call("exit")
-        del self.model_runner
+        manager = getattr(getattr(self, "scheduler", None), "block_manager", None)
+        try:
+            if getattr(manager, "pending_write", None) is not None:
+                manager.finish_write()
+        finally:
+            self.model_runner.call("exit")
+            del self.model_runner
         for p in self.ps:
             p.join()
 

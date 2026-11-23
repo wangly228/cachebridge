@@ -1,0 +1,13 @@
+Artifacts: ./results/20261123_overlap_screen
+{'seed': 1800, 'cycle': 0, 'workload': 'mixed', 'warmup': True} arm=A 4.92s
+{'seed': 1800, 'cycle': 0, 'workload': 'mixed', 'warmup': True} arm=32 3.60s
+{'seed': 1800, 'cycle': 0, 'workload': 'mixed', 'warmup': True} arm=candidate 3.51s
+{'seed': 1800, 'cycle': 1, 'workload': 'long', 'warmup': True} arm=A 4.11s
+{'seed': 1800, 'cycle': 1, 'workload': 'long', 'warmup': True} arm=32 3.25s
+{'seed': 1800, 'cycle': 1, 'workload': 'long', 'warmup': True} arm=candidate 3.18s
+{'seed': 1899, 'cycle': 1, 'workload': 'mixed', 'warmup': False} arm=32 13.12s
+{'seed': 1899, 'cycle': 1, 'workload': 'mixed', 'warmup': False} arm=candidate 13.60s
+{'seed': 1899, 'cycle': 1, 'workload': 'mixed', 'warmup': False} arm=A 13.74s
+{'seed': 1899, 'cycle': 1, 'workload': 'long', 'warmup': False} arm=candidate 11.04s
+{'seed': 1899, 'cycle': 1, 'workload': 'long', 'warmup': False} arm=A 11.51s
+{'seed': 1899, 'cycle': 1, 'workload': 'long', 'warmup': False} arm=32 10.59s

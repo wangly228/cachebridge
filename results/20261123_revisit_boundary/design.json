@@ -1,0 +1,17 @@
+{
+  "seeds": [
+    1801,
+    1802,
+    1803,
+    1804
+  ],
+  "mode": "overlap",
+  "trace_sha256": "53bff82eea6da3da1153f43914f8cac7259c02743cc0b3c229fe4f2f9605c5c9",
+  "input_source": "results/20261119_first_use_budget36/trace.json",
+  "frozen_input_sha256": "f773a7d3be2e5a1a3571fc3f061be02d8c9ad4f1653842b63d933443d7fb4c1b",
+  "endpoint": "p95 over every request in complete 9-wave cold sequences, enqueue to first real token",
+  "layout": "4 concurrent, two 1024 and two 2048 prefixes per wave, 128-token tails and 128 outputs",
+  "levels": "0, 3, 6 revisit waves out of 9; three distinct prefix groups cycle with two intervening waves",
+  "warmup": "disjoint warm seeds 11801, 11802, 11804 cover partial-restore shapes; 8 outputs, both arms, fresh indices",
+  "uncertainty": "paired whole-seed percentile bootstrap 4000 draws, RNG 20261123; descriptive with four seeds"
+}

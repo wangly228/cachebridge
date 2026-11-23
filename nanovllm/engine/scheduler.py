@@ -18,13 +18,15 @@ class Scheduler:
         self.max_num_batched_tokens = config.max_num_batched_tokens
         self.eos = config.eos
         self.block_size = config.kvcache_block_size
+        self.pack_cold = getattr(config, "cpu_prefix_pack_cold", False)
         self.restore_policy = None
         if kv_transfer is None:
             self.block_manager = BlockManager(config.num_kvcache_blocks, self.block_size)
         else:
             self.block_manager = TieredBlockManager(config.num_kvcache_blocks, self.block_size,
                                                    kv_transfer, cache_namespace(config), config.cpu_prefix_admission,
-                                                   config.cpu_prefix_batch_writes, config.cpu_prefix_first_use_blocks)
+                                                   config.cpu_prefix_batch_writes, config.cpu_prefix_first_use_blocks,
+                                                   config.cpu_prefix_transfer_mode)
             if config.cpu_restore_cost_table is not None:
                 environment = cost_environment(config, self.block_manager.namespace)
                 self.restore_policy = RestoreCostTable.load(config.cpu_restore_cost_table, environment)
@@ -104,8 +106,15 @@ class Scheduler:
                 num_tokens = seq.num_tokens - num_cached_blocks * self.block_size
             else:
                 num_tokens = seq.num_tokens - seq.num_cached_tokens
-            if remaining < num_tokens and scheduled_seqs:  # only allow chunked prefill for the first seq
-                break
+            if remaining < num_tokens and scheduled_seqs:
+                if (not self.pack_cold or seq.block_table or num_cached_blocks or choice is not None
+                        or seq.num_completion_tokens or remaining < self.block_size):
+                    break
+                # A peer may publish the root after this step. Waiting in that
+                # case preserves a prefix hit which a second allocation would lose.
+                root = seq.block(0)
+                if any(peer.block(0) == root for peer in scheduled_seqs):
+                    break
             if not seq.block_table:
                 restored = self.block_manager.allocate(seq, num_cached_blocks)
                 if restored == -1:

@@ -1,0 +1,7 @@
+[
+  "../PegaFlow/.venv/bin/python",
+  "-m",
+  "benchmarks.prefix_replay_cost",
+  "--output",
+  "results/20261123_prefix_replay_cost"
+]

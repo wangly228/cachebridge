@@ -1,0 +1,78 @@
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 4.928198716999759}
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 3.522249510999245}
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 3.379865199000051}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 4.311009990000457}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 3.214842035999027}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 3.031674039000791}
+{"seed": 2101, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.852768149998155}
+{"seed": 2101, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.36492704199918}
+{"seed": 2101, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 13.327049071998772}
+{"seed": 2101, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 12.560398770001484}
+{"seed": 2101, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.795782937002514}
+{"seed": 2101, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 10.846354428998893}
+{"seed": 2101, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 12.931577471998025}
+{"seed": 2101, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.777781491000496}
+{"seed": 2101, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.840839358999801}
+{"seed": 2101, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.648949098998855}
+{"seed": 2101, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 11.941979463997995}
+{"seed": 2101, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 10.711545655001828}
+{"seed": 2102, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.670180777000496}
+{"seed": 2102, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 10.924889901001734}
+{"seed": 2102, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 12.202717333999317}
+{"seed": 2102, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.957414209999115}
+{"seed": 2102, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 14.037787821001984}
+{"seed": 2102, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.227532565000729}
+{"seed": 2102, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 11.468725318998622}
+{"seed": 2102, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 12.364147999000124}
+{"seed": 2102, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.974464413997339}
+{"seed": 2102, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.599381102001644}
+{"seed": 2102, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.895214790001774}
+{"seed": 2102, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 12.981406401999266}
+{"seed": 2103, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.102488804001041}
+{"seed": 2103, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 14.273913307002658}
+{"seed": 2103, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 13.691573795000295}
+{"seed": 2103, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 11.385220922998997}
+{"seed": 2103, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 11.226441707000049}
+{"seed": 2103, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 12.295190595003078}
+{"seed": 2103, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 13.512422186999174}
+{"seed": 2103, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.92685119199814}
+{"seed": 2103, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 14.243622403999325}
+{"seed": 2103, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 12.125312988999212}
+{"seed": 2103, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 11.020763058000739}
+{"seed": 2103, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.685905041998922}
+{"seed": 2104, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 11.716134788002819}
+{"seed": 2104, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.655126714998914}
+{"seed": 2104, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 10.79278528299983}
+{"seed": 2104, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.661474882999755}
+{"seed": 2104, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 12.98566483399918}
+{"seed": 2104, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.888730403003137}
+{"seed": 2104, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.63647179200052}
+{"seed": 2104, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 11.67716328700044}
+{"seed": 2104, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 10.774726568997721}
+{"seed": 2104, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.076784017997852}
+{"seed": 2104, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.970704573999683}
+{"seed": 2104, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.716170927000348}
+{"seed": 2105, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 13.328821841001627}
+{"seed": 2105, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.847229500002868}
+{"seed": 2105, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.342634147003992}
+{"seed": 2105, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.955795549001778}
+{"seed": 2105, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 11.396141279001313}
+{"seed": 2105, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 12.287054325999634}
+{"seed": 2105, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.983713748995797}
+{"seed": 2105, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.885884536997764}
+{"seed": 2105, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.28554356299719}
+{"seed": 2105, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 10.81322842300142}
+{"seed": 2105, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 11.781519691998255}
+{"seed": 2105, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.897606808001001}
+{"seed": 2106, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 11.415451459004544}
+{"seed": 2106, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 11.2308865399973}
+{"seed": 2106, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 12.455520369003352}
+{"seed": 2106, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.496762263996061}
+{"seed": 2106, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.789018051000312}
+{"seed": 2106, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.840450054995017}
+{"seed": 2106, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 11.595969037996838}
+{"seed": 2106, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 10.733253275000607}
+{"seed": 2106, "cycle": 0, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.6186993980009}
+{"seed": 2106, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.826507444005983}
+{"seed": 2106, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 12.96141505700507}
+{"seed": 2106, "cycle": 0, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.66596384299919}

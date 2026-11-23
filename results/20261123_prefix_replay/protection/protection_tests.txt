@@ -1,0 +1,17 @@
+test_full_capacity_touches_and_replaces_lru (test_overlap_writes.OverlapTests.test_full_capacity_touches_and_replaces_lru) ... ok
+test_last_reference_preempted_while_copy_is_pending (test_overlap_writes.OverlapTests.test_last_reference_preempted_while_copy_is_pending) ... ok
+test_partial_memory_failure_retries_every_page (test_overlap_writes.OverlapTests.test_partial_memory_failure_retries_every_page) ... ok
+test_reservations_preemption_and_shared_reference (test_overlap_writes.OverlapTests.test_reservations_preemption_and_shared_reference) ... ok
+test_submit_reports_failure_after_worker_started (test_overlap_writes.OverlapTests.test_submit_reports_failure_after_worker_started) ... ok
+test_unrecoverable_partial_failure_returns_reserved_slots (test_overlap_writes.OverlapTests.test_unrecoverable_partial_failure_returns_reserved_slots) ... ok
+test_partial_admission_waits_for_peer_to_publish_shared_root (test_phase1.MetricsTests.test_partial_admission_waits_for_peer_to_publish_shared_root) ... ok
+test_partial_cold_peer_fills_budget_and_keeps_fifo_and_tail (test_phase1.MetricsTests.test_partial_cold_peer_fills_budget_and_keeps_fifo_and_tail) ... ok
+test_shared_refs_survive_one_finish_and_eviction (test_phase1.MetricsTests.test_shared_refs_survive_one_finish_and_eviction) ... ok
+test_partial_cpu_then_gpu_and_shared_live_reference (test_cpu_prefix_cache.CacheTests.test_partial_cpu_then_gpu_and_shared_live_reference) ... ok
+test_reuse_promotion_copies_after_all_restores_and_retries_failed_save (test_cpu_prefix_cache.CacheTests.test_reuse_promotion_copies_after_all_restores_and_retries_failed_save) ... ok
+test_copy_errors_replan_and_publish_only_ready_data (test_cpu_prefix_cache.CacheTests.test_copy_errors_replan_and_publish_only_ready_data) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.005s
+
+OK

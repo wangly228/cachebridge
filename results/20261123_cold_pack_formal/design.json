@@ -1,0 +1,20 @@
+{
+  "stage": "formal",
+  "baseline": "overlap",
+  "candidate": "cold_pack",
+  "seed_base": 2100,
+  "arms": [
+    "A",
+    "32",
+    "candidate"
+  ],
+  "reference": "native GPU with packed cold prefill after each three-arm case",
+  "trace_sha256": "4ebc1e053e354c990e8ae3771f605718e857bd5fb6a68c138a60559fa206ac13",
+  "paired_seed_bootstrap_draws": 4000,
+  "bootstrap_rng": 1900,
+  "mixed_gain_pct": 3,
+  "max_segment_regression_pct": 5,
+  "timing": "Enqueue to first generated token. Cycle includes all inference, transfer and wait, excludes disk IO.",
+  "allocation": "Arms share model, GPU pool and preallocated transfer tensors. A uses native GPU manager.",
+  "screen": "Disjoint seed, both workloads, eviction before hot replay, full 128 output tokens."
+}

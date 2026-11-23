@@ -1,0 +1,250 @@
+{
+  "levels": [
+    {
+      "revisit_waves": 0,
+      "arms": {
+        "A": {
+          "requests": 144,
+          "evicted_revisits": 0,
+          "actual_evicted_revisit_pct": 0.0,
+          "whole_p95_ms": 897.4295894509851,
+          "wall_s": 102.5074516609966,
+          "whole_output_tokens_per_s": 179.81131811721013,
+          "p95_ms_by_seed": {
+            "1801": 894.9272565005231,
+            "1802": 877.702304248487,
+            "1803": 896.7720010004996,
+            "1804": 906.8242745006501
+          },
+          "restored_blocks": 0,
+          "written_blocks": 0,
+          "restored_full_revisits": 0,
+          "revisited_prefix_blocks": 0,
+          "first_wave_d2h_blocks": 0,
+          "peak_gpu_allocated_bytes": 9708477440,
+          "peak_cpu_rss_bytes": 5004640256
+        },
+        "CPU": {
+          "requests": 144,
+          "evicted_revisits": 0,
+          "actual_evicted_revisit_pct": 0.0,
+          "whole_p95_ms": 918.0195699016622,
+          "wall_s": 105.44732080900212,
+          "whole_output_tokens_per_s": 174.79818224482045,
+          "p95_ms_by_seed": {
+            "1801": 909.7003364995544,
+            "1802": 889.4846929997584,
+            "1803": 916.3078335004684,
+            "1804": 1024.2739457489733
+          },
+          "restored_blocks": 0,
+          "written_blocks": 128,
+          "restored_full_revisits": 0,
+          "revisited_prefix_blocks": 0,
+          "first_wave_d2h_blocks": 96,
+          "peak_gpu_allocated_bytes": 9708477440,
+          "peak_cpu_rss_bytes": 5004640256
+        }
+      },
+      "whole_change_pct": 2.2943282339590976,
+      "paired_seed_95pct_interval": [
+        1.2476328643808765,
+        13.073618340037507
+      ],
+      "pooled_improvement": false,
+      "interval_entirely_below_zero": false
+    },
+    {
+      "revisit_waves": 3,
+      "arms": {
+        "A": {
+          "requests": 144,
+          "evicted_revisits": 48,
+          "actual_evicted_revisit_pct": 33.333333333333336,
+          "whole_p95_ms": 905.9220963479675,
+          "wall_s": 103.23226276999776,
+          "whole_output_tokens_per_s": 178.548832558932,
+          "p95_ms_by_seed": {
+            "1801": 897.2331707509511,
+            "1802": 880.7306452499688,
+            "1803": 909.0747640011614,
+            "1804": 918.4744297499492
+          },
+          "restored_blocks": 0,
+          "written_blocks": 0,
+          "restored_full_revisits": 0,
+          "revisited_prefix_blocks": 288,
+          "first_wave_d2h_blocks": 0,
+          "peak_gpu_allocated_bytes": 9708477440,
+          "peak_cpu_rss_bytes": 5004640256
+        },
+        "CPU": {
+          "requests": 144,
+          "evicted_revisits": 48,
+          "actual_evicted_revisit_pct": 33.333333333333336,
+          "whole_p95_ms": 904.6544418497433,
+          "wall_s": 99.94665496800008,
+          "whole_output_tokens_per_s": 184.41837804278066,
+          "p95_ms_by_seed": {
+            "1801": 913.8145977485692,
+            "1802": 887.3293667502367,
+            "1803": 908.2695349998176,
+            "1804": 900.0614835022134
+          },
+          "restored_blocks": 128,
+          "written_blocks": 240,
+          "restored_full_revisits": 21,
+          "revisited_prefix_blocks": 288,
+          "first_wave_d2h_blocks": 96,
+          "peak_gpu_allocated_bytes": 9708477440,
+          "peak_cpu_rss_bytes": 5004640256
+        }
+      },
+      "whole_change_pct": -0.13992974708690875,
+      "paired_seed_95pct_interval": [
+        -1.1213503064125496,
+        1.582247108371937
+      ],
+      "pooled_improvement": true,
+      "interval_entirely_below_zero": false
+    },
+    {
+      "revisit_waves": 6,
+      "arms": {
+        "A": {
+          "requests": 144,
+          "evicted_revisits": 96,
+          "actual_evicted_revisit_pct": 66.66666666666667,
+          "whole_p95_ms": 904.5307395475902,
+          "wall_s": 102.73797757699504,
+          "whole_output_tokens_per_s": 179.40785320780222,
+          "p95_ms_by_seed": {
+            "1801": 915.0512109999909,
+            "1802": 876.102761751099,
+            "1803": 889.3675402487133,
+            "1804": 913.7716469986117
+          },
+          "restored_blocks": 0,
+          "written_blocks": 0,
+          "restored_full_revisits": 0,
+          "revisited_prefix_blocks": 576,
+          "first_wave_d2h_blocks": 0,
+          "peak_gpu_allocated_bytes": 9708477440,
+          "peak_cpu_rss_bytes": 5004640256
+        },
+        "CPU": {
+          "requests": 144,
+          "evicted_revisits": 96,
+          "actual_evicted_revisit_pct": 66.66666666666667,
+          "whole_p95_ms": 913.9168700497976,
+          "wall_s": 92.33300531200439,
+          "whole_output_tokens_per_s": 199.62525792067575,
+          "p95_ms_by_seed": {
+            "1801": 902.699976999429,
+            "1802": 882.2417572500854,
+            "1803": 889.8451585018847,
+            "1804": 932.0640214973537
+          },
+          "restored_blocks": 380,
+          "written_blocks": 292,
+          "restored_full_revisits": 63,
+          "revisited_prefix_blocks": 576,
+          "first_wave_d2h_blocks": 96,
+          "peak_gpu_allocated_bytes": 9708477440,
+          "peak_cpu_rss_bytes": 5004640256
+        }
+      },
+      "whole_change_pct": 1.037679549387338,
+      "paired_seed_95pct_interval": [
+        -1.0833279794847384,
+        2.5772383464142568
+      ],
+      "pooled_improvement": false,
+      "interval_entirely_below_zero": false
+    }
+  ],
+  "seeds": [
+    1801,
+    1802,
+    1803,
+    1804
+  ],
+  "cpu_mode": "overlap",
+  "formal_prefill_shapes": [
+    [
+      128,
+      1
+    ],
+    [
+      256,
+      2
+    ],
+    [
+      384,
+      3
+    ],
+    [
+      512,
+      4
+    ],
+    [
+      1152,
+      1
+    ],
+    [
+      1280,
+      2
+    ],
+    [
+      1408,
+      3
+    ],
+    [
+      2048,
+      1
+    ]
+  ],
+  "warmup_prefill_shapes": [
+    [
+      128,
+      1
+    ],
+    [
+      256,
+      2
+    ],
+    [
+      384,
+      3
+    ],
+    [
+      512,
+      4
+    ],
+    [
+      1152,
+      1
+    ],
+    [
+      1280,
+      2
+    ],
+    [
+      1408,
+      3
+    ],
+    [
+      2048,
+      1
+    ]
+  ],
+  "raw_sha256": {
+    "trace.json": "53bff82eea6da3da1153f43914f8cac7259c02743cc0b3c229fe4f2f9605c5c9",
+    "cycles.jsonl": "9c6fbdd2b98d919c7176f897d1591d9fe2af1d7e4935e651358d92fc52e6ec9d",
+    "requests.jsonl": "541246c0e16f51338ce943de0b9c8e69498e658fb9fe504fdebf4a71a9c77dfd",
+    "steps.jsonl": "68a1f48806e3b11b0e0d057c422e5a4ef97ef3f73c84a774f490bcf024b8132b",
+    "waves.jsonl": "123bf1d974126c86e404ffa852c20da2dcbe66c48def50d42db46a2448586d70",
+    "engine.json": "da9aefb09fd0d30ee9f1a0ce395e684e9aed4c9b0db589023d43bf94329e80fc",
+    "design.json": "2e2dfb85c37d829a788bd61c3ec9ff7c101129db37813d7d63164e0f6e6f3d63"
+  }
+}

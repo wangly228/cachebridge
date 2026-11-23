@@ -1,0 +1,17 @@
+{
+  "paired_cases": 13,
+  "bf16": {
+    "short_misses": 7,
+    "recovered": 2,
+    "extended_misses": 5,
+    "capped_without_eos": 0
+  },
+  "int4": {
+    "short_misses": 11,
+    "recovered": 8,
+    "extended_misses": 3,
+    "capped_without_eos": 0
+  },
+  "extended_bf16_correct_int4_wrong": 0,
+  "extended_bf16_wrong_int4_correct": 2
+}

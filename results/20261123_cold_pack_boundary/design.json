@@ -1,0 +1,18 @@
+{
+  "seeds": [
+    2201,
+    2202,
+    2203,
+    2204
+  ],
+  "trace_sha256": "af52f949689acfc57bef978b671c29e3af79a1a239c6f422faea956c41453dad",
+  "arms": [
+    "A",
+    "overlap32",
+    "cold_pack"
+  ],
+  "preload": "metadata set cover using disjoint input IDs; no timed GPU data used",
+  "bootstrap": "4000 paired whole-seed draws, RNG 2200",
+  "cold": "empty GPU and CPU metadata each 9-wave sequence; preheated engine; no inter-wave cache resets",
+  "endpoint": "Enqueue to first generated token; wall covers all transfers and waits. Output 128; four queued per wave."
+}

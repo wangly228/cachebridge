@@ -1,0 +1,38 @@
+{
+  "config": {
+    "enforce_eager": false,
+    "tensor_parallel_size": 1,
+    "enable_metrics": true,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "max_kvcache_blocks": 36,
+    "cpu_prefix_cache_blocks": 64,
+    "cpu_prefix_admission": "reuse",
+    "cpu_prefix_batch_writes": true,
+    "cpu_prefix_first_use_blocks": 32,
+    "cpu_prefix_transfer_mode": "sync"
+  },
+  "kv_budget": {
+    "safe_blocks": 287,
+    "requested_cap": 36,
+    "actual_blocks": 36,
+    "block_bytes": 37748736
+  },
+  "cpu_slots": 64,
+  "engine_module": "./nanovllm/__init__.py",
+  "graph_batch_sizes": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "dtype": "torch.bfloat16",
+  "namespace": "2bb9b0909191daa81b97b615174bd6fc282ec03ee20cc1cbd753f46d2be9cdd0",
+  "modes": {
+    "A": "native GPU",
+    "32": "sync",
+    "candidate": "overlap"
+  }
+}

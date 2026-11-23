@@ -1,0 +1,12 @@
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 4.899425604002317}
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 3.567603504001454}
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 3.406942868998158}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 4.027584511997702}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 3.207571415001439}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 2.9704590559995268}
+{"seed": 2099, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 13.34083406499849}
+{"seed": 2099, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 12.887523206998594}
+{"seed": 2099, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 13.742696411001816}
+{"seed": 2099, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": true, "arm": "candidate", "wall_s": 10.655445454001892}
+{"seed": 2099, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": false, "arm": "A", "wall_s": 11.732033640000736}
+{"seed": 2099, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "overlap", "pack_cold": false, "arm": "32", "wall_s": 10.558932125997671}

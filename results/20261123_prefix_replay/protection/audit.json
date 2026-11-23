@@ -1,0 +1,46 @@
+{
+  "source": "results/20261123_cold_pack_screen",
+  "selector": {
+    "warmup": false,
+    "arm": "candidate",
+    "workload": "mixed",
+    "seed": 2099,
+    "cycle": 1
+  },
+  "waves": [
+    "fill",
+    "pressure1",
+    "pressure2",
+    "evicted",
+    "hot"
+  ],
+  "requests": 20,
+  "counters_per_request": 15,
+  "cli_field_equalities": 300,
+  "guarded_field_equalities": 300,
+  "source_requests_sha256": "e8d94575ed449daa0767b69eef857cd1ba135255474cd3ded00d09bae9f25bf0",
+  "config_sha256": "e1799925790d00e571739f96f4d90f05319bdd2e544bdbb896f2e09729529443",
+  "transcript_sha256": "c1bcd27580e52af884be00a11c2d01463cb4834ce4025f11c49fd9920669fb8a",
+  "cli_summary_sha256": "0fedf0e9261b93458808f8ab15281e6b2d1f1124be9c094155a0b97f4d44f218",
+  "guarded_summary_sha256": "0fedf0e9261b93458808f8ab15281e6b2d1f1124be9c094155a0b97f4d44f218",
+  "guarded_counts": {
+    "reserved_blocks": 30,
+    "step_observations_with_pending_write": 131,
+    "reserved_block_checks": 304,
+    "steps_with_refcounts_verified": 649,
+    "steps_with_shared_block": 0,
+    "delayed_batches_completed": 7,
+    "sync_saved_blocks": 2,
+    "restores_to_exclusively_claimed_targets": 24
+  },
+  "synthetic_simultaneous_shared_counts": {
+    "reserved_blocks": 4,
+    "step_observations_with_pending_write": 1,
+    "reserved_block_checks": 8,
+    "steps_with_refcounts_verified": 9,
+    "steps_with_shared_block": 7,
+    "delayed_batches_completed": 1
+  },
+  "synthetic_peer_gpu_hit_tokens": 1024,
+  "metadata_limits": "CPU-only checks real allocation, publication and release order; guarded transfer compares token labels, not KV bits or device timings."
+}

@@ -1,0 +1,41 @@
+{
+  "stage": "screen",
+  "seeds": [
+    3400
+  ],
+  "plan": [
+    {
+      "seed": 3400,
+      "order": [
+        "bf16_64",
+        "int4_64",
+        "bf16_18"
+      ],
+      "trace_sha256": "57b1bfea6e11542d37bfb699b8b7b7e48de71e620b354cf7029e65e61aa706b4"
+    }
+  ],
+  "arms": {
+    "bf16_64": [
+      "native",
+      64
+    ],
+    "int4_64": [
+      "int4",
+      64
+    ],
+    "bf16_18": [
+      "native",
+      18
+    ]
+  },
+  "output": 16,
+  "block_size": 256,
+  "concurrency": 4,
+  "model_weight_dtype": "BF16",
+  "gpu_blocks": 36,
+  "graph": true,
+  "init": "fresh process per arm/seed, prefault all slots, run separate warm mixed cycle, reset both indices per workload",
+  "workload": "mixed FIFO 1024/2048 +128; capacity has 4 banks of 4 x 1024+128, immediate touch then delayed revisit",
+  "timing": "from enqueue through first real token; whole includes cold fill; wave wall through all writes, no profiler",
+  "bootstrap": "4000 paired whole-seed resamples, recompute pooled request p95; one seed descriptive only"
+}

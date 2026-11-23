@@ -1,0 +1,38 @@
+[
+  {
+    "ph": "X",
+    "cat": "gpu_memcpy",
+    "name": "Memcpy DtoH (Device -> Pinned)",
+    "pid": 0,
+    "tid": 7,
+    "ts": 4583965272855.691,
+    "dur": 429.838,
+    "args": {
+      "External id": 6,
+      "device": 0,
+      "context": 1,
+      "stream": 7,
+      "correlation": 15,
+      "bytes": 10616832,
+      "memory bandwidth (GB/s)": 24.699612412118054
+    }
+  },
+  {
+    "ph": "X",
+    "cat": "gpu_memcpy",
+    "name": "Memcpy HtoD (Pinned -> Device)",
+    "pid": 0,
+    "tid": 7,
+    "ts": 4583965274488.056,
+    "dur": 419.22,
+    "args": {
+      "External id": 7,
+      "device": 0,
+      "context": 1,
+      "stream": 7,
+      "correlation": 22,
+      "bytes": 10616832,
+      "memory bandwidth (GB/s)": 25.325203950193217
+    }
+  }
+]

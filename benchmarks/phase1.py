@@ -29,7 +29,8 @@ def reset_cache(llm):
     if isinstance(manager, TieredBlockManager):
         llm.scheduler.block_manager = TieredBlockManager(len(manager.blocks), manager.block_size,
                                                        manager.transfer, manager.namespace, manager.admission,
-                                                       manager.batch_writes, manager.first_use_limit)
+                                                       manager.batch_writes, manager.first_use_limit,
+                                                       manager.transfer_mode)
     else:
         llm.scheduler.block_manager = BlockManager(len(manager.blocks), manager.block_size)
 

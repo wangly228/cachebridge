@@ -1,0 +1,4 @@
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "transfer_mode": "native GPU", "pack_cold": true, "arm": "A_packed", "wall_s": 4.006196144000569}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "transfer_mode": "native GPU", "pack_cold": true, "arm": "A_packed", "wall_s": 3.882903936999355}
+{"seed": 2099, "cycle": 1, "workload": "mixed", "warmup": false, "transfer_mode": "native GPU", "pack_cold": true, "arm": "A_packed", "wall_s": 13.405203507998522}
+{"seed": 2099, "cycle": 1, "workload": "long", "warmup": false, "transfer_mode": "native GPU", "pack_cold": true, "arm": "A_packed", "wall_s": 11.271573565998551}

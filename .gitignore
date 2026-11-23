@@ -193,3 +193,9 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Large full-vocabulary diagnostics have a separate SHA-256 manifest.
+/results/20261123_int4_quality_screen/*.npz
+/results/20261123_int4_quality_readout/*.npz
+/results/20261123_int4_quality_crossref/*.npz
+/results/20261123_int4_quality_formal/*.npz

@@ -1,0 +1,91 @@
+{
+  "stage": "formal",
+  "seeds": [
+    3501,
+    3502,
+    3503,
+    3504,
+    3505,
+    3506
+  ],
+  "plan": [
+    {
+      "seed": 3501,
+      "order": [
+        "bf16_64",
+        "int4_64",
+        "bf16_18"
+      ],
+      "trace_sha256": "3e5d06111115aba37c5fa944ff1c12c3f7c5ee3edf32e62484c8c02d41952dfe"
+    },
+    {
+      "seed": 3502,
+      "order": [
+        "bf16_64",
+        "bf16_18",
+        "int4_64"
+      ],
+      "trace_sha256": "99a07f16a2756ac18f3e15b0fef51c2ae1bafc262e9803f54ec1e90c1252602a"
+    },
+    {
+      "seed": 3503,
+      "order": [
+        "int4_64",
+        "bf16_64",
+        "bf16_18"
+      ],
+      "trace_sha256": "8543ac97013699640b545aeda6335ca8c0f85e2178abcdb2e4be89f7304bc946"
+    },
+    {
+      "seed": 3504,
+      "order": [
+        "int4_64",
+        "bf16_18",
+        "bf16_64"
+      ],
+      "trace_sha256": "e7f07cb517e05d84c7b2f94a7367a261e095e79d01262ddd503d19d97a37709a"
+    },
+    {
+      "seed": 3505,
+      "order": [
+        "bf16_18",
+        "bf16_64",
+        "int4_64"
+      ],
+      "trace_sha256": "8c9f024175aac55ae3140e15a337d2a5126fb85121b8a3166f4bfeff0b291daf"
+    },
+    {
+      "seed": 3506,
+      "order": [
+        "bf16_18",
+        "int4_64",
+        "bf16_64"
+      ],
+      "trace_sha256": "8b29edd1802148a6ba4898e288274f4e3f29b2121ae691dc13526954362cf598"
+    }
+  ],
+  "arms": {
+    "bf16_64": [
+      "native",
+      64
+    ],
+    "int4_64": [
+      "int4",
+      64
+    ],
+    "bf16_18": [
+      "native",
+      18
+    ]
+  },
+  "output": 16,
+  "block_size": 256,
+  "concurrency": 4,
+  "model_weight_dtype": "BF16",
+  "gpu_blocks": 36,
+  "graph": true,
+  "init": "fresh process per arm/seed, prefault all slots, run separate warm mixed cycle, reset both indices per workload",
+  "workload": "mixed FIFO 1024/2048 +128; capacity has 4 banks of 4 x 1024+128, immediate touch then delayed revisit",
+  "timing": "from enqueue through first real token; whole includes cold fill; wave wall through all writes, no profiler",
+  "bootstrap": "4000 paired whole-seed resamples, recompute pooled request p95; one seed descriptive only"
+}

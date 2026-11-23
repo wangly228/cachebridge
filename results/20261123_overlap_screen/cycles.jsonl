@@ -1,0 +1,12 @@
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "arm": "A", "wall_s": 4.915990187000716}
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "arm": "32", "wall_s": 3.5974721550010145}
+{"seed": 1800, "cycle": 0, "workload": "mixed", "warmup": true, "arm": "candidate", "wall_s": 3.51100296200093}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "arm": "A", "wall_s": 4.110468531998777}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "arm": "32", "wall_s": 3.249124464997294}
+{"seed": 1800, "cycle": 1, "workload": "long", "warmup": true, "arm": "candidate", "wall_s": 3.180593807999685}
+{"seed": 1899, "cycle": 1, "workload": "mixed", "warmup": false, "arm": "32", "wall_s": 13.123789024000871}
+{"seed": 1899, "cycle": 1, "workload": "mixed", "warmup": false, "arm": "candidate", "wall_s": 13.595231802999479}
+{"seed": 1899, "cycle": 1, "workload": "mixed", "warmup": false, "arm": "A", "wall_s": 13.74319925600139}
+{"seed": 1899, "cycle": 1, "workload": "long", "warmup": false, "arm": "candidate", "wall_s": 11.036929613997927}
+{"seed": 1899, "cycle": 1, "workload": "long", "warmup": false, "arm": "A", "wall_s": 11.50951920299849}
+{"seed": 1899, "cycle": 1, "workload": "long", "warmup": false, "arm": "32", "wall_s": 10.59255115599808}

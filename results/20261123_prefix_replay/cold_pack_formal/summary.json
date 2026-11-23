@@ -1,0 +1,353 @@
+{
+  "reference": "https://github.com/cacheMon/PrefixSim/tree/160d5f81724dd9ec28b10d6abb64615e6adbb332",
+  "transfer_mode": "overlap",
+  "pack_cold": true,
+  "cpu_slots": 64,
+  "input": "results/20261123_cold_pack_formal",
+  "arm": "candidate",
+  "groups": {
+    "long": {
+      "n": 192,
+      "revisits": 96,
+      "incomplete": 0,
+      "causes": {},
+      "lost_tokens_by_cause": {},
+      "first_gap_indices": {},
+      "stranded_cpu_blocks": 0,
+      "gpu_hit_tokens": 98304,
+      "d2h_blocks": 384,
+      "h2d_blocks": 384,
+      "prompt_computed_tokens": 221184,
+      "measured_p95_ms": 1149.2117628500637,
+      "measured_p95_support": [
+        {
+          "warmup": false,
+          "seed": 2105,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "pressure1",
+          "seq_id": 1560,
+          "measured_ttft_ms": 1148.238298999786,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2102,
+          "cycle": 0,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 612,
+          "measured_ttft_ms": 1150.4015520004032,
+          "revisited_prefix": false
+        }
+      ],
+      "slowest_five_percent": [
+        {
+          "warmup": false,
+          "seed": 2102,
+          "cycle": 0,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 612,
+          "measured_ttft_ms": 1150.4015520004032,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2103,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 980,
+          "measured_ttft_ms": 1153.7306579994038,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2105,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 1556,
+          "measured_ttft_ms": 1159.2338330010534,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2105,
+          "cycle": 0,
+          "workload": "long",
+          "wave": "pressure1",
+          "seq_id": 1388,
+          "measured_ttft_ms": 1171.3789339992218,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2101,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 372,
+          "measured_ttft_ms": 1172.2312790006981,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2106,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "pressure1",
+          "seq_id": 1608,
+          "measured_ttft_ms": 1190.0655699937488,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2103,
+          "cycle": 0,
+          "workload": "long",
+          "wave": "pressure1",
+          "seq_id": 828,
+          "measured_ttft_ms": 1191.902760998346,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2101,
+          "cycle": 0,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 244,
+          "measured_ttft_ms": 1193.3197529979225,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2106,
+          "cycle": 1,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 1604,
+          "measured_ttft_ms": 1212.3390179986018,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2103,
+          "cycle": 0,
+          "workload": "long",
+          "wave": "fill",
+          "seq_id": 820,
+          "measured_ttft_ms": 1219.0549799997825,
+          "revisited_prefix": false
+        }
+      ],
+      "idealized_zero_revisit_latency_p95_ms": 1149.2117628500637
+    },
+    "mixed": {
+      "n": 240,
+      "revisits": 96,
+      "incomplete": 0,
+      "causes": {},
+      "lost_tokens_by_cause": {},
+      "first_gap_indices": {},
+      "stranded_cpu_blocks": 0,
+      "gpu_hit_tokens": 73728,
+      "d2h_blocks": 384,
+      "h2d_blocks": 288,
+      "prompt_computed_tokens": 251904,
+      "measured_p95_ms": 880.0385628492222,
+      "measured_p95_support": [
+        {
+          "warmup": false,
+          "seed": 2101,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "pressure1",
+          "seq_id": 196,
+          "measured_ttft_ms": 879.8985239991453,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2105,
+          "cycle": 1,
+          "workload": "mixed",
+          "wave": "pressure2",
+          "seq_id": 1472,
+          "measured_ttft_ms": 882.6993010006845,
+          "revisited_prefix": false
+        }
+      ],
+      "slowest_five_percent": [
+        {
+          "warmup": false,
+          "seed": 2105,
+          "cycle": 1,
+          "workload": "mixed",
+          "wave": "pressure2",
+          "seq_id": 1472,
+          "measured_ttft_ms": 882.6993010006845,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2102,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "fill",
+          "seq_id": 664,
+          "measured_ttft_ms": 882.8285509989655,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2104,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "fill",
+          "seq_id": 1240,
+          "measured_ttft_ms": 883.663742999488,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2101,
+          "cycle": 1,
+          "workload": "mixed",
+          "wave": "pressure1",
+          "seq_id": 316,
+          "measured_ttft_ms": 885.3684889982105,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2104,
+          "cycle": 1,
+          "workload": "mixed",
+          "wave": "fill",
+          "seq_id": 1116,
+          "measured_ttft_ms": 894.4359969973448,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2103,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "pressure1",
+          "seq_id": 772,
+          "measured_ttft_ms": 897.6243030010664,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2101,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "pressure2",
+          "seq_id": 200,
+          "measured_ttft_ms": 899.351543001103,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2103,
+          "cycle": 1,
+          "workload": "mixed",
+          "wave": "pressure2",
+          "seq_id": 876,
+          "measured_ttft_ms": 900.8432400005404,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2103,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "pressure2",
+          "seq_id": 776,
+          "measured_ttft_ms": 906.982065000193,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2101,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "fill",
+          "seq_id": 188,
+          "measured_ttft_ms": 911.3242519997584,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2105,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "fill",
+          "seq_id": 1300,
+          "measured_ttft_ms": 943.9335500064772,
+          "revisited_prefix": false
+        },
+        {
+          "warmup": false,
+          "seed": 2103,
+          "cycle": 0,
+          "workload": "mixed",
+          "wave": "fill",
+          "seq_id": 764,
+          "measured_ttft_ms": 966.0973999998532,
+          "revisited_prefix": false
+        }
+      ],
+      "idealized_zero_revisit_latency_p95_ms": 880.0385628492222
+    }
+  },
+  "policy": "baseline",
+  "replayed_requests": 432,
+  "replayed_waves": 108,
+  "calibrated": true,
+  "request_counters": [
+    "initial_gpu_hit_tokens",
+    "initial_cpu_hit_tokens",
+    "allocation_gpu_hit_tokens",
+    "allocations",
+    "cpu_restored_tokens",
+    "prompt_computed_tokens",
+    "prefill_tokens",
+    "decode_tokens",
+    "preemptions",
+    "d2h_blocks",
+    "h2d_blocks",
+    "d2h_batches",
+    "batched_d2h_blocks",
+    "cpu_save_failures",
+    "cpu_restore_failures"
+  ],
+  "gap_records": 0,
+  "skipped_warmups": true,
+  "input_sha256": {
+    "requests.jsonl": "c3d9c30c2b16018d2fb0c02820149b2b44bd716538f6a30b0ba7b80795519678",
+    "waves.jsonl": "1b3563afc94f5ab05f3919f8524a70689a530f7742f040f104cb2b1a75c558ee",
+    "steps.jsonl": "7ec0a31202b6996302cb6b26ad116a21d54683c3fd04f953e6635b18057a7034",
+    "engine.json": "e1799925790d00e571739f96f4d90f05319bdd2e544bdbb896f2e09729529443",
+    "design.json": "63b22f394c967ebe49390e9ac7aaccccce18c4e02c0b57ba19edf1cb4e6ecb66",
+    "trace.json": "4ebc1e053e354c990e8ae3771f605718e857bd5fb6a68c138a60559fa206ac13"
+  },
+  "code_sha256": {
+    "nanovllm/engine/cpu_prefix_cache.py": "45330b4e67d035d7dd24fa9ea04dbf53990d6f8d432327bbb5ab518b04974148",
+    "nanovllm/engine/block_manager.py": "0bbd54beac82658001d9430cc0e9970cac9c68ed12e1f5890568e102b8a2e030",
+    "nanovllm/engine/scheduler.py": "8526f20c30aba1aebcb3cf2af889755c54b55c19efd2d5ffe7ed6d75c81994d7",
+    "nanovllm/engine/sequence.py": "cf32c40919722aa99875dd7e795cb198e9c63b7aa6eb058402176aae147c51de",
+    "nanovllm/engine/metrics.py": "38d556aa66d7c1b5c1a9adacc05c209c0453ca9165a236f2793d178a289f3604",
+    "benchmarks/prefix_replay.py": "9ce98fe68ab5d4202e74d5a311a67db120aa136fdad05245fd119ed163f2e735"
+  },
+  "output_sha256": {
+    "requests.jsonl": "68919c93b18cb084adffcb157bf01aafc6383cdfa257035d93259b7d84abfa0d",
+    "events.jsonl": "ed913629c50ac25126c22f4d28496bfea700726ec0150248a80f97f055ba9aaa"
+  },
+  "publication": "Simulation future completes immediately; production manager still reserves/publishes at its own barriers.",
+  "measurement": "Baseline latency comes from the source log. Alternatives have no simulated latency or numeric output validation."
+}

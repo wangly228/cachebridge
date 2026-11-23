@@ -1,0 +1,11 @@
+Artifacts: ./results/20261123_int4_prefix_screen
+3400 bf16_64 mixed done
+3400 bf16_64 capacity done
+../PegaFlow/.venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+3400 int4_64 mixed done
+3400 int4_64 capacity done
+../PegaFlow/.venv/lib/python3.12/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.
+  _warn_once(
+3400 bf16_18 mixed done
+3400 bf16_18 capacity done

@@ -1,0 +1,17 @@
+{
+  "stage": "screen",
+  "candidate": "overlap",
+  "arms": [
+    "A",
+    "32",
+    "candidate"
+  ],
+  "trace_sha256": "6c2d4087c5eecffcec09d86d890a00f457697d8779f2ff046a12b0dc94ba6a6d",
+  "paired_seed_bootstrap_draws": 4000,
+  "bootstrap_rng": 1900,
+  "mixed_gain_pct": 3,
+  "max_segment_regression_pct": 5,
+  "timing": "Enqueue to first generated token. Cycle includes all inference, transfer and wait, excludes disk IO.",
+  "allocation": "Arms share model, GPU pool and preallocated transfer tensors. A uses native GPU manager.",
+  "screen": "Disjoint seed, both workloads, eviction before hot replay, full 128 output tokens."
+}

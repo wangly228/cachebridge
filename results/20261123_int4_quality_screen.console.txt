@@ -1,0 +1,10 @@
+Artifacts: ./results/20261123_int4_quality_screen
+[rank0]:W1123 21:31:31.606000 45685 torch/_dynamo/convert_frame.py:1676] [0/8] torch._dynamo hit config.recompile_limit (8)
+[rank0]:W1123 21:31:31.606000 45685 torch/_dynamo/convert_frame.py:1676] [0/8]    function: 'rms_forward' (./nanovllm/layers/layernorm.py:16)
+[rank0]:W1123 21:31:31.606000 45685 torch/_dynamo/convert_frame.py:1676] [0/8]    last reason: 0/7: tensor 'x' rank mismatch. expected 2, actual 3
+[rank0]:W1123 21:31:31.606000 45685 torch/_dynamo/convert_frame.py:1676] [0/8] To log all recompilation reasons, use TORCH_LOGS="recompiles".
+[rank0]:W1123 21:31:31.606000 45685 torch/_dynamo/convert_frame.py:1676] [0/8] To diagnose recompilation issues, see https://pytorch.org/docs/main/compile/programming_model.recompilation.html
+3100-2048-10 expected=312646 BF16='The authorization code for record R-76594' INT4='The authorization code for record **R-7659'
+3100-2048-50 expected=346645 BF16='The authorization code for record R-17196' INT4='The authorization code for record **R-1719'
+3100-12288-10 expected=139587 BF16='The authorization code for record R-78164' INT4='The authorization code for record **R-7816'
+3100-12288-50 expected=845482 BF16='The authorization code for record R-83993' INT4='The authorization code for record **R-8399'

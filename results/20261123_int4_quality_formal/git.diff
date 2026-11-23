@@ -1,0 +1,559 @@
+diff --git a/README.md b/README.md
+index a4d42e5..0d002bf 100644
+--- a/README.md
++++ b/README.md
+@@ -2,7 +2,9 @@
+ 
+ 当一段长对话的历史前缀被显存淘汰，再次收到这段前缀时，推理引擎需要重新计算它的 attention keys 和 values（KV）。cachebridge 在 CPU 内存中保留一份有容量上限的历史 KV。请求再次到来时，引擎可以把连续命中的块搬回 GPU，只计算剩余输入。模型权重和执行 attention 所需的活跃 KV 都在 GPU 上。
+ 
+-在单张 RTX 3090、Qwen3-4B BF16、并发 4 的混合前缀实验中，**GPU 淘汰后重放的 p95 首 token 延迟从 932.94 ms 降到 176.83 ms**（每策略 32 条）。保存 KV 也有成本。把冷填充、干扰和重放全部计入后，每策略 160 条请求的 p95 从 928.98 ms 升到 975.65 ms。[实验报告与原始数据](docs/STAGE2_FIRST_USE_BUDGET.md)
++在单张 RTX 3090、Qwen3-4B BF16、并发 4 的混合前缀实验中，后台写入让**含冷填充的整段 p95 首 token 延迟从同步版的 938.66 ms 降至 908.70 ms**（6 个种子，每策略 240 条），同轮原生 GPU 基线为 895.28 ms。在 GPU 淘汰后重放的 48 条请求上，原生 GPU 和后台写入的 p95 分别为 903.62 ms 和 175.76 ms。[三组验收](docs/STAGE2_OVERLAP.md) · [重访比例对照](docs/PROJECT_CONTEXT.md#淘汰后重访比例与整段-p95)
++
++在后续独立的六种子对照中，启用冷请求合批后，混合整段 p95 从 927.27 降至 880.04 ms，同轮原生 GPU 为 917.96 ms。较早入队的请求可能等待更久，使用时需考虑首尾请求的延迟分布。[逐请求公平性、正确性和适用边界](docs/STAGE2_COLD_PACK.md)
+ 
+ ## 一次请求怎样复用 KV
+ 
+@@ -14,7 +16,7 @@
+ 
+ ## 性能与适用负载
+ 
+-下图对比同轮原生 GPU 前缀缓存 A 与 CPU 命中即恢复的配置。GPU 池 36 块，CPU 池 64 块，首次写入额度 32 块，每块 256 tokens。每轮 4 个请求，每条前缀追加 128 个输入 tokens 并生成 128 个 tokens。TTFT 从请求入队计到首个实际输出 token，包含排队、搬运与等待。四个种子使用相同输入和访问顺序，预热独立，正式测量关闭 profiler。
++下图保留了引入后台写入之前的四种子对照，比较同轮原生 GPU 前缀缓存 A 与同步写入、CPU 命中即恢复的配置。GPU 池 36 块，CPU 池 64 块，首次写入额度 32 块，每块 256 tokens。每轮 4 个请求，每条前缀追加 128 个输入 tokens 并生成 128 个 tokens。TTFT 从请求入队计到首个实际输出 token，包含排队、搬运与等待。四个种子使用相同输入和访问顺序，预热独立，正式测量关闭 profiler。
+ 
+ ![两种负载下的 p95 TTFT。混合及全长前缀在淘汰后重放分别下降 81.05% 和 82.39%，无复用分别变化 +2.26% 和 −0.43%，整段分别上升 5.02% 和 5.28%](assets/ttft-by-workload.svg)
+ 
+@@ -68,7 +70,7 @@ python -m benchmarks.first_use_budget_report results/20261119_first_use_budget36
+ 
+ - **数值正确性。** 87 个真实模型 KV 块在 GPU → CPU → GPU 后逐位一致。四种子额度对照中的 864 条 CPU 策略请求，在相同计算形状下与原生路径的全部 128 个 greedy 输出 token 一致。冷、热路径跨计算形状比较时，144 个位置仍有 6 个超过预设 BF16 阈值，上游复现了这 6 处。[阶段 1 验收](docs/STAGE1_ACCEPTANCE.md) · [额度对照核验](docs/STAGE2_FIRST_USE_BUDGET.md)
+ - **工程实现与测试。** 缓存身份、部分命中、共享块保护、容量和淘汰可从块管理测试读起。真实复制与同步有独立用例。[缓存测试](tests/test_cpu_prefix_cache.py) · [搬运测试](tests/test_kv_transfer.py)
+-- **下一步。** 在两波固定输入上分段计时，定位冷填充时模型 Runner 内的延迟波动。[冷填充分析与原始记录](docs/STAGE2_FIRST_USE_BUDGET.md#混合冷填充耗时分解)
++- **写入代价。** 两波冻结输入的冷填充对照中，同步写入每波平均耗时 77.51 ms，80 次分段计时写入后均有后继前向窗口。[诊断及原始记录](docs/STAGE2_COLD_FILL_PROBE.md)
+ 
+ ## 来源与许可证
+ 
+diff --git a/benchmarks/phase1.py b/benchmarks/phase1.py
+index b6277a8..9c79128 100644
+--- a/benchmarks/phase1.py
++++ b/benchmarks/phase1.py
+@@ -29,7 +29,8 @@ def reset_cache(llm):
+     if isinstance(manager, TieredBlockManager):
+         llm.scheduler.block_manager = TieredBlockManager(len(manager.blocks), manager.block_size,
+                                                        manager.transfer, manager.namespace, manager.admission,
+-                                                       manager.batch_writes, manager.first_use_limit)
++                                                       manager.batch_writes, manager.first_use_limit,
++                                                       manager.transfer_mode)
+     else:
+         llm.scheduler.block_manager = BlockManager(len(manager.blocks), manager.block_size)
+ 
+diff --git a/docs/PROJECT_CONTEXT.md b/docs/PROJECT_CONTEXT.md
+index 956fdd2..613ef59 100644
+--- a/docs/PROJECT_CONTEXT.md
++++ b/docs/PROJECT_CONTEXT.md
+@@ -7,11 +7,40 @@ cachebridge 在 nano-vLLM 上实现了有容量上限的 CPU 前缀 KV 缓存。
+ | 基线与测量 | 冻结原生 GPU 前缀缓存基线，记录逐请求 TTFT、prefill 和真实 KV 搬运。跨计算形状的 BF16 筛查有 6/144 个位置超出预设阈值，上游复现了这 6 处。 | [基线验收](STAGE1_ACCEPTANCE.md) |
+ | CPU 缓存 | 实现完整 prompt 块的保存与恢复、LRU 淘汰、成本选路，完成同一输入上的 A/B/C 对照。 | [工程验收](STAGE2_ACCEPTANCE.md) |
+ | 写入优化 | 实现按复用写入、双缓冲和首次写入额度。32 块额度在两种负载都保留 16/16 条首次重放。混合负载每策略 32 条淘汰重放的 p95 下降 81.05%，每策略 160 条整段 p95 上升 5.02%。 | [额度、样本与复现](STAGE2_FIRST_USE_BUDGET.md) |
++| 后台写入 | 2026-11-23 保留可选的 `overlap` 模式。6 个种子下，混合整段 p95 从同步 32 块的 938.66 ms 降至 908.70 ms，配对种子 95% 区间为 −4.57% 至 −1.63%。同轮原生 A 为 895.28 ms。 | [三组验收与复跑](STAGE2_OVERLAP.md) |
++| 前缀回放与冷请求合批 | 六个新种子下，含冷填充的混合整段 p95 从 927.27 ms 降至 880.04 ms，相对当前版变化 -5.09%（-7.57% 至 -3.20%）。同轮原生 A 为 917.96 ms，候选相对 A 变化 -4.13%（-5.96% 至 -2.86%）。 | [回放归因](STAGE2_PREFIX_REPLAY.md) · [实机、边界与复跑](STAGE2_COLD_PACK.md) |
+ 
+-下一项用种子 1803 周期 0 与 1804 周期 1 的两波固定输入分解冷填充 Runner 耗时。先测相同额度重复运行的波动，再交替比较 32 和 36 块，分别计时输入准备、前向及 logits、采样与 token ID 回传。Runner 内部原因未定位。[计时边界及逐种子结果](STAGE2_FIRST_USE_BUDGET.md#混合冷填充耗时分解)
++## 2026-11-23 基于回放的优化
++
++本轮在上轮未提交的 overlap 32 工作树上继续，保留原开关和旧实验。回放与本机成本分析表明，66⅔% 重访档的 33 个首缺块中有 27 个首次未写、6 个曾写入后被淘汰。原正式整段 p95 的支撑请求来自冷填充，淘汰重放已完整恢复。保留的改动是用 FIFO 下一条全冷请求补足当前 prefill 步，不改变 CPU 缓存准入与物理容量。候选为可选配置 `cpu_prefix_pack_cold=True`。它降低队尾等待，也会拉高队首等待，混合整段 p50 从 326.72 升至 506.91 ms。独立四种子实测 0%、33⅓%、66⅔% 三档重访，整段 p95 分别比 overlap 32 低 5.86%、6.76%、7.96%，三个配对区间均低于零。改变 BF16 执行形状后，部分 greedy 序列与旧调度不同。[同形状正确性与 FIFO 权衡](STAGE2_COLD_PACK.md#队首等待与数值差异) · [最新三档重访比例](STAGE2_COLD_PACK.md#重访比例边界)
++
++## 2026-11-23 本地验收
++
++公开工作区从干净的 `main`、HEAD `e69c824` 开始，使用已安装环境加载公开源码和原模型。种子 1803 周期 0、1804 周期 1 上，关闭诊断时，相同 32 块配置重复的合并 p95 相差 5.34 ms，32 与 36 块相差 0.99 ms。对比原生 A，32 块冷填充 p95 多出 73.79 ms，每波同步写入平均耗时 77.51 ms。80 次诊断写入后均有下一步前向计算窗口。[分段计时与两波复测](STAGE2_COLD_FILL_PROBE.md)
++
++本轮只验证了一个候选。保留按复用写入、32 块首次写入额度和双缓冲，在需要该策略的 `LLM` 上显式设置 `cpu_prefix_transfer_mode="overlap"`。后台同时最多写一批。调度器持有 GPU 源块与 CPU slot，传输完成后才发布 CPU 命中。默认模式为 `sync`。6 个独立种子、两种访问顺序、共 1,296 条正式请求，864 条 CPU 策略请求通过同形状原生 greedy 对照。48 条先淘汰再首次重放的候选请求全部恢复。全长整段比同步版低 5.12%，无复用和淘汰重放分别高 1.17% 和 0.10%。[原始逐请求记录和汇总](../results/20261123_overlap_formal/summary.json)
++
++## 淘汰后重访比例与整段 p95
++
++单张 3090、Qwen3-4B BF16、CUDA Graph 开启。每个独立周期从空 GPU/CPU 索引开始，连续执行 9 波，每波并发 4。GPU 实际 36 块，CPU 容量 64 块，每块 256 tokens。每波各两条 1024、2048-token 前缀，另加 128 个输入 tokens，greedy 输出 128 个 tokens。前三波输入不同，后六波按档位提供新前缀或重访至少间隔两波的历史前缀。比例分母是整段全部请求。4 个种子，每档每臂 144 条，合计 864 条正式请求。逐请求核对两臂初始 GPU 命中均为 0。下表每个 p95 均由该档完整请求序列直接计算，其中包括冷填充和所有干扰波的请求。TTFT 从入队计至首个真实输出 token，整段墙钟覆盖全部搬运与等待。区间按完整种子配对重采样 4,000 次。[冻结输入与设计](../results/20261123_revisit_boundary/design.json) · [时间戳及搬运量](../results/20261123_revisit_boundary/requests.jsonl)
++
++| 淘汰后重访占比 | A 整段 p95，ms | 后台 32 整段 p95，ms | 相对 A | 配对 95% 区间 | 完整恢复请求 / 重访请求 | H2D / D2H 块数 | A / 后台整批输出，tokens/s |
++| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
++| 0.0% | 897.43 | 918.02 | +2.29% | +1.25% 至 +13.07% | 无重访 | 0 / 128 | 179.81 / 174.80 |
++| 33.3% | 905.92 | 904.65 | -0.14% | -1.12% 至 +1.58% | 21 / 48 | 128 / 240 | 178.55 / 184.42 |
++| 66.7% | 904.53 | 913.92 | +1.04% | -1.08% 至 +2.58% | 63 / 96 | 380 / 292 | 179.41 / 199.63 |
++
++含首次写入后，整段 p95 的点估计低于同轮 A 的实测档位为 33.3%。三个档位的配对种子区间都未完整落在零以下。 每臂每档的四个冷周期都计入首次填充，CPU 策略在各档的首波累计写 96 块。该比例实验有 320 条同调度形状的 CPU 请求与 A 的 greedy 输出逐 token 相同，部分恢复产生不同计算形状的波仅核对了输入、恢复与计算量。每周期开局的模型、张量和主存已预热。中间比例、其他容量和并发下的临界点未测。[逐档汇总](../results/20261123_revisit_boundary/summary.json) · [正式周期墙钟](../results/20261123_revisit_boundary/cycles.jsonl)
++
++从公开仓库根目录使用既有虚拟环境。GPU 命令写入新目录，离线命令读取已归档日志。
++
++```bash
++PYTHONDONTWRITEBYTECODE=1 ../PegaFlow/.venv/bin/python -m benchmarks.revisit_boundary --mode overlap --output results/revisit_boundary_repeat
++PYTHONDONTWRITEBYTECODE=1 ../PegaFlow/.venv/bin/python -m benchmarks.revisit_boundary --summarize results/20261123_revisit_boundary
++```
+ 
+ ## 公开数据说明
+ 
+-公开版保留实验源码、冻结输入、逐请求与逐步日志、数值对照和结果报告。公开环境记录、命令和日志将工作站绝对路径改为相对仓库或用户主目录的路径；profiler 记录中的本地内核缓存路径已脱敏。归档的运行时标识和实验种子沿用测量时的值。
++公开版保留实验源码、冻结输入、逐请求与逐步日志、数值对照和结果报告。首次发布时，历史环境记录、命令和日志将工作站绝对路径改为相对仓库或用户主目录的路径；profiler 记录中的本地内核缓存路径已脱敏。本轮本地原始日志保留了工作站路径和运行时标识。
+ 
+ 工作约定和项目进度按公开用途整理，历史源码快照省略个人交接文档。公开文件的校验清单和派生汇总摘要按本版内容重建。推理引擎、基准程序、输入 token IDs、性能样本和数值对照仍可逐项核对。[项目首页](../README.md) · [四臂对照汇总](../results/20261119_first_use_budget36/summary.json)
+diff --git a/nanovllm/config.py b/nanovllm/config.py
+index 7c0ef4a..8d4e4ea 100644
+--- a/nanovllm/config.py
++++ b/nanovllm/config.py
+@@ -25,6 +25,10 @@ class Config:
+     # Optional upper bound on first-use writes under reuse admission, in KV blocks.
+     cpu_prefix_first_use_blocks: int | None = None
+ 
++    cpu_prefix_transfer_mode: str = "sync"
++    cpu_prefix_pack_cold: bool = False
++    cpu_prefix_cache_format: str = "native"
++
+     def __post_init__(self):
+         assert os.path.isdir(self.model)
+         assert self.kvcache_block_size % 256 == 0
+@@ -35,10 +39,20 @@ class Config:
+         assert self.max_kvcache_blocks is None or self.max_kvcache_blocks > 0
+         if type(self.cpu_prefix_cache_blocks) is not int or self.cpu_prefix_cache_blocks < 0:
+             raise ValueError("cpu_prefix_cache_blocks must be a nonnegative integer")
++        if self.cpu_prefix_cache_format not in ("native", "int4"):
++            raise ValueError("cpu_prefix_cache_format must be 'native' or 'int4'")
++        if self.cpu_prefix_cache_format == "int4" and not self.cpu_prefix_cache_blocks:
++            raise ValueError("int4 requires CPU prefix cache slots")
+         if self.cpu_prefix_admission not in ("always", "reuse"):
+             raise ValueError("cpu_prefix_admission must be 'always' or 'reuse'")
+         if type(self.cpu_prefix_batch_writes) is not bool:
+             raise ValueError("cpu_prefix_batch_writes must be a boolean")
++        if type(self.cpu_prefix_pack_cold) is not bool:
++            raise ValueError("cpu_prefix_pack_cold must be a boolean")
++        if self.cpu_prefix_transfer_mode not in ("sync", "overlap"):
++            raise ValueError("cpu_prefix_transfer_mode must be 'sync' or 'overlap'")
++        if self.cpu_prefix_transfer_mode == "overlap" and not self.cpu_prefix_batch_writes:
++            raise ValueError("overlap requires cpu_prefix_batch_writes")
+         limit = self.cpu_prefix_first_use_blocks
+         if limit is not None and (type(limit) is not int or limit < 0):
+             raise ValueError("cpu_prefix_first_use_blocks must be None or a nonnegative integer")
+@@ -48,4 +62,11 @@ class Config:
+             if not self.cpu_prefix_cache_blocks or not os.path.isfile(self.cpu_restore_cost_table):
+                 raise ValueError("cpu_restore_cost_table requires CPU cache blocks and an existing table file")
+         self.hf_config = AutoConfig.from_pretrained(self.model)
++        if self.cpu_prefix_cache_format == "int4":
++            import torch
++            from nanovllm.engine.int4_cache import GROUP_SIZE
++
++            dim = getattr(self.hf_config, "head_dim", None) or self.hf_config.hidden_size // self.hf_config.num_attention_heads
++            if self.hf_config.dtype != torch.bfloat16 or dim % GROUP_SIZE:
++                raise ValueError("int4 requires a BF16 model and head_dim divisible by 32")
+         self.max_model_len = min(self.max_model_len, self.hf_config.max_position_embeddings)
+diff --git a/nanovllm/engine/cpu_prefix_cache.py b/nanovllm/engine/cpu_prefix_cache.py
+index 97ab395..9526461 100644
+--- a/nanovllm/engine/cpu_prefix_cache.py
++++ b/nanovllm/engine/cpu_prefix_cache.py
+@@ -24,6 +24,8 @@ def cache_namespace(config) -> bytes:
+         weights.append((shard.name, identity, stat.st_size, stat.st_mtime_ns))
+     spec = (str(model), weights, json.loads(config.hf_config.to_json_string(use_diff=False)),
+             str(config.hf_config.dtype), config.kvcache_block_size, config.tensor_parallel_size)
++    if getattr(config, "cpu_prefix_cache_format", "native") == "int4":
++        spec += ("int4-symmetric-group32-bf16-absmax-v1",)
+     return sha256(json.dumps(spec, sort_keys=True).encode()).digest()
+ 
+ 
+@@ -41,10 +43,10 @@ class PrefixHit:
+ 
+ 
+ class TieredBlockManager(BlockManager):
+-    """Synchronous CPU prefix cache. All metadata runs on the scheduler thread."""
++    """Bounded CPU prefix cache. All metadata runs on the scheduler thread."""
+ 
+     def __init__(self, num_blocks, block_size, transfer, namespace: bytes, admission="always", batch_writes=False,
+-                 first_use_blocks: int | None = None):
++                 first_use_blocks: int | None = None, transfer_mode="sync"):
+         super().__init__(num_blocks, block_size)
+         self.transfer = transfer
+         self.namespace = namespace
+@@ -52,6 +54,8 @@ class TieredBlockManager(BlockManager):
+         self.entries: OrderedDict[bytes, tuple[int, list[int]]] = OrderedDict()
+         self.free_slots = list(reversed(range(transfer.capacity)))
+         self.evictions = 0
++        self.transfer_mode = transfer_mode
++        self.pending_write = None
+         self.admission = admission
+         self.batch_writes = batch_writes
+         self.first_use_limit = min(num_blocks, transfer.capacity)
+@@ -126,7 +130,18 @@ class TieredBlockManager(BlockManager):
+             decision = replace(decision, action="restore", reason="gpu_capacity")
+         return len(hits), (shape, decision)
+ 
++    def deallocate(self, seq: Sequence):
++        # A source is owned by an active sequence from reservation to publication.
++        # Finish before any release (completion, preemption or allocation rollback).
++        if self.pending_write is not None:
++            self.finish_write()
++        super().deallocate(seq)
++
+     def allocate(self, seq: Sequence, num_cached_blocks: int):
++        # Hits can change LRU order, promote GPU pages or reuse transfer staging.
++        # A cold allocation only uses free GPU blocks, disjoint from the active sources.
++        if self.pending_write is not None and num_cached_blocks:
++            self.finish_write()
+         hits = self._lookup(seq)
+         assert not seq.block_table and 0 <= num_cached_blocks <= len(hits)
+         if num_cached_blocks < len(hits):
+@@ -229,6 +244,8 @@ class TieredBlockManager(BlockManager):
+     def _admit_computed(self, pages, seq):
+         # Only group unconditional first writes into unused slots. Mixed groups
+         # follow normal admission in order, including refreshes, LRU and second uses.
++        if self.pending_write is not None:
++            self.finish_write()
+         room = len(self.free_slots)
+         if self.admission == "reuse":
+             room = min(room, self.first_use_limit - len(self.entries))
+@@ -248,9 +265,17 @@ class TieredBlockManager(BlockManager):
+         del self.free_slots[-count:]
+         start = perf_counter() if metrics else 0
+         try:
++            if self.transfer_mode == "overlap":
++                future = self.transfer.submit_save_many(pairs)
++                self.pending_write = (future, pages, slots, metrics, start)
++                return True
+             self.transfer.save_many(pairs)
+         except BaseException as exc:
+-            # Transfer has drained its stream. No mapping from this group is visible.
++            if self.transfer_mode == "overlap":
++                # submit() or registering the handle may fail after enqueue.
++                # Cancel queued work and join any running copy before slot reuse.
++                self.transfer.stop_writer()
++                self.pending_write = None
+             self.free_slots.extend(reversed(slots))
+             if not isinstance(exc, (MemoryError, torch.OutOfMemoryError)):
+                 raise
+@@ -258,11 +283,40 @@ class TieredBlockManager(BlockManager):
+                 metrics.cpu_save_failures += 1
+                 metrics.d2h_ms += (perf_counter() - start) * 1000
+             return False  # Retry via the regular one-block path.
++        self._publish_group(pages, slots, metrics, perf_counter() - start if metrics else 0)
++        return True
++
++    def finish_write(self):
++        if self.pending_write is None:
++            return
++        future, pages, slots, metrics, start = self.pending_write
++        try:
++            completed = future.result()
++        except BaseException as exc:
++            if not future.done():
++                raise  # An interrupted waiter must keep the reservation.
++            self.pending_write = None
++            self.free_slots.extend(reversed(slots))
++            if not isinstance(exc, (MemoryError, torch.OutOfMemoryError)):
++                raise
++            if metrics:
++                metrics.cpu_save_failures += 1
++                metrics.d2h_ms += (perf_counter() - start) * 1000
++            for key, block in pages:
++                self._save(key, block, metrics)
++                if key in self.entries:
++                    self.recent_uses.pop(key, None)
++            return
++        self.pending_write = None
++        self._publish_group(pages, slots, metrics, completed - start)
++
++    def _publish_group(self, pages, slots, metrics, elapsed):
+         if metrics:
++            count = len(pages)
+             metrics.d2h_blocks += count
+             metrics.d2h_batches += 1
+             metrics.batched_d2h_blocks += count
+-            metrics.d2h_ms += (perf_counter() - start) * 1000
++            metrics.d2h_ms += elapsed * 1000
+         try:
+             for (key, block), slot in zip(pages, slots):
+                 self.entries[key] = (slot, block.token_ids)
+@@ -272,7 +326,6 @@ class TieredBlockManager(BlockManager):
+                 self.entries.pop(key, None)
+             self.free_slots.extend(reversed(slots))
+             raise
+-        return True
+ 
+     def hash_blocks(self, seq: Sequence):
+         start = seq.num_cached_tokens // self.block_size
+diff --git a/nanovllm/engine/kv_transfer.py b/nanovllm/engine/kv_transfer.py
+index 7976827..5dd9e3e 100644
+--- a/nanovllm/engine/kv_transfer.py
++++ b/nanovllm/engine/kv_transfer.py
+@@ -1,28 +1,52 @@
++from concurrent.futures import ThreadPoolExecutor
++from time import perf_counter
++
+ import numpy as np
+ import torch
+ 
++from nanovllm.engine.int4_cache import GROUP_SIZE, packed_bytes, transcode
++
+ 
+ class KVTransfer:
+-    """Synchronous single-GPU saves and restores with bounded staging."""
++    """Single-GPU copies sharing bounded staging between saves and restores."""
+ 
+-    def __init__(self, kv_cache: torch.Tensor, capacity: int, batch_writes: bool = False):
++    def __init__(self, kv_cache: torch.Tensor, capacity: int, batch_writes: bool = False,
++                 cache_format: str = "native"):
+         self.kv_cache = kv_cache
+         self.capacity = capacity
++        self.cache_format = cache_format
+         shape = (*kv_cache.shape[:2], *kv_cache.shape[3:])
+-        self.device_stage = torch.empty(shape, dtype=kv_cache.dtype, device=kv_cache.device)
+-        self.pinned = torch.empty(shape, dtype=kv_cache.dtype, device="cpu", pin_memory=True)
++        dtype = kv_cache.dtype
++        if cache_format == "int4":
++            if (dtype != torch.bfloat16 or not kv_cache.is_contiguous() or kv_cache.ndim != 6
++                    or kv_cache.shape[-1] % GROUP_SIZE):
++                raise ValueError("int4 requires a contiguous BF16 KV pool with head_dim divisible by 32")
++            shape = (packed_bytes(kv_cache.numel() // kv_cache.size(2)),)
++            dtype = torch.uint8
++        elif cache_format != "native":
++            raise ValueError(f"unknown CPU prefix cache format {cache_format!r}")
++        self.device_stage = torch.empty(shape, dtype=dtype, device=kv_cache.device)
++        self.pinned = torch.empty(shape, dtype=dtype, device="cpu", pin_memory=True)
+         self.host_bytes = self.pinned.view(torch.uint8).numpy().reshape(-1)
+         self.block_bytes = self.host_bytes.size
+         self.slots = np.empty((capacity, self.block_bytes), dtype=np.uint8)
++        self.writer = None
+         self.write_stages = ()
+         if batch_writes:
+-            second = torch.empty(shape, dtype=kv_cache.dtype, device="cpu", pin_memory=True)
++            second = torch.empty(shape, dtype=dtype, device="cpu", pin_memory=True)
+             self.write_stages = tuple((buf, buf.view(torch.uint8).numpy().reshape(-1), torch.cuda.Event())
+                                       for buf in (self.pinned, second))
+ 
++    def _pack(self, gpu_id):
++        page = self.kv_cache[:, :, gpu_id]
++        if self.cache_format == "int4":
++            transcode(page, self.device_stage, encode=True)
++        else:
++            self.device_stage.copy_(page)
++
+     def save(self, gpu_id: int, slot: int):
+         try:
+-            self.device_stage.copy_(self.kv_cache[:, :, gpu_id])
++            self._pack(gpu_id)
+             self.pinned.copy_(self.device_stage)  # Blocking D2H also waits for packing.
+         except Exception:
+             torch.cuda.current_stream(self.kv_cache.device).synchronize()
+@@ -40,7 +64,7 @@ class KVTransfer:
+         def enqueue(index):
+             gpu_id, _ = pairs[index]
+             pinned, _, ready = self.write_stages[index % 2]
+-            self.device_stage.copy_(self.kv_cache[:, :, gpu_id])
++            self._pack(gpu_id)
+             pinned.copy_(self.device_stage, non_blocking=True)
+             ready.record(stream)
+ 
+@@ -57,13 +81,42 @@ class KVTransfer:
+             stream.synchronize()
+             raise
+ 
++    def submit_save_many(self, pairs):
++        """The scheduler owns exclusive staging until the returned future completes."""
++        if self.writer is None:
++            self.write_stream = torch.cuda.Stream(device=self.kv_cache.device)
++            self.writer = ThreadPoolExecutor(max_workers=1, thread_name_prefix="kv-write")
++            # Complete worker startup before submitting a data-bearing job. submit()
++            # may enqueue a job and then fail while registering the new thread.
++            self.writer.submit(lambda: None).result()
++        ready = torch.cuda.current_stream(self.kv_cache.device).record_event()
++
++        def copy():
++            with torch.inference_mode(), torch.cuda.stream(self.write_stream):
++                self.write_stream.wait_event(ready)
++                self.save_many(pairs)
++            return perf_counter()
++
++        return self.writer.submit(copy)
++
+     def restore(self, slot: int, gpu_id: int):
+         np.copyto(self.host_bytes, self.slots[slot])
+         try:
+             self.device_stage.copy_(self.pinned, non_blocking=True)
+-            self.kv_cache[:, :, gpu_id].copy_(self.device_stage)
++            page = self.kv_cache[:, :, gpu_id]
++            if self.cache_format == "int4":
++                transcode(page, self.device_stage, encode=False)
++            else:
++                page.copy_(self.device_stage)
+         finally:
+             torch.cuda.current_stream(self.kv_cache.device).synchronize()
+ 
++    def stop_writer(self):
++        if self.writer is not None:
++            self.writer.shutdown(wait=True, cancel_futures=True)
++            self.writer = None
++
+     def close(self):
++        if self.writer is not None:
++            self.writer.shutdown(wait=True)
+         del self.kv_cache, self.device_stage, self.slots, self.host_bytes, self.pinned, self.write_stages
+diff --git a/nanovllm/engine/llm_engine.py b/nanovllm/engine/llm_engine.py
+index c334b2d..5aad9b0 100644
+--- a/nanovllm/engine/llm_engine.py
++++ b/nanovllm/engine/llm_engine.py
+@@ -45,8 +45,13 @@ class LLMEngine:
+     def exit(self):
+         if not hasattr(self, "model_runner"):
+             return
+-        self.model_runner.call("exit")
+-        del self.model_runner
++        manager = getattr(getattr(self, "scheduler", None), "block_manager", None)
++        try:
++            if getattr(manager, "pending_write", None) is not None:
++                manager.finish_write()
++        finally:
++            self.model_runner.call("exit")
++            del self.model_runner
+         for p in self.ps:
+             p.join()
+ 
+diff --git a/nanovllm/engine/model_runner.py b/nanovllm/engine/model_runner.py
+index 04f26ed..1cec1a5 100644
+--- a/nanovllm/engine/model_runner.py
++++ b/nanovllm/engine/model_runner.py
+@@ -7,6 +7,7 @@ from multiprocessing.shared_memory import SharedMemory
+ from nanovllm.config import Config
+ from nanovllm.engine.sequence import Sequence
+ from nanovllm.engine.kv_transfer import KVTransfer
++from nanovllm.engine.int4_cache import packed_bytes
+ from nanovllm.models.qwen3 import Qwen3ForCausalLM
+ from nanovllm.layers.sampler import Sampler
+ from nanovllm.utils.context import set_context, get_context, reset_context
+@@ -113,10 +114,14 @@ class ModelRunner:
+         num_kv_heads = hf_config.num_key_value_heads // self.world_size
+         head_dim = getattr(hf_config, "head_dim", hf_config.hidden_size // hf_config.num_attention_heads)
+         block_bytes = 2 * hf_config.num_hidden_layers * self.block_size * num_kv_heads * head_dim * hf_config.dtype.itemsize
+-        safe_blocks = int(total * config.gpu_memory_utilization - used - peak + current) // block_bytes
++        available = int(total * config.gpu_memory_utilization - used - peak + current)
+         cpu_blocks = getattr(config, "cpu_prefix_cache_blocks", 0)
++        stage_bytes = 0
+         if cpu_blocks:
+-            safe_blocks -= 1  # Packed GPU staging has exactly the size of one KV block.
++            stage_bytes = block_bytes
++            if config.cpu_prefix_cache_format == "int4":
++                stage_bytes = packed_bytes(block_bytes // hf_config.dtype.itemsize)
++        safe_blocks = (available - stage_bytes) // block_bytes
+         config.num_kvcache_blocks = safe_blocks
+         if config.max_kvcache_blocks is not None:
+             config.num_kvcache_blocks = min(safe_blocks, config.max_kvcache_blocks)
+@@ -126,7 +131,8 @@ class ModelRunner:
+                                    actual_blocks=config.num_kvcache_blocks,
+                                    block_bytes=block_bytes)
+         self.kv_cache = torch.empty(2, hf_config.num_hidden_layers, config.num_kvcache_blocks, self.block_size, num_kv_heads, head_dim)
+-        self.kv_transfer = KVTransfer(self.kv_cache, cpu_blocks, config.cpu_prefix_batch_writes) if cpu_blocks else None
++        self.kv_transfer = (KVTransfer(self.kv_cache, cpu_blocks, config.cpu_prefix_batch_writes,
++                                       config.cpu_prefix_cache_format) if cpu_blocks else None)
+         layer_id = 0
+         for module in self.model.modules():
+             if hasattr(module, "k_cache") and hasattr(module, "v_cache"):
+diff --git a/nanovllm/engine/restore_policy.py b/nanovllm/engine/restore_policy.py
+index c03f007..2f30352 100644
+--- a/nanovllm/engine/restore_policy.py
++++ b/nanovllm/engine/restore_policy.py
+@@ -57,6 +57,10 @@ def cost_environment(config, namespace):
+             environment["cpu_prefix_first_use_blocks"] = limit
+     if config.cpu_prefix_batch_writes:
+         environment["cpu_prefix_batch_writes"] = True
++    if getattr(config, "cpu_prefix_transfer_mode", "sync") != "sync":
++        environment["cpu_prefix_transfer_mode"] = config.cpu_prefix_transfer_mode
++    if getattr(config, "cpu_prefix_pack_cold", False):
++        environment["cpu_prefix_pack_cold"] = True
+     return environment
+ 
+ 
+diff --git a/nanovllm/engine/scheduler.py b/nanovllm/engine/scheduler.py
+index 51971e1..1ce88d7 100644
+--- a/nanovllm/engine/scheduler.py
++++ b/nanovllm/engine/scheduler.py
+@@ -18,13 +18,15 @@ class Scheduler:
+         self.max_num_batched_tokens = config.max_num_batched_tokens
+         self.eos = config.eos
+         self.block_size = config.kvcache_block_size
++        self.pack_cold = getattr(config, "cpu_prefix_pack_cold", False)
+         self.restore_policy = None
+         if kv_transfer is None:
+             self.block_manager = BlockManager(config.num_kvcache_blocks, self.block_size)
+         else:
+             self.block_manager = TieredBlockManager(config.num_kvcache_blocks, self.block_size,
+                                                    kv_transfer, cache_namespace(config), config.cpu_prefix_admission,
+-                                                   config.cpu_prefix_batch_writes, config.cpu_prefix_first_use_blocks)
++                                                   config.cpu_prefix_batch_writes, config.cpu_prefix_first_use_blocks,
++                                                   config.cpu_prefix_transfer_mode)
+             if config.cpu_restore_cost_table is not None:
+                 environment = cost_environment(config, self.block_manager.namespace)
+                 self.restore_policy = RestoreCostTable.load(config.cpu_restore_cost_table, environment)
+@@ -104,8 +106,15 @@ class Scheduler:
+                 num_tokens = seq.num_tokens - num_cached_blocks * self.block_size
+             else:
+                 num_tokens = seq.num_tokens - seq.num_cached_tokens
+-            if remaining < num_tokens and scheduled_seqs:  # only allow chunked prefill for the first seq
+-                break
++            if remaining < num_tokens and scheduled_seqs:
++                if (not self.pack_cold or seq.block_table or num_cached_blocks or choice is not None
++                        or seq.num_completion_tokens or remaining < self.block_size):
++                    break
++                # A peer may publish the root after this step. Waiting in that
++                # case preserves a prefix hit which a second allocation would lose.
++                root = seq.block(0)
++                if any(peer.block(0) == root for peer in scheduled_seqs):
++                    break
+             if not seq.block_table:
+                 restored = self.block_manager.allocate(seq, num_cached_blocks)
+                 if restored == -1:
+diff --git a/tests/test_phase1.py b/tests/test_phase1.py
+index 8805b69..04c9a79 100644
+--- a/tests/test_phase1.py
++++ b/tests/test_phase1.py
+@@ -34,6 +34,51 @@ def finish(sched):
+ 
+ 
+ class MetricsTests(unittest.TestCase):
++    def test_partial_cold_peer_fills_budget_and_keeps_fifo_and_tail(self):
++        for pack in (False, True):
++            sched = scheduler(blocks=8, batch=640)
++            sched.pack_cold = pack
++            first, second = request([1] * 260), request([2] * 900)
++            sched.add(first)
++            sched.add(second)
++            seqs, prefill = sched.schedule()
++            self.assertEqual([s.num_scheduled_tokens for s in seqs], [260, 380] if pack else [260])
++            sched.postprocess(seqs, [17] * len(seqs), prefill)
++            self.assertEqual(second.num_cached_tokens, 380 if pack else 0)
++            self.assertEqual(second.metrics.token_times, [])
++            self.assertIs(sched.waiting[0], second)
++            finish(sched)
++            self.assertEqual(second.metrics.prompt_computed_tokens, 900)
++            self.assertEqual(len(second.metrics.token_times), 2)
++            replay = request([2] * 899 + [3])
++            sched.add(replay)
++            finish(sched)
++            self.assertEqual(replay.metrics.initial_gpu_hit_tokens, 768)
++
++    def test_partial_admission_waits_for_peer_to_publish_shared_root(self):
++        sched = scheduler(blocks=8, batch=640)
++        sched.pack_cold = True
++        first, second = request([1] * 260), request([1] * 256 + [2] * 644)
++        sched.add(first)
++        sched.add(second)
++        seqs, prefill = sched.schedule()
++        self.assertEqual(seqs, [first])
++        sched.postprocess(seqs, [17], prefill)
++        finish(sched)
++        self.assertEqual(second.metrics.initial_gpu_hit_tokens, 256)
++        self.assertEqual(second.metrics.prompt_computed_tokens, 644)
++
++    def test_partial_admission_keeps_tiny_remaining_budget_unused(self):
++        sched = scheduler(blocks=8, batch=640)
++        sched.pack_cold = True
++        first, second = request([1] * 400), request([2] * 900)
++        sched.add(first)
++        sched.add(second)
++        seqs, prefill = sched.schedule()
++        self.assertEqual(seqs, [first])
++        sched.postprocess(seqs, [17], prefill)
++        finish(sched)
++
+     def test_timing_definitions(self):
+         metrics = RequestMetrics(1, 256, 1.0, token_times=[2.0, 2.25, 2.75], finish_time=3.0)
+         row = metrics.as_dict(origin=0.5)

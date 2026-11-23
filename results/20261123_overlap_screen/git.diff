@@ -1,0 +1,255 @@
+diff --git a/benchmarks/phase1.py b/benchmarks/phase1.py
+index b6277a8..9c79128 100644
+--- a/benchmarks/phase1.py
++++ b/benchmarks/phase1.py
+@@ -29,7 +29,8 @@ def reset_cache(llm):
+     if isinstance(manager, TieredBlockManager):
+         llm.scheduler.block_manager = TieredBlockManager(len(manager.blocks), manager.block_size,
+                                                        manager.transfer, manager.namespace, manager.admission,
+-                                                       manager.batch_writes, manager.first_use_limit)
++                                                       manager.batch_writes, manager.first_use_limit,
++                                                       manager.transfer_mode)
+     else:
+         llm.scheduler.block_manager = BlockManager(len(manager.blocks), manager.block_size)
+ 
+diff --git a/nanovllm/config.py b/nanovllm/config.py
+index 7c0ef4a..d6cb285 100644
+--- a/nanovllm/config.py
++++ b/nanovllm/config.py
+@@ -25,6 +25,8 @@ class Config:
+     # Optional upper bound on first-use writes under reuse admission, in KV blocks.
+     cpu_prefix_first_use_blocks: int | None = None
+ 
++    cpu_prefix_transfer_mode: str = "sync"
++
+     def __post_init__(self):
+         assert os.path.isdir(self.model)
+         assert self.kvcache_block_size % 256 == 0
+@@ -39,6 +41,10 @@ class Config:
+             raise ValueError("cpu_prefix_admission must be 'always' or 'reuse'")
+         if type(self.cpu_prefix_batch_writes) is not bool:
+             raise ValueError("cpu_prefix_batch_writes must be a boolean")
++        if self.cpu_prefix_transfer_mode not in ("sync", "overlap"):
++            raise ValueError("cpu_prefix_transfer_mode must be 'sync' or 'overlap'")
++        if self.cpu_prefix_transfer_mode == "overlap" and not self.cpu_prefix_batch_writes:
++            raise ValueError("overlap requires cpu_prefix_batch_writes")
+         limit = self.cpu_prefix_first_use_blocks
+         if limit is not None and (type(limit) is not int or limit < 0):
+             raise ValueError("cpu_prefix_first_use_blocks must be None or a nonnegative integer")
+diff --git a/nanovllm/engine/cpu_prefix_cache.py b/nanovllm/engine/cpu_prefix_cache.py
+index 97ab395..c11d4df 100644
+--- a/nanovllm/engine/cpu_prefix_cache.py
++++ b/nanovllm/engine/cpu_prefix_cache.py
+@@ -41,10 +41,10 @@ class PrefixHit:
+ 
+ 
+ class TieredBlockManager(BlockManager):
+-    """Synchronous CPU prefix cache. All metadata runs on the scheduler thread."""
++    """Bounded CPU prefix cache. All metadata runs on the scheduler thread."""
+ 
+     def __init__(self, num_blocks, block_size, transfer, namespace: bytes, admission="always", batch_writes=False,
+-                 first_use_blocks: int | None = None):
++                 first_use_blocks: int | None = None, transfer_mode="sync"):
+         super().__init__(num_blocks, block_size)
+         self.transfer = transfer
+         self.namespace = namespace
+@@ -52,6 +52,8 @@ class TieredBlockManager(BlockManager):
+         self.entries: OrderedDict[bytes, tuple[int, list[int]]] = OrderedDict()
+         self.free_slots = list(reversed(range(transfer.capacity)))
+         self.evictions = 0
++        self.transfer_mode = transfer_mode
++        self.pending_write = None
+         self.admission = admission
+         self.batch_writes = batch_writes
+         self.first_use_limit = min(num_blocks, transfer.capacity)
+@@ -126,7 +128,18 @@ class TieredBlockManager(BlockManager):
+             decision = replace(decision, action="restore", reason="gpu_capacity")
+         return len(hits), (shape, decision)
+ 
++    def deallocate(self, seq: Sequence):
++        # A source is owned by an active sequence from reservation to publication.
++        # Finish before any release (completion, preemption or allocation rollback).
++        if self.pending_write is not None:
++            self.finish_write()
++        super().deallocate(seq)
++
+     def allocate(self, seq: Sequence, num_cached_blocks: int):
++        # Hits can change LRU order, promote GPU pages or reuse transfer staging.
++        # A cold allocation only uses free GPU blocks, disjoint from the active sources.
++        if self.pending_write is not None and num_cached_blocks:
++            self.finish_write()
+         hits = self._lookup(seq)
+         assert not seq.block_table and 0 <= num_cached_blocks <= len(hits)
+         if num_cached_blocks < len(hits):
+@@ -229,6 +242,8 @@ class TieredBlockManager(BlockManager):
+     def _admit_computed(self, pages, seq):
+         # Only group unconditional first writes into unused slots. Mixed groups
+         # follow normal admission in order, including refreshes, LRU and second uses.
++        if self.pending_write is not None:
++            self.finish_write()
+         room = len(self.free_slots)
+         if self.admission == "reuse":
+             room = min(room, self.first_use_limit - len(self.entries))
+@@ -248,6 +263,10 @@ class TieredBlockManager(BlockManager):
+         del self.free_slots[-count:]
+         start = perf_counter() if metrics else 0
+         try:
++            if self.transfer_mode == "overlap":
++                future = self.transfer.submit_save_many(pairs)
++                self.pending_write = (future, pages, slots, metrics, start)
++                return True
+             self.transfer.save_many(pairs)
+         except BaseException as exc:
+             # Transfer has drained its stream. No mapping from this group is visible.
+@@ -258,11 +277,40 @@ class TieredBlockManager(BlockManager):
+                 metrics.cpu_save_failures += 1
+                 metrics.d2h_ms += (perf_counter() - start) * 1000
+             return False  # Retry via the regular one-block path.
++        self._publish_group(pages, slots, metrics, perf_counter() - start if metrics else 0)
++        return True
++
++    def finish_write(self):
++        if self.pending_write is None:
++            return
++        future, pages, slots, metrics, start = self.pending_write
++        try:
++            completed = future.result()
++        except BaseException as exc:
++            if not future.done():
++                raise  # An interrupted waiter must keep the reservation.
++            self.pending_write = None
++            self.free_slots.extend(reversed(slots))
++            if not isinstance(exc, (MemoryError, torch.OutOfMemoryError)):
++                raise
++            if metrics:
++                metrics.cpu_save_failures += 1
++                metrics.d2h_ms += (perf_counter() - start) * 1000
++            for key, block in pages:
++                self._save(key, block, metrics)
++                if key in self.entries:
++                    self.recent_uses.pop(key, None)
++            return
++        self.pending_write = None
++        self._publish_group(pages, slots, metrics, completed - start)
++
++    def _publish_group(self, pages, slots, metrics, elapsed):
+         if metrics:
++            count = len(pages)
+             metrics.d2h_blocks += count
+             metrics.d2h_batches += 1
+             metrics.batched_d2h_blocks += count
+-            metrics.d2h_ms += (perf_counter() - start) * 1000
++            metrics.d2h_ms += elapsed * 1000
+         try:
+             for (key, block), slot in zip(pages, slots):
+                 self.entries[key] = (slot, block.token_ids)
+@@ -272,7 +320,6 @@ class TieredBlockManager(BlockManager):
+                 self.entries.pop(key, None)
+             self.free_slots.extend(reversed(slots))
+             raise
+-        return True
+ 
+     def hash_blocks(self, seq: Sequence):
+         start = seq.num_cached_tokens // self.block_size
+diff --git a/nanovllm/engine/kv_transfer.py b/nanovllm/engine/kv_transfer.py
+index 7976827..3883724 100644
+--- a/nanovllm/engine/kv_transfer.py
++++ b/nanovllm/engine/kv_transfer.py
+@@ -1,9 +1,12 @@
++from concurrent.futures import ThreadPoolExecutor
++from time import perf_counter
++
+ import numpy as np
+ import torch
+ 
+ 
+ class KVTransfer:
+-    """Synchronous single-GPU saves and restores with bounded staging."""
++    """Single-GPU copies sharing bounded staging between saves and restores."""
+ 
+     def __init__(self, kv_cache: torch.Tensor, capacity: int, batch_writes: bool = False):
+         self.kv_cache = kv_cache
+@@ -14,6 +17,7 @@ class KVTransfer:
+         self.host_bytes = self.pinned.view(torch.uint8).numpy().reshape(-1)
+         self.block_bytes = self.host_bytes.size
+         self.slots = np.empty((capacity, self.block_bytes), dtype=np.uint8)
++        self.writer = None
+         self.write_stages = ()
+         if batch_writes:
+             second = torch.empty(shape, dtype=kv_cache.dtype, device="cpu", pin_memory=True)
+@@ -57,6 +61,21 @@ class KVTransfer:
+             stream.synchronize()
+             raise
+ 
++    def submit_save_many(self, pairs):
++        """The scheduler owns exclusive staging until the returned future completes."""
++        if self.writer is None:
++            self.write_stream = torch.cuda.Stream(device=self.kv_cache.device)
++            self.writer = ThreadPoolExecutor(max_workers=1, thread_name_prefix="kv-write")
++        ready = torch.cuda.current_stream(self.kv_cache.device).record_event()
++
++        def copy():
++            with torch.inference_mode(), torch.cuda.stream(self.write_stream):
++                self.write_stream.wait_event(ready)
++                self.save_many(pairs)
++            return perf_counter()
++
++        return self.writer.submit(copy)
++
+     def restore(self, slot: int, gpu_id: int):
+         np.copyto(self.host_bytes, self.slots[slot])
+         try:
+@@ -66,4 +85,6 @@ class KVTransfer:
+             torch.cuda.current_stream(self.kv_cache.device).synchronize()
+ 
+     def close(self):
++        if self.writer is not None:
++            self.writer.shutdown(wait=True)
+         del self.kv_cache, self.device_stage, self.slots, self.host_bytes, self.pinned, self.write_stages
+diff --git a/nanovllm/engine/llm_engine.py b/nanovllm/engine/llm_engine.py
+index c334b2d..5aad9b0 100644
+--- a/nanovllm/engine/llm_engine.py
++++ b/nanovllm/engine/llm_engine.py
+@@ -45,8 +45,13 @@ class LLMEngine:
+     def exit(self):
+         if not hasattr(self, "model_runner"):
+             return
+-        self.model_runner.call("exit")
+-        del self.model_runner
++        manager = getattr(getattr(self, "scheduler", None), "block_manager", None)
++        try:
++            if getattr(manager, "pending_write", None) is not None:
++                manager.finish_write()
++        finally:
++            self.model_runner.call("exit")
++            del self.model_runner
+         for p in self.ps:
+             p.join()
+ 
+diff --git a/nanovllm/engine/restore_policy.py b/nanovllm/engine/restore_policy.py
+index c03f007..3dd5282 100644
+--- a/nanovllm/engine/restore_policy.py
++++ b/nanovllm/engine/restore_policy.py
+@@ -57,6 +57,8 @@ def cost_environment(config, namespace):
+             environment["cpu_prefix_first_use_blocks"] = limit
+     if config.cpu_prefix_batch_writes:
+         environment["cpu_prefix_batch_writes"] = True
++    if getattr(config, "cpu_prefix_transfer_mode", "sync") != "sync":
++        environment["cpu_prefix_transfer_mode"] = config.cpu_prefix_transfer_mode
+     return environment
+ 
+ 
+diff --git a/nanovllm/engine/scheduler.py b/nanovllm/engine/scheduler.py
+index 51971e1..20deb98 100644
+--- a/nanovllm/engine/scheduler.py
++++ b/nanovllm/engine/scheduler.py
+@@ -24,7 +24,8 @@ class Scheduler:
+         else:
+             self.block_manager = TieredBlockManager(config.num_kvcache_blocks, self.block_size,
+                                                    kv_transfer, cache_namespace(config), config.cpu_prefix_admission,
+-                                                   config.cpu_prefix_batch_writes, config.cpu_prefix_first_use_blocks)
++                                                   config.cpu_prefix_batch_writes, config.cpu_prefix_first_use_blocks,
++                                                   config.cpu_prefix_transfer_mode)
+             if config.cpu_restore_cost_table is not None:
+                 environment = cost_environment(config, self.block_manager.namespace)
+                 self.restore_policy = RestoreCostTable.load(config.cpu_restore_cost_table, environment)

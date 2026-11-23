@@ -34,6 +34,51 @@ def finish(sched):
 
 
 class MetricsTests(unittest.TestCase):
+    def test_partial_cold_peer_fills_budget_and_keeps_fifo_and_tail(self):
+        for pack in (False, True):
+            sched = scheduler(blocks=8, batch=640)
+            sched.pack_cold = pack
+            first, second = request([1] * 260), request([2] * 900)
+            sched.add(first)
+            sched.add(second)
+            seqs, prefill = sched.schedule()
+            self.assertEqual([s.num_scheduled_tokens for s in seqs], [260, 380] if pack else [260])
+            sched.postprocess(seqs, [17] * len(seqs), prefill)
+            self.assertEqual(second.num_cached_tokens, 380 if pack else 0)
+            self.assertEqual(second.metrics.token_times, [])
+            self.assertIs(sched.waiting[0], second)
+            finish(sched)
+            self.assertEqual(second.metrics.prompt_computed_tokens, 900)
+            self.assertEqual(len(second.metrics.token_times), 2)
+            replay = request([2] * 899 + [3])
+            sched.add(replay)
+            finish(sched)
+            self.assertEqual(replay.metrics.initial_gpu_hit_tokens, 768)
+
+    def test_partial_admission_waits_for_peer_to_publish_shared_root(self):
+        sched = scheduler(blocks=8, batch=640)
+        sched.pack_cold = True
+        first, second = request([1] * 260), request([1] * 256 + [2] * 644)
+        sched.add(first)
+        sched.add(second)
+        seqs, prefill = sched.schedule()
+        self.assertEqual(seqs, [first])
+        sched.postprocess(seqs, [17], prefill)
+        finish(sched)
+        self.assertEqual(second.metrics.initial_gpu_hit_tokens, 256)
+        self.assertEqual(second.metrics.prompt_computed_tokens, 644)
+
+    def test_partial_admission_keeps_tiny_remaining_budget_unused(self):
+        sched = scheduler(blocks=8, batch=640)
+        sched.pack_cold = True
+        first, second = request([1] * 400), request([2] * 900)
+        sched.add(first)
+        sched.add(second)
+        seqs, prefill = sched.schedule()
+        self.assertEqual(seqs, [first])
+        sched.postprocess(seqs, [17], prefill)
+        finish(sched)
+
     def test_timing_definitions(self):
         metrics = RequestMetrics(1, 256, 1.0, token_times=[2.0, 2.25, 2.75], finish_time=3.0)
         row = metrics.as_dict(origin=0.5)

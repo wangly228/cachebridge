@@ -1,0 +1,17 @@
+Artifacts: ./results/20261123_cold_pack_screen
+{'seed': 1800, 'cycle': 0, 'workload': 'mixed', 'warmup': True, 'transfer_mode': 'native GPU', 'pack_cold': False} arm=A 4.90s
+{'seed': 1800, 'cycle': 0, 'workload': 'mixed', 'warmup': True, 'transfer_mode': 'overlap', 'pack_cold': False} arm=32 3.57s
+{'seed': 1800, 'cycle': 0, 'workload': 'mixed', 'warmup': True, 'transfer_mode': 'overlap', 'pack_cold': True} arm=candidate 3.41s
+{'seed': 1800, 'cycle': 0, 'workload': 'mixed', 'warmup': True, 'transfer_mode': 'native GPU', 'pack_cold': True} arm=A_packed 4.01s
+{'seed': 1800, 'cycle': 1, 'workload': 'long', 'warmup': True, 'transfer_mode': 'native GPU', 'pack_cold': False} arm=A 4.03s
+{'seed': 1800, 'cycle': 1, 'workload': 'long', 'warmup': True, 'transfer_mode': 'overlap', 'pack_cold': False} arm=32 3.21s
+{'seed': 1800, 'cycle': 1, 'workload': 'long', 'warmup': True, 'transfer_mode': 'overlap', 'pack_cold': True} arm=candidate 2.97s
+{'seed': 1800, 'cycle': 1, 'workload': 'long', 'warmup': True, 'transfer_mode': 'native GPU', 'pack_cold': True} arm=A_packed 3.88s
+{'seed': 2099, 'cycle': 1, 'workload': 'mixed', 'warmup': False, 'transfer_mode': 'overlap', 'pack_cold': False} arm=32 13.34s
+{'seed': 2099, 'cycle': 1, 'workload': 'mixed', 'warmup': False, 'transfer_mode': 'overlap', 'pack_cold': True} arm=candidate 12.89s
+{'seed': 2099, 'cycle': 1, 'workload': 'mixed', 'warmup': False, 'transfer_mode': 'native GPU', 'pack_cold': False} arm=A 13.74s
+{'seed': 2099, 'cycle': 1, 'workload': 'mixed', 'warmup': False, 'transfer_mode': 'native GPU', 'pack_cold': True} arm=A_packed 13.41s
+{'seed': 2099, 'cycle': 1, 'workload': 'long', 'warmup': False, 'transfer_mode': 'overlap', 'pack_cold': True} arm=candidate 10.66s
+{'seed': 2099, 'cycle': 1, 'workload': 'long', 'warmup': False, 'transfer_mode': 'native GPU', 'pack_cold': False} arm=A 11.73s
+{'seed': 2099, 'cycle': 1, 'workload': 'long', 'warmup': False, 'transfer_mode': 'overlap', 'pack_cold': False} arm=32 10.56s
+{'seed': 2099, 'cycle': 1, 'workload': 'long', 'warmup': False, 'transfer_mode': 'native GPU', 'pack_cold': True} arm=A_packed 11.27s

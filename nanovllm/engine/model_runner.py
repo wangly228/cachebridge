@@ -7,6 +7,7 @@ from multiprocessing.shared_memory import SharedMemory
 from nanovllm.config import Config
 from nanovllm.engine.sequence import Sequence
 from nanovllm.engine.kv_transfer import KVTransfer
+from nanovllm.engine.int4_cache import packed_bytes
 from nanovllm.models.qwen3 import Qwen3ForCausalLM
 from nanovllm.layers.sampler import Sampler
 from nanovllm.utils.context import set_context, get_context, reset_context
@@ -113,10 +114,14 @@ class ModelRunner:
         num_kv_heads = hf_config.num_key_value_heads // self.world_size
         head_dim = getattr(hf_config, "head_dim", hf_config.hidden_size // hf_config.num_attention_heads)
         block_bytes = 2 * hf_config.num_hidden_layers * self.block_size * num_kv_heads * head_dim * hf_config.dtype.itemsize
-        safe_blocks = int(total * config.gpu_memory_utilization - used - peak + current) // block_bytes
+        available = int(total * config.gpu_memory_utilization - used - peak + current)
         cpu_blocks = getattr(config, "cpu_prefix_cache_blocks", 0)
+        stage_bytes = 0
         if cpu_blocks:
-            safe_blocks -= 1  # Packed GPU staging has exactly the size of one KV block.
+            stage_bytes = block_bytes
+            if config.cpu_prefix_cache_format == "int4":
+                stage_bytes = packed_bytes(block_bytes // hf_config.dtype.itemsize)
+        safe_blocks = (available - stage_bytes) // block_bytes
         config.num_kvcache_blocks = safe_blocks
         if config.max_kvcache_blocks is not None:
             config.num_kvcache_blocks = min(safe_blocks, config.max_kvcache_blocks)
@@ -126,7 +131,8 @@ class ModelRunner:
                                    actual_blocks=config.num_kvcache_blocks,
                                    block_bytes=block_bytes)
         self.kv_cache = torch.empty(2, hf_config.num_hidden_layers, config.num_kvcache_blocks, self.block_size, num_kv_heads, head_dim)
-        self.kv_transfer = KVTransfer(self.kv_cache, cpu_blocks, config.cpu_prefix_batch_writes) if cpu_blocks else None
+        self.kv_transfer = (KVTransfer(self.kv_cache, cpu_blocks, config.cpu_prefix_batch_writes,
+                                       config.cpu_prefix_cache_format) if cpu_blocks else None)
         layer_id = 0
         for module in self.model.modules():
             if hasattr(module, "k_cache") and hasattr(module, "v_cache"):

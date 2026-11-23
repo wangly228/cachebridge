@@ -1,0 +1,64 @@
+{
+  "reference": "https://github.com/cacheMon/PrefixSim/tree/160d5f81724dd9ec28b10d6abb64615e6adbb332",
+  "transfer_mode": "overlap",
+  "pack_cold": true,
+  "cpu_slots": 64,
+  "input": "/tmp/cachebridge-prefix-guard-final/configuration_only",
+  "arm": "candidate",
+  "groups": {
+    "all": {
+      "n": 2,
+      "revisits": 1,
+      "incomplete": 0,
+      "causes": {},
+      "lost_tokens_by_cause": {},
+      "first_gap_indices": {},
+      "stranded_cpu_blocks": 0,
+      "gpu_hit_tokens": 1024,
+      "d2h_blocks": 4,
+      "h2d_blocks": 0,
+      "prompt_computed_tokens": 1280
+    }
+  },
+  "policy": "baseline",
+  "replayed_requests": 2,
+  "replayed_waves": 1,
+  "calibrated": false,
+  "request_counters": [
+    "initial_gpu_hit_tokens",
+    "initial_cpu_hit_tokens",
+    "allocation_gpu_hit_tokens",
+    "allocations",
+    "cpu_restored_tokens",
+    "prompt_computed_tokens",
+    "prefill_tokens",
+    "decode_tokens",
+    "preemptions",
+    "d2h_blocks",
+    "h2d_blocks",
+    "d2h_batches",
+    "batched_d2h_blocks",
+    "cpu_save_failures",
+    "cpu_restore_failures"
+  ],
+  "gap_records": 0,
+  "skipped_warmups": true,
+  "input_sha256": {
+    "engine.json": "e1799925790d00e571739f96f4d90f05319bdd2e544bdbb896f2e09729529443",
+    "/tmp/cachebridge-prefix-guard-final/shared_prompt.jsonl": "0bc876287d8333c1c771a3d6145b4f5f314c2ceeec25616ef679d385a2453593"
+  },
+  "code_sha256": {
+    "nanovllm/engine/cpu_prefix_cache.py": "45330b4e67d035d7dd24fa9ea04dbf53990d6f8d432327bbb5ab518b04974148",
+    "nanovllm/engine/block_manager.py": "0bbd54beac82658001d9430cc0e9970cac9c68ed12e1f5890568e102b8a2e030",
+    "nanovllm/engine/scheduler.py": "8526f20c30aba1aebcb3cf2af889755c54b55c19efd2d5ffe7ed6d75c81994d7",
+    "nanovllm/engine/sequence.py": "cf32c40919722aa99875dd7e795cb198e9c63b7aa6eb058402176aae147c51de",
+    "nanovllm/engine/metrics.py": "38d556aa66d7c1b5c1a9adacc05c209c0453ca9165a236f2793d178a289f3604",
+    "benchmarks/prefix_replay.py": "54b1e2961c0cf39ecd02b3a9bb74cdfc3bc5d509ecba9ac6f0acaf0129651143"
+  },
+  "output_sha256": {
+    "requests.jsonl": "a3d5b6a30174e5bf281f6e202ad2e6a61219258f39b621591e2ca18a04daa4d1",
+    "events.jsonl": "acabb80168b7e62b55f090e778e3a5fa07c5f52f1cf636756d7eb122255957b8"
+  },
+  "publication": "Simulation future completes immediately; production manager still reserves/publishes at its own barriers.",
+  "measurement": "Baseline latency comes from the source log. Alternatives have no simulated latency or numeric output validation."
+}

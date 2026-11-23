@@ -1,0 +1,80 @@
+{
+  "config": {
+    "model": "~/models/huggingface/Qwen3-4B",
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "max_model_len": 9216,
+    "gpu_memory_utilization": 0.8,
+    "tensor_parallel_size": 1,
+    "enforce_eager": false,
+    "eos": 151645,
+    "kvcache_block_size": 256,
+    "num_kvcache_blocks": 36,
+    "max_kvcache_blocks": 36,
+    "enable_metrics": true,
+    "cpu_prefix_cache_blocks": 64,
+    "cpu_restore_cost_table": null,
+    "cpu_prefix_admission": "reuse",
+    "cpu_prefix_batch_writes": true,
+    "cpu_prefix_first_use_blocks": 32,
+    "cpu_prefix_transfer_mode": "overlap",
+    "cpu_prefix_pack_cold": true,
+    "cpu_prefix_cache_format": "int4"
+  },
+  "engine_module": "./nanovllm/__init__.py",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "graph_batches": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "weight_dtype": "torch.bfloat16",
+  "attention_cache_dtype": "torch.bfloat16",
+  "namespace": "55618bc91310c379bd1e88b9fa92d29d63d8fbc1978a8a9c7acf7f32dfe73c63",
+  "kv_budget": {
+    "safe_blocks": 288,
+    "requested_cap": 36,
+    "actual_blocks": 36,
+    "block_bytes": 37748736
+  },
+  "page_elements": 18874368,
+  "payload_bytes": 9437184,
+  "quant_metadata_bytes": 1179648,
+  "slot_padding": 0,
+  "slot_count": 64,
+  "slot_stride": 10616832,
+  "slot_base_mod64": 16,
+  "cpu_pageable_bytes": 679477248,
+  "pinned_bytes": [
+    10616832,
+    10616832
+  ],
+  "pinned_allocator": {
+    "active_bytes.current": 34037243,
+    "active_requests.current": 9,
+    "allocated_bytes.current": 33606212,
+    "allocations.current": 19
+  },
+  "gpu_stage_bytes": 10616832,
+  "gpu_pool_bytes": 1358954496,
+  "pool_shape": [
+    2,
+    36,
+    36,
+    256,
+    8,
+    128
+  ],
+  "stage_dtype": "torch.uint8",
+  "dma_per_page": 10616832,
+  "process_memory": {
+    "gpu_allocated": 9509336576,
+    "gpu_reserved": 9755951104,
+    "gpu_peak_allocated": 9553913344,
+    "gpu_peak_reserved": 9755951104,
+    "gpu_device_used": 11185684480,
+    "cpu_peak_rss": 4969779200,
+    "cpu_rss": 2390609920
+  }
+}

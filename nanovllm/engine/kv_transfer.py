@@ -1,28 +1,52 @@
+from concurrent.futures import ThreadPoolExecutor
+from time import perf_counter
+
 import numpy as np
 import torch
 
+from nanovllm.engine.int4_cache import GROUP_SIZE, packed_bytes, transcode
+
 
 class KVTransfer:
-    """Synchronous single-GPU saves and restores with bounded staging."""
+    """Single-GPU copies sharing bounded staging between saves and restores."""
 
-    def __init__(self, kv_cache: torch.Tensor, capacity: int, batch_writes: bool = False):
+    def __init__(self, kv_cache: torch.Tensor, capacity: int, batch_writes: bool = False,
+                 cache_format: str = "native"):
         self.kv_cache = kv_cache
         self.capacity = capacity
+        self.cache_format = cache_format
         shape = (*kv_cache.shape[:2], *kv_cache.shape[3:])
-        self.device_stage = torch.empty(shape, dtype=kv_cache.dtype, device=kv_cache.device)
-        self.pinned = torch.empty(shape, dtype=kv_cache.dtype, device="cpu", pin_memory=True)
+        dtype = kv_cache.dtype
+        if cache_format == "int4":
+            if (dtype != torch.bfloat16 or not kv_cache.is_contiguous() or kv_cache.ndim != 6
+                    or kv_cache.shape[-1] % GROUP_SIZE):
+                raise ValueError("int4 requires a contiguous BF16 KV pool with head_dim divisible by 32")
+            shape = (packed_bytes(kv_cache.numel() // kv_cache.size(2)),)
+            dtype = torch.uint8
+        elif cache_format != "native":
+            raise ValueError(f"unknown CPU prefix cache format {cache_format!r}")
+        self.device_stage = torch.empty(shape, dtype=dtype, device=kv_cache.device)
+        self.pinned = torch.empty(shape, dtype=dtype, device="cpu", pin_memory=True)
         self.host_bytes = self.pinned.view(torch.uint8).numpy().reshape(-1)
         self.block_bytes = self.host_bytes.size
         self.slots = np.empty((capacity, self.block_bytes), dtype=np.uint8)
+        self.writer = None
         self.write_stages = ()
         if batch_writes:
-            second = torch.empty(shape, dtype=kv_cache.dtype, device="cpu", pin_memory=True)
+            second = torch.empty(shape, dtype=dtype, device="cpu", pin_memory=True)
             self.write_stages = tuple((buf, buf.view(torch.uint8).numpy().reshape(-1), torch.cuda.Event())
                                       for buf in (self.pinned, second))
 
+    def _pack(self, gpu_id):
+        page = self.kv_cache[:, :, gpu_id]
+        if self.cache_format == "int4":
+            transcode(page, self.device_stage, encode=True)
+        else:
+            self.device_stage.copy_(page)
+
     def save(self, gpu_id: int, slot: int):
         try:
-            self.device_stage.copy_(self.kv_cache[:, :, gpu_id])
+            self._pack(gpu_id)
             self.pinned.copy_(self.device_stage)  # Blocking D2H also waits for packing.
         except Exception:
             torch.cuda.current_stream(self.kv_cache.device).synchronize()
@@ -40,7 +64,7 @@ class KVTransfer:
         def enqueue(index):
             gpu_id, _ = pairs[index]
             pinned, _, ready = self.write_stages[index % 2]
-            self.device_stage.copy_(self.kv_cache[:, :, gpu_id])
+            self._pack(gpu_id)
             pinned.copy_(self.device_stage, non_blocking=True)
             ready.record(stream)
 
@@ -57,13 +81,42 @@ class KVTransfer:
             stream.synchronize()
             raise
 
+    def submit_save_many(self, pairs):
+        """The scheduler owns exclusive staging until the returned future completes."""
+        if self.writer is None:
+            self.write_stream = torch.cuda.Stream(device=self.kv_cache.device)
+            self.writer = ThreadPoolExecutor(max_workers=1, thread_name_prefix="kv-write")
+            # Complete worker startup before submitting a data-bearing job. submit()
+            # may enqueue a job and then fail while registering the new thread.
+            self.writer.submit(lambda: None).result()
+        ready = torch.cuda.current_stream(self.kv_cache.device).record_event()
+
+        def copy():
+            with torch.inference_mode(), torch.cuda.stream(self.write_stream):
+                self.write_stream.wait_event(ready)
+                self.save_many(pairs)
+            return perf_counter()
+
+        return self.writer.submit(copy)
+
     def restore(self, slot: int, gpu_id: int):
         np.copyto(self.host_bytes, self.slots[slot])
         try:
             self.device_stage.copy_(self.pinned, non_blocking=True)
-            self.kv_cache[:, :, gpu_id].copy_(self.device_stage)
+            page = self.kv_cache[:, :, gpu_id]
+            if self.cache_format == "int4":
+                transcode(page, self.device_stage, encode=False)
+            else:
+                page.copy_(self.device_stage)
         finally:
             torch.cuda.current_stream(self.kv_cache.device).synchronize()
 
+    def stop_writer(self):
+        if self.writer is not None:
+            self.writer.shutdown(wait=True, cancel_futures=True)
+            self.writer = None
+
     def close(self):
+        if self.writer is not None:
+            self.writer.shutdown(wait=True)
         del self.kv_cache, self.device_stage, self.slots, self.host_bytes, self.pinned, self.write_stages

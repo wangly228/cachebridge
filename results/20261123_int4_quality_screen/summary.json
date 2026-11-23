@@ -1,0 +1,263 @@
+{
+  "overall": {
+    "n": 4,
+    "positions": 24,
+    "bf16_correct": 0,
+    "int4_correct": 0,
+    "lost": 0,
+    "gained": 0,
+    "equal_sequences": 0,
+    "top1_agree": 24,
+    "mean_KL": 0.03964514382446371,
+    "max_KL": 0.7545182108879089,
+    "mean_delta_nll": 1.6736509799957275,
+    "max_logit_abs": 11.4375,
+    "max_logit_relative_l2": 0.45782575011253357,
+    "max_layer_page_rel_l2": {
+      "K": 0.17323198914527893,
+      "V": 0.15042969584465027
+    }
+  },
+  "by_length": {
+    "2048": {
+      "n": 2,
+      "positions": 12,
+      "bf16_correct": 0,
+      "int4_correct": 0,
+      "lost": 0,
+      "gained": 0,
+      "equal_sequences": 0,
+      "top1_agree": 12,
+      "mean_KL": 2.6954067527822993e-06,
+      "max_KL": 2.175798908865545e-05,
+      "mean_delta_nll": 1.593749205271403,
+      "max_logit_abs": 11.4375,
+      "max_logit_relative_l2": 0.45782575011253357,
+      "max_layer_page_rel_l2": {
+        "K": 0.17259536683559418,
+        "V": 0.15024897456169128
+      }
+    },
+    "12288": {
+      "n": 2,
+      "positions": 12,
+      "bf16_correct": 0,
+      "int4_correct": 0,
+      "lost": 0,
+      "gained": 0,
+      "equal_sequences": 0,
+      "top1_agree": 12,
+      "mean_KL": 0.07928759224217465,
+      "max_KL": 0.7545182108879089,
+      "mean_delta_nll": 1.753552754720052,
+      "max_logit_abs": 8.875,
+      "max_logit_relative_l2": 0.313785195350647,
+      "max_layer_page_rel_l2": {
+        "K": 0.17323198914527893,
+        "V": 0.15042969584465027
+      }
+    }
+  },
+  "failures": [
+    {
+      "seed": 3100,
+      "length": 2048,
+      "depth": 10,
+      "expected": "312646",
+      "bf16": {
+        "ids": [
+          785,
+          23715,
+          2038,
+          369,
+          3255,
+          431,
+          12,
+          22,
+          21,
+          20,
+          24,
+          19
+        ],
+        "text": "The authorization code for record R-76594",
+        "exact": false,
+        "first_six_digits": false,
+        "restored_tokens": 0,
+        "gpu_hit_tokens": 2048,
+        "query_tokens": 37
+      },
+      "int4": {
+        "ids": [
+          785,
+          23715,
+          2038,
+          369,
+          3255,
+          3070,
+          49,
+          12,
+          22,
+          21,
+          20,
+          24
+        ],
+        "text": "The authorization code for record **R-7659",
+        "exact": false,
+        "first_six_digits": false,
+        "restored_tokens": 2048,
+        "gpu_hit_tokens": 0,
+        "query_tokens": 37
+      }
+    },
+    {
+      "seed": 3100,
+      "length": 2048,
+      "depth": 50,
+      "expected": "346645",
+      "bf16": {
+        "ids": [
+          785,
+          23715,
+          2038,
+          369,
+          3255,
+          431,
+          12,
+          16,
+          22,
+          16,
+          24,
+          21
+        ],
+        "text": "The authorization code for record R-17196",
+        "exact": false,
+        "first_six_digits": false,
+        "restored_tokens": 0,
+        "gpu_hit_tokens": 2048,
+        "query_tokens": 37
+      },
+      "int4": {
+        "ids": [
+          785,
+          23715,
+          2038,
+          369,
+          3255,
+          3070,
+          49,
+          12,
+          16,
+          22,
+          16,
+          24
+        ],
+        "text": "The authorization code for record **R-1719",
+        "exact": false,
+        "first_six_digits": false,
+        "restored_tokens": 2048,
+        "gpu_hit_tokens": 0,
+        "query_tokens": 37
+      }
+    },
+    {
+      "seed": 3100,
+      "length": 12288,
+      "depth": 10,
+      "expected": "139587",
+      "bf16": {
+        "ids": [
+          785,
+          23715,
+          2038,
+          369,
+          3255,
+          431,
+          12,
+          22,
+          23,
+          16,
+          21,
+          19
+        ],
+        "text": "The authorization code for record R-78164",
+        "exact": false,
+        "first_six_digits": false,
+        "restored_tokens": 0,
+        "gpu_hit_tokens": 12288,
+        "query_tokens": 37
+      },
+      "int4": {
+        "ids": [
+          785,
+          23715,
+          2038,
+          369,
+          3255,
+          3070,
+          49,
+          12,
+          22,
+          23,
+          16,
+          21
+        ],
+        "text": "The authorization code for record **R-7816",
+        "exact": false,
+        "first_six_digits": false,
+        "restored_tokens": 12288,
+        "gpu_hit_tokens": 0,
+        "query_tokens": 37
+      }
+    },
+    {
+      "seed": 3100,
+      "length": 12288,
+      "depth": 50,
+      "expected": "845482",
+      "bf16": {
+        "ids": [
+          785,
+          23715,
+          2038,
+          369,
+          3255,
+          431,
+          12,
+          23,
+          18,
+          24,
+          24,
+          18
+        ],
+        "text": "The authorization code for record R-83993",
+        "exact": false,
+        "first_six_digits": false,
+        "restored_tokens": 0,
+        "gpu_hit_tokens": 12288,
+        "query_tokens": 37
+      },
+      "int4": {
+        "ids": [
+          785,
+          23715,
+          2038,
+          369,
+          3255,
+          3070,
+          49,
+          12,
+          23,
+          18,
+          24,
+          24
+        ],
+        "text": "The authorization code for record **R-8399",
+        "exact": false,
+        "first_six_digits": false,
+        "restored_tokens": 12288,
+        "gpu_hit_tokens": 0,
+        "query_tokens": 37
+      }
+    }
+  ]
+}
