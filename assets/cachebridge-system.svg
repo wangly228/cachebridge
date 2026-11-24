@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="860" viewBox="0 0 1000 860" role="img" aria-labelledby="title desc" lang="zh-CN">
+  <title id="title">cachebridge 前缀 KV 缓存架构</title>
+  <desc id="desc">调度器和块管理器逐块查找最长连续前缀。GPU 命中可直接复用，CPU 命中时恢复或按成本选择重算。GPU 执行剩余 prefill 与 decode。可保存的完整 prompt 块经 GPU 暂存和 PCIe 写入 CPU 锁页暂存，再进入有容量上限的 CPU 缓存。恢复沿反向进行。可选 INT4 在 GPU 编解码。</desc>
+  <defs>
+    <marker id="inkArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L9 5L0 10Z" fill="#506672"/></marker>
+    <marker id="tealArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L9 5L0 10Z" fill="#117770"/></marker>
+    <style>
+      text {font-family:"Noto Sans SC","Noto Sans CJK SC","Microsoft YaHei","PingFang SC",sans-serif;fill:#172e38}
+      .head {font-size:39px;font-weight:700}
+      .section {font-size:24px;font-weight:700}
+      .lead {font-size:20px;font-weight:600}
+      .body {font-size:17px;fill:#3c535c}
+      .small {font-size:15px;fill:#405862}
+      .mono {font-family:"DejaVu Sans Mono",Consolas,monospace;font-size:14px;fill:#506772}
+      .green {fill:#116b64}
+      .wire {fill:none;stroke:#657c84;stroke-width:1.8;stroke-linejoin:round}
+      .arr {marker-end:url(#inkArrow)}
+      .tealwire {fill:none;stroke:#117770;stroke-width:2.4;marker-end:url(#tealArrow)}
+    </style>
+  </defs>
+  <rect width="1000" height="860" fill="#fcfcf9"/>
+  <rect x="38" y="40" width="8" height="39" fill="#117770"/>
+  <text x="64" y="74" class="head">前缀 KV 缓存架构</text>
+  <text x="962" y="70" text-anchor="end" class="mono" style="font-size:20px;fill:#117770">cachebridge</text>
+  <path d="M38 99H962" stroke="#809393"/>
+
+  <g id="request-path">
+    <text x="38" y="141" class="section">请求如何复用前缀</text>
+    <rect x="38" y="163" width="189" height="72" rx="7" fill="#fff" stroke="#b2bfbe"/>
+    <text x="59" y="192" class="lead">输入请求</text>
+    <text x="59" y="218" class="mono">prompt token IDs</text>
+    <path d="M228 199H261" class="wire arr"/>
+    <rect x="266" y="163" width="696" height="72" rx="7" fill="#203b43"/>
+    <text x="285" y="193" class="lead" style="fill:white">调度器与块管理器</text>
+    <text x="285" y="219" class="body" style="fill:#e2eeee">沿哈希链核对 token，优先查 GPU，再查 CPU，遇到首缺即停。</text>
+
+    <path d="M614 235V257H184V279 M614 257H814V279 M500 257V279" class="wire"/>
+    <circle cx="184" cy="280" r="3.5" fill="#657c84"/><circle cx="500" cy="280" r="3.5" fill="#657c84"/><circle cx="814" cy="280" r="3.5" fill="#657c84"/>
+    <rect x="38" y="281" width="293" height="100" rx="7" fill="#fff" stroke="#b2bfbe"/>
+    <rect x="353" y="281" width="294" height="100" rx="7" fill="#e6f2ee" stroke="#90b9ad"/>
+    <rect x="669" y="281" width="293" height="100" rx="7" fill="#fff" stroke="#b2bfbe"/>
+    <text x="57" y="314" class="lead">GPU 命中</text>
+    <text x="57" y="348" class="body">直接引用已有显存块。</text>
+    <text x="372" y="314" class="lead green">CPU 命中</text>
+    <text x="372" y="343" class="body">恢复到独占 GPU 块，</text>
+    <text x="372" y="366" class="body">也可按成本选择重算。</text>
+    <text x="688" y="314" class="lead">首个缺块与后缀</text>
+    <text x="688" y="343" class="body">进入 GPU 预填充，</text>
+    <text x="688" y="366" class="body">同时保留末尾查询块。</text>
+    <path d="M184 381V404H814V381 M500 381V422" class="wire"/>
+    <path d="M500 407V428" class="wire arr"/>
+    <rect x="38" y="432" width="924" height="53" rx="6" fill="#eff2ee"/>
+    <text x="58" y="466" class="lead">GPU 执行</text>
+    <text x="206" y="465" class="body">Attention 读取显存中的 KV，计算剩余输入，生成首个 token 后继续解码。</text>
+  </g>
+
+  <path d="M38 519H962" stroke="#b1bfba"/>
+  <g id="storage-path">
+    <text x="38" y="563" class="section">历史 KV 如何搬运</text>
+    <rect x="38" y="591" width="324" height="171" rx="8" fill="#eef2f3" stroke="#a4b4b7"/>
+    <rect x="638" y="591" width="324" height="171" rx="8" fill="#e6f2ee" stroke="#90b9ad"/>
+    <text x="57" y="625" class="lead">GPU 显存</text>
+    <text x="57" y="659" class="body">活跃 KV 页池</text>
+    <path d="M57 675H342" stroke="#c6d1d2"/>
+    <text x="57" y="705" class="body">GPU 暂存区</text>
+    <text x="57" y="737" class="small">可选 INT4 在此编码、解码</text>
+    <text x="657" y="625" class="lead green">CPU 主存</text>
+    <text x="657" y="659" class="body">有容量上限的 LRU 历史页池</text>
+    <path d="M657 675H942" stroke="#bad3ca"/>
+    <text x="657" y="705" class="body">锁页暂存区</text>
+    <text x="657" y="737" class="small">历史页采用原生精度或 INT4</text>
+    <text x="500" y="616" text-anchor="middle" class="mono">PCIe</text>
+    <text x="500" y="666" text-anchor="middle" class="body">保存完整块 · D2H</text>
+    <path d="M362 685H633" class="wire arr"/>
+    <text x="500" y="713" text-anchor="middle" class="body green">恢复命中块 · H2D</text>
+    <path d="M638 729H367" class="tealwire"/>
+  </g>
+  <path d="M38 793H962" stroke="#b1bfba"/>
+  <text x="38" y="827" class="small">Qwen3-4B 实测配置使用 BF16 活跃 KV。单个 256-token 历史块占 36 MiB，启用 INT4 后占 10.125 MiB。</text>
+</svg>

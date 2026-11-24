@@ -1,8 +1,12 @@
 # cachebridge
 
+<img src="assets/cachebridge-logo.png" alt="cachebridge 桥形标志" width="360">
+
 cachebridge 在 nano-vLLM 上实现了有容量上限的 CPU 前缀缓存。多个请求反复使用同一段长前缀时，即使 GPU 已经淘汰了这段历史，引擎仍有机会跳过重算，更早给出第一个 token。
 
 引擎把完整提示词块的 attention keys 和 values（KV）保存在主存中，按 LRU 淘汰。前缀再次出现时，引擎从头查找连续命中的块，将需要的 CPU 块恢复到显存，再计算剩余输入。模型权重和 attention 读取的活跃 KV 都留在 GPU。CPU 层可以使用原生精度，也可以用 INT4 打包后存储和搬运。
+
+[![cachebridge 架构：调度器查找连续前缀，GPU 命中直接复用，CPU 命中可恢复到显存，其余输入由 GPU 计算。下半图标出保存与恢复的 PCIe 搬运方向。](assets/cachebridge-system.png)](assets/cachebridge-system.svg)
 
 ## 在 RTX 3090 上测到了什么
 
